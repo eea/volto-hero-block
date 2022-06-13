@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 
 Hero.propTypes = {
   image: PropTypes.bool,
@@ -20,6 +21,7 @@ function Hero({
   children,
   styles,
 }) {
+  const isExternal = !isInternalURL(image);
   const { alignContent = 'center', backgroundVariant = 'primary' } =
     styles || {};
   return (
@@ -32,7 +34,13 @@ function Hero({
       <div
         className="hero-block-image"
         style={
-          image ? { backgroundImage: `url(${image}/@@images/image/huge)` } : {}
+          image
+            ? {
+                backgroundImage: isExternal
+                  ? `url(${image}/@@images/image/huge)`
+                  : `url(${image})`,
+              }
+            : {}
         }
       >
         <div
