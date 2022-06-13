@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 
 Hero.propTypes = {
-  image: PropTypes.bool,
+  image: PropTypes.string,
   fullWidth: PropTypes.bool,
   fullHeight: PropTypes.bool,
   alignContent: PropTypes.string,
