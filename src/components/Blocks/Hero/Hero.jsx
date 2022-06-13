@@ -16,6 +16,7 @@ Hero.propTypes = {
 
 function Hero({
   image,
+  overlay = true,
   fullWidth = true,
   fullHeight = true,
   children,
@@ -26,10 +27,14 @@ function Hero({
     styles || {};
   return (
     <div
-      className={cx('eea hero-block', `color-bg-${backgroundVariant}`, {
-        'full-width': fullWidth,
-        'full-height': fullHeight,
-      })}
+      className={cx(
+        'eea hero-block',
+        !image && backgroundVariant && `color-bg-${backgroundVariant}`,
+        {
+          'full-width': fullWidth,
+          'full-height': fullHeight,
+        },
+      )}
     >
       <div
         className="hero-block-image"
@@ -42,15 +47,17 @@ function Hero({
               }
             : {}
         }
+      />
+      {image && overlay && (
+        <div className="hero-block-image-overlay dark-overlay-4"></div>
+      )}
+      <div
+        className={cx(
+          'hero-block-inner-wrapper d-flex ui container',
+          `flex-items-${alignContent}`,
+        )}
       >
-        <div
-          className={cx(
-            'hero-block-inner-wrapper d-flex ui container',
-            `flex-items-${alignContent}`,
-          )}
-        >
-          <div className="hero-block-body">{children}</div>
-        </div>
+        <div className="hero-block-body">{children}</div>
       </div>
     </div>
   );

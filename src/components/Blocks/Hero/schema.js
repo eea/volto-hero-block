@@ -10,6 +10,7 @@ export default ({ data }) => {
           'fullHeight',
           'buttonLabel',
           'buttonLink',
+          'overlay',
           'image',
         ],
       },
@@ -32,6 +33,11 @@ export default ({ data }) => {
       buttonLink: {
         title: 'Button link',
         widget: 'url',
+      },
+      overlay: {
+        title: 'Image darken overlay',
+        type: 'boolean',
+        defaultValue: true,
       },
       image: {
         title: 'Image',
