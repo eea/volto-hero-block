@@ -52,9 +52,8 @@ export const stylingSchema = ({ intl }) => ({
       fields: [
         'quoted',
         'inverted',
-        'contentAlign',
-        'textAlign',
-        'metaAlign',
+        'alignContent',
+        'justifyContent',
         'backgroundVariant',
         'textVariant',
         'buttonVariant',
@@ -69,8 +68,9 @@ export const stylingSchema = ({ intl }) => ({
     inverted: {
       title: 'Inverted',
       type: 'boolean',
+      defaultValue: true,
     },
-    contentAlign: {
+    alignContent: {
       title: 'Align content',
       choices: [
         ['start', 'Top'],
@@ -78,14 +78,14 @@ export const stylingSchema = ({ intl }) => ({
         ['end', 'Bottom'],
       ],
     },
-    textAlign: {
+    justifyContent: {
       title: 'Align Text',
       widget: 'align',
     },
-    metaAlign: {
-      title: 'Align button',
-      widget: 'align',
-    },
+    // metaAlign: {
+    //   title: 'Align button',
+    //   widget: 'align',
+    // },
     backgroundVariant: {
       title: 'Background theme',
       choices: [

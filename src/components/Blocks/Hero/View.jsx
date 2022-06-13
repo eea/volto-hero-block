@@ -5,7 +5,7 @@ import Hero from './Hero';
 import { serializeText } from '@eeacms/volto-hero-block/helpers';
 
 const Metadata = ({ buttonLabel, buttonLink, styles }) => {
-  const { inverted, buttonVariant = 'default' } = styles || {};
+  const { inverted = true, buttonVariant = 'white' } = styles || {};
 
   return buttonLabel ? (
     <UniversalLink

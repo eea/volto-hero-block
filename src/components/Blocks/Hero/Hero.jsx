@@ -6,9 +6,8 @@ Hero.propTypes = {
   image: PropTypes.bool,
   fullWidth: PropTypes.bool,
   fullHeight: PropTypes.bool,
-  contentAlign: PropTypes.string,
-  textAlign: PropTypes.string,
-  metaAlign: PropTypes.string,
+  alignContent: PropTypes.string,
+  justifyContent: PropTypes.string,
   backgroundVariant: PropTypes.string,
   quoted: PropTypes.bool,
   textVariant: PropTypes.string,
@@ -21,7 +20,7 @@ function Hero({
   children,
   styles,
 }) {
-  const { contentAlign = 'center', backgroundVariant = 'default' } =
+  const { alignContent = 'center', backgroundVariant = 'primary' } =
     styles || {};
   return (
     <div
@@ -33,15 +32,13 @@ function Hero({
       <div
         className="hero-block-image"
         style={
-          image
-            ? { backgroundImage: `url(${image}/@@images/image/preview)` }
-            : {}
+          image ? { backgroundImage: `url(${image}/@@images/image/huge)` } : {}
         }
       >
         <div
           className={cx(
             'hero-block-inner-wrapper d-flex ui container',
-            `flex-items-${contentAlign}`,
+            `flex-items-${alignContent}`,
           )}
         >
           <div className="hero-block-body">{children}</div>
@@ -52,13 +49,14 @@ function Hero({
 }
 
 Hero.Text = ({ children, styles }) => {
-  const { textVariant = 'primary', textAlign = 'left', quoted } = styles || {};
+  const { textVariant = 'white', justifyContent = 'left', quoted } =
+    styles || {};
   return (
     <div
       className={cx(
         'hero-block-text',
         `color-fg-${textVariant}`,
-        `text-${textAlign}`,
+        `text-${justifyContent}`,
       )}
     >
       <h2 className={cx({ quoted })}>{children}</h2>
@@ -67,9 +65,11 @@ Hero.Text = ({ children, styles }) => {
 };
 
 Hero.Meta = ({ children, styles }) => {
-  const { metaAlign = 'left' } = styles || {};
+  const { justifyContent = 'left' } = styles || {};
   return (
-    <div className={cx('hero-block-meta', `text-${metaAlign}`)}>{children}</div>
+    <div className={cx('hero-block-meta', `text-${justifyContent}`)}>
+      {children}
+    </div>
   );
 };
 
