@@ -21,11 +21,11 @@
     "volto-slate"
   ],
   "dependencies": {
-    "@plone/scripts": "*",
     "volto-slate": "*",
     "@eeacms/volto-object-widget": "*"
   },
   "devDependencies": {
+    "@plone/scripts": "*",
     "@cypress/code-coverage": "^3.9.5",
     "babel-plugin-transform-class-properties": "^6.24.1"
   },

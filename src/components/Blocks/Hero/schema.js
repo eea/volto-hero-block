@@ -1,6 +1,6 @@
 export default ({ data }) => {
   return {
-    title: 'Item',
+    title: 'Hero',
     fieldsets: [
       {
         id: 'default',
@@ -43,8 +43,8 @@ export default ({ data }) => {
 };
 
 export const stylingSchema = ({ intl }) => ({
-  title: 'Item style',
-  block: 'item',
+  title: 'Hero style',
+  block: 'hero',
   fieldsets: [
     {
       id: 'default',
@@ -68,7 +68,6 @@ export const stylingSchema = ({ intl }) => ({
     inverted: {
       title: 'Inverted',
       type: 'boolean',
-      defaultValue: true,
     },
     alignContent: {
       title: 'Align content',
@@ -82,10 +81,6 @@ export const stylingSchema = ({ intl }) => ({
       title: 'Align Text',
       widget: 'align',
     },
-    // metaAlign: {
-    //   title: 'Align button',
-    //   widget: 'align',
-    // },
     backgroundVariant: {
       title: 'Background theme',
       choices: [
