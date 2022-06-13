@@ -25,7 +25,7 @@ export default (config) => {
 
   config.settings.blocksWithFootnotesSupport = {
     ...(config.settings.blocksWithFootnotesSupport || {}),
-    item: ['description'],
+    hero: ['text'],
   };
 
   return config;
