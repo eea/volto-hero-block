@@ -37,8 +37,8 @@ function Hero({
           image
             ? {
                 backgroundImage: isExternal
-                  ? `url(${image}/@@images/image/huge)`
-                  : `url(${image})`,
+                  ? `url(${image})`
+                  : `url(${image}/@@images/image/huge)`,
               }
             : {}
         }
