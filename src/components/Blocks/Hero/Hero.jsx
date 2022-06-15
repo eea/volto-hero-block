@@ -11,6 +11,8 @@ Hero.propTypes = {
   justifyContent: PropTypes.string,
   backgroundVariant: PropTypes.string,
   quoted: PropTypes.bool,
+  spaced: PropTypes.bool,
+  inverted: PropTypes.bool,
   textVariant: PropTypes.string,
 };
 
@@ -20,6 +22,8 @@ function Hero({
   fullWidth = true,
   fullHeight = true,
   children,
+  spaced = false,
+  inverted = true,
   styles,
 }) {
   const isExternal = !isInternalURL(image);
@@ -29,28 +33,35 @@ function Hero({
     <div
       className={cx(
         'eea hero-block',
+        { spaced },
+        { inverted },
         !image && backgroundVariant && `color-bg-${backgroundVariant}`,
         {
-          'full-width': fullWidth,
           'full-height': fullHeight,
         },
       )}
     >
       <div
-        className="hero-block-image"
-        style={
-          image
-            ? {
-                backgroundImage: isExternal
-                  ? `url(${image})`
-                  : `url(${image}/@@images/image/huge)`,
-              }
-            : {}
-        }
-      />
-      {image && overlay && (
-        <div className="hero-block-image-overlay dark-overlay-4"></div>
-      )}
+        className={cx('hero-block-image-wrapper', {
+          'full-width': fullWidth,
+        })}
+      >
+        <div
+          className={cx('hero-block-image')}
+          style={
+            image
+              ? {
+                  backgroundImage: isExternal
+                    ? `url(${image})`
+                    : `url(${image}/@@images/image/huge)`,
+                }
+              : {}
+          }
+        />
+        {image && overlay && (
+          <div className="hero-block-image-overlay dark-overlay-4"></div>
+        )}
+      </div>
       <div
         className={cx(
           'hero-block-inner-wrapper d-flex ui container',
@@ -74,7 +85,7 @@ Hero.Text = ({ children, styles }) => {
         `text-${justifyContent}`,
       )}
     >
-      <h2 className={cx({ quoted })}>{children}</h2>
+      <div className={cx({ quoted })}>{children}</div>
     </div>
   );
 };

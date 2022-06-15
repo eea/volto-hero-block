@@ -4,8 +4,8 @@ import { UniversalLink } from '@plone/volto/components';
 import Hero from './Hero';
 import { serializeText } from '@eeacms/volto-hero-block/helpers';
 
-const Metadata = ({ buttonLabel, buttonLink, styles }) => {
-  const { inverted = true, buttonVariant = 'white' } = styles || {};
+const Metadata = ({ buttonLabel, buttonLink, inverted, styles }) => {
+  const { buttonVariant = 'white' } = styles || {};
 
   return buttonLabel ? (
     <UniversalLink

@@ -11,13 +11,13 @@ import SlateEditor from 'volto-slate/editor/SlateEditor';
 import { handleKey } from 'volto-slate/blocks/Text/keyboard';
 import { uploadContent, saveSlateBlockSelection } from 'volto-slate/actions';
 
-import { createSlateParagraph } from '@eeacms/volto-hero-block/helpers';
+import { createSlateHeader } from '@eeacms/volto-hero-block/helpers';
 
 import Hero from './Hero';
 import getSchema from './schema';
 
-const Metadata = ({ buttonLabel, buttonLink, styles }) => {
-  const { inverted = true, buttonVariant = 'white' } = styles || {};
+const Metadata = ({ buttonLabel, buttonLink, inverted, styles }) => {
+  const { buttonVariant } = styles || {};
 
   return buttonLabel ? (
     <UniversalLink
@@ -68,7 +68,7 @@ const Edit = (props) => {
             properties={properties}
             extensions={slate.textblockExtensions}
             renderExtensions={[withBlockProperties]}
-            value={createSlateParagraph(text)}
+            value={createSlateHeader(text)}
             onChange={(text) => {
               onChangeBlock(block, {
                 ...data,

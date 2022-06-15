@@ -1,9 +1,15 @@
 import { isArray } from 'lodash';
-import config from '@plone/volto/registry';
 import { serializeNodes } from 'volto-slate/editor/render';
 
-export const createSlateParagraph = (text) => {
-  return isArray(text) ? text : config.settings.slate.defaultValue();
+const createEmptyHeader = () => {
+  return {
+    type: 'h2',
+    children: [{ text: '' }],
+  };
+};
+
+export const createSlateHeader = (text) => {
+  return isArray(text) ? text : [createEmptyHeader()];
 };
 
 export const serializeText = (text) => {

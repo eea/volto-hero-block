@@ -8,6 +8,8 @@ export default ({ data }) => {
         fields: [
           'fullWidth',
           'fullHeight',
+          'spaced',
+          'inverted',
           'buttonLabel',
           'buttonLink',
           'overlay',
@@ -23,6 +25,16 @@ export default ({ data }) => {
       },
       fullHeight: {
         title: 'Full height',
+        type: 'boolean',
+        defaultValue: true,
+      },
+      spaced: {
+        title: 'Spaced',
+        type: 'boolean',
+        defaultValue: false,
+      },
+      inverted: {
+        title: 'Inverted',
         type: 'boolean',
         defaultValue: true,
       },
@@ -56,8 +68,7 @@ export const stylingSchema = ({ intl }) => ({
       id: 'default',
       title: 'Default',
       fields: [
-        'quoted',
-        'inverted',
+        // 'quoted',
         'alignContent',
         'justifyContent',
         'backgroundVariant',
@@ -69,10 +80,6 @@ export const stylingSchema = ({ intl }) => ({
   properties: {
     quoted: {
       title: 'Quoted',
-      type: 'boolean',
-    },
-    inverted: {
-      title: 'Inverted',
       type: 'boolean',
     },
     alignContent: {
@@ -95,6 +102,7 @@ export const stylingSchema = ({ intl }) => ({
         ['tertiary', 'Tertiary'],
         ['grey', 'Grey'],
       ],
+      defaultValue: 'primary',
     },
     textVariant: {
       title: 'Text theme',
@@ -104,6 +112,7 @@ export const stylingSchema = ({ intl }) => ({
         ['tertiary', 'Tertiary'],
         ['white', 'White'],
       ],
+      defaultValue: 'white',
     },
     buttonVariant: {
       title: 'Button theme',
@@ -112,6 +121,7 @@ export const stylingSchema = ({ intl }) => ({
         ['primary', 'Primary'],
         ['secondary', 'Secondary'],
       ],
+      defaultValue: 'default',
     },
   },
   required: [],
