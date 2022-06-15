@@ -16,8 +16,8 @@ import { createSlateHeader } from '@eeacms/volto-hero-block/helpers';
 import Hero from './Hero';
 import getSchema from './schema';
 
-const Metadata = ({ buttonLabel, buttonLink, styles }) => {
-  const { inverted = true, buttonVariant = 'white' } = styles || {};
+const Metadata = ({ buttonLabel, buttonLink, inverted, styles }) => {
+  const { buttonVariant } = styles || {};
 
   return buttonLabel ? (
     <UniversalLink

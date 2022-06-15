@@ -11,6 +11,8 @@ Hero.propTypes = {
   justifyContent: PropTypes.string,
   backgroundVariant: PropTypes.string,
   quoted: PropTypes.bool,
+  spaced: PropTypes.bool,
+  inverted: PropTypes.bool,
   textVariant: PropTypes.string,
 };
 
@@ -20,6 +22,8 @@ function Hero({
   fullWidth = true,
   fullHeight = true,
   children,
+  spaced = false,
+  inverted = true,
   styles,
 }) {
   const isExternal = !isInternalURL(image);
@@ -29,6 +33,8 @@ function Hero({
     <div
       className={cx(
         'eea hero-block',
+        { spaced },
+        { inverted },
         !image && backgroundVariant && `color-bg-${backgroundVariant}`,
         {
           'full-height': fullHeight,
