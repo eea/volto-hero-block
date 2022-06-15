@@ -31,13 +31,14 @@ function Hero({
         'eea hero-block',
         !image && backgroundVariant && `color-bg-${backgroundVariant}`,
         {
-          'full-width': fullWidth,
           'full-height': fullHeight,
         },
       )}
     >
       <div
-        className="hero-block-image"
+        className={cx('hero-block-image', {
+          'full-width': fullWidth,
+        })}
         style={
           image
             ? {
@@ -74,7 +75,7 @@ Hero.Text = ({ children, styles }) => {
         `text-${justifyContent}`,
       )}
     >
-      <h2 className={cx({ quoted })}>{children}</h2>
+      <div className={cx({ quoted })}>{children}</div>
     </div>
   );
 };
