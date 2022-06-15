@@ -42,22 +42,26 @@ function Hero({
       )}
     >
       <div
-        className={cx('hero-block-image', {
+        className={cx('hero-block-image-wrapper', {
           'full-width': fullWidth,
         })}
-        style={
-          image
-            ? {
-                backgroundImage: isExternal
-                  ? `url(${image})`
-                  : `url(${image}/@@images/image/huge)`,
-              }
-            : {}
-        }
-      />
-      {image && overlay && (
-        <div className="hero-block-image-overlay dark-overlay-4"></div>
-      )}
+      >
+        <div
+          className={cx('hero-block-image')}
+          style={
+            image
+              ? {
+                  backgroundImage: isExternal
+                    ? `url(${image})`
+                    : `url(${image}/@@images/image/huge)`,
+                }
+              : {}
+          }
+        />
+        {image && overlay && (
+          <div className="hero-block-image-overlay dark-overlay-4"></div>
+        )}
+      </div>
       <div
         className={cx(
           'hero-block-inner-wrapper d-flex ui container',
