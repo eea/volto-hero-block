@@ -102,7 +102,6 @@ export const stylingSchema = ({ intl }) => ({
         ['tertiary', 'Tertiary'],
         ['grey', 'Grey'],
       ],
-      defaultValue: 'primary',
     },
     textVariant: {
       title: 'Text theme',
@@ -110,18 +109,15 @@ export const stylingSchema = ({ intl }) => ({
         ['primary', 'Primary'],
         ['secondary', 'Secondary'],
         ['tertiary', 'Tertiary'],
-        ['white', 'White'],
       ],
-      defaultValue: 'white',
     },
     buttonVariant: {
       title: 'Button theme',
       choices: [
-        ['default', 'Default'],
         ['primary', 'Primary'],
         ['secondary', 'Secondary'],
+        ['tertiary', 'Tertiary'],
       ],
-      defaultValue: 'default',
     },
   },
   required: [],
