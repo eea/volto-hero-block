@@ -8,6 +8,7 @@ export default ({ data }) => {
         fields: [
           'fullWidth',
           'fullHeight',
+          'quoted',
           'spaced',
           'inverted',
           'buttonLabel',
@@ -27,6 +28,11 @@ export default ({ data }) => {
         title: 'Full height',
         type: 'boolean',
         defaultValue: true,
+      },
+      quoted: {
+        title: 'Quoted',
+        type: 'boolean',
+        defaultValue: false,
       },
       spaced: {
         title: 'Spaced',
@@ -68,7 +74,6 @@ export const stylingSchema = ({ intl }) => ({
       id: 'default',
       title: 'Default',
       fields: [
-        // 'quoted',
         'alignContent',
         'justifyContent',
         'backgroundVariant',
@@ -78,10 +83,6 @@ export const stylingSchema = ({ intl }) => ({
     },
   ],
   properties: {
-    quoted: {
-      title: 'Quoted',
-      type: 'boolean',
-    },
     alignContent: {
       title: 'Align content',
       choices: [

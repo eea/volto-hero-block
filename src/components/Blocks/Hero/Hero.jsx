@@ -74,9 +74,8 @@ function Hero({
   );
 }
 
-Hero.Text = ({ children, styles }) => {
-  const { textVariant = 'white', justifyContent = 'left', quoted } =
-    styles || {};
+Hero.Text = ({ children, quoted, styles }) => {
+  const { textVariant = 'white', justifyContent = 'left' } = styles || {};
   return (
     <div
       className={cx(
@@ -85,7 +84,7 @@ Hero.Text = ({ children, styles }) => {
         `text-${justifyContent}`,
       )}
     >
-      <div className={cx({ quoted })}>{children}</div>
+      <div className={quoted ? 'quoted-wrapper' : ''}>{children}</div>
     </div>
   );
 };
