@@ -64,7 +64,7 @@ function Hero({
       </div>
       <div
         className={cx(
-          'hero-block-inner-wrapper d-flex ui container',
+          'hero-block-inner-wrapper d-flex',
           `flex-items-${alignContent}`,
         )}
       >
