@@ -8,7 +8,7 @@ Hero.propTypes = {
   fullWidth: PropTypes.bool,
   fullHeight: PropTypes.bool,
   alignContent: PropTypes.string,
-  justifyContent: PropTypes.string,
+  textAlign: PropTypes.string,
   backgroundVariant: PropTypes.string,
   quoted: PropTypes.bool,
   spaced: PropTypes.bool,
@@ -75,13 +75,13 @@ function Hero({
 }
 
 Hero.Text = ({ children, quoted, styles }) => {
-  const { textVariant = 'white', justifyContent = 'left' } = styles || {};
+  const { textVariant = 'white', textAlign = 'left' } = styles || {};
   return (
     <div
       className={cx(
         'hero-block-text',
         `color-fg-${textVariant}`,
-        `text-${justifyContent}`,
+        `text-${textAlign}`,
       )}
     >
       <div className={quoted ? 'quoted-wrapper' : ''}>{children}</div>
@@ -90,9 +90,9 @@ Hero.Text = ({ children, quoted, styles }) => {
 };
 
 Hero.Meta = ({ children, styles }) => {
-  const { justifyContent = 'left' } = styles || {};
+  const { buttonAlign = 'left' } = styles || {};
   return (
-    <div className={cx('hero-block-meta', `text-${justifyContent}`)}>
+    <div className={cx('hero-block-meta', `text-${buttonAlign}`)}>
       {children}
     </div>
   );

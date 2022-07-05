@@ -74,27 +74,16 @@ export const stylingSchema = ({ intl }) => ({
       id: 'default',
       title: 'Default',
       fields: [
-        'alignContent',
-        'justifyContent',
         'backgroundVariant',
+        'alignContent',
+        'textAlign',
         'textVariant',
         'buttonVariant',
+        'buttonAlign',
       ],
     },
   ],
   properties: {
-    alignContent: {
-      title: 'Align content',
-      choices: [
-        ['start', 'Top'],
-        ['center', 'Center'],
-        ['end', 'Bottom'],
-      ],
-    },
-    justifyContent: {
-      title: 'Align Text',
-      widget: 'align',
-    },
     backgroundVariant: {
       title: 'Background theme',
       choices: [
@@ -103,6 +92,20 @@ export const stylingSchema = ({ intl }) => ({
         ['tertiary', 'Tertiary'],
         ['grey', 'Grey'],
       ],
+    },
+    alignContent: {
+      title: 'Content align',
+      choices: [
+        ['start', 'Top'],
+        ['center', 'Center'],
+        ['end', 'Bottom'],
+      ],
+    },
+    textAlign: {
+      title: 'Text align',
+      widget: 'align',
+      actions: ['left', 'center', 'right'],
+      defaultValue: 'left',
     },
     textVariant: {
       title: 'Text theme',
@@ -119,6 +122,12 @@ export const stylingSchema = ({ intl }) => ({
         ['secondary', 'Secondary'],
         ['tertiary', 'Tertiary'],
       ],
+    },
+    buttonAlign: {
+      title: 'Button align',
+      widget: 'align',
+      actions: ['left', 'center', 'right'],
+      defaultValue: 'left',
     },
   },
   required: [],
