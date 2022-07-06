@@ -8,6 +8,7 @@ export default ({ data }) => {
         fields: [
           'fullWidth',
           'fullHeight',
+          'quoted',
           'spaced',
           'inverted',
           'buttonLabel',
@@ -27,6 +28,11 @@ export default ({ data }) => {
         title: 'Full height',
         type: 'boolean',
         defaultValue: true,
+      },
+      quoted: {
+        title: 'Quoted',
+        type: 'boolean',
+        defaultValue: false,
       },
       spaced: {
         title: 'Spaced',
@@ -68,32 +74,16 @@ export const stylingSchema = ({ intl }) => ({
       id: 'default',
       title: 'Default',
       fields: [
-        // 'quoted',
-        'alignContent',
-        'justifyContent',
         'backgroundVariant',
+        'alignContent',
+        'textAlign',
         'textVariant',
         'buttonVariant',
+        'buttonAlign',
       ],
     },
   ],
   properties: {
-    quoted: {
-      title: 'Quoted',
-      type: 'boolean',
-    },
-    alignContent: {
-      title: 'Align content',
-      choices: [
-        ['start', 'Top'],
-        ['center', 'Center'],
-        ['end', 'Bottom'],
-      ],
-    },
-    justifyContent: {
-      title: 'Align Text',
-      widget: 'align',
-    },
     backgroundVariant: {
       title: 'Background theme',
       choices: [
@@ -102,6 +92,20 @@ export const stylingSchema = ({ intl }) => ({
         ['tertiary', 'Tertiary'],
         ['grey', 'Grey'],
       ],
+    },
+    alignContent: {
+      title: 'Content align',
+      choices: [
+        ['start', 'Top'],
+        ['center', 'Center'],
+        ['end', 'Bottom'],
+      ],
+    },
+    textAlign: {
+      title: 'Text align',
+      widget: 'align',
+      actions: ['left', 'center', 'right'],
+      defaultValue: 'left',
     },
     textVariant: {
       title: 'Text theme',
@@ -118,6 +122,12 @@ export const stylingSchema = ({ intl }) => ({
         ['secondary', 'Secondary'],
         ['tertiary', 'Tertiary'],
       ],
+    },
+    buttonAlign: {
+      title: 'Button align',
+      widget: 'align',
+      actions: ['left', 'center', 'right'],
+      defaultValue: 'left',
     },
   },
   required: [],
