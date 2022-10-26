@@ -17,16 +17,14 @@
     "url": "git@github.com:eea/volto-hero-block.git"
   },
   "addons": [
-    "@eeacms/volto-object-widget",
-    "volto-slate"
+    "@eeacms/volto-object-widget"
   ],
   "dependencies": {
-    "volto-slate": "*",
     "@eeacms/volto-object-widget": "*"
   },
   "devDependencies": {
     "@plone/scripts": "*",
-    "@cypress/code-coverage": "^3.9.5",
+    "@cypress/code-coverage": "^3.10.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "md5": "^2.3.0"
   },
