@@ -15,35 +15,13 @@
 [![Duplicated Lines (%)](https://sonarqube.eea.europa.eu/api/project_badges/measure?project=volto-hero-block-develop&metric=duplicated_lines_density)](https://sonarqube.eea.europa.eu/dashboard?id=volto-hero-block-develop)
 
 
-[Volto](https://github.com/plone/volto) add-on
+Enhanced Hero Block [Volto](https://github.com/plone/volto) add-on
 
 ## Features
 
 Demo GIF
 
 ## Getting started
-
-### Try volto-hero-block with Docker
-
-1. Get the latest Docker images
-
-   ```
-   docker pull plone
-   docker pull plone/volto
-   ```
-
-1. Start Plone backend
-   ```
-   docker run -d --name plone -p 8080:8080 -e SITE=Plone -e PROFILES="profile-plone.restapi:blocks" plone
-   ```
-
-1. Start Volto frontend
-
-   ```
-   docker run -it --rm -p 3000:3000 --link plone -e ADDONS="@eeacms/volto-hero-block" plone/volto
-   ```
-
-1. Go to http://localhost:3000
 
 ### Add volto-hero-block to your Volto project
 
@@ -97,10 +75,6 @@ All Rights Reserved.
 
 See [LICENSE.md](https://github.com/eea/volto-hero-block/blob/master/LICENSE.md) for details.
 
-## Funding
-
-[European Environment Agency (EU)](http://eea.europa.eu)
-volto-addon-template/blob/master/LICENSE.md) for details.
 
 ## Funding
 
