@@ -21,6 +21,12 @@ Enhanced Hero Block [Volto](https://github.com/plone/volto) add-on
 
 Demo GIF
 
+## Upgrade
+
+### Upgrading to 2.x
+
+This version requires: `@plone/volto >= 16.0.0.alpha.46` (schemaEnhancer / addStyling).
+
 ## Getting started
 
 ### Add volto-hero-block to your Volto project

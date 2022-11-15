@@ -1,4 +1,6 @@
-export default ({ data }) => {
+import { addStyling } from '@plone/volto/helpers';
+
+export default () => {
   return {
     title: 'Hero',
     fieldsets: [
@@ -66,69 +68,73 @@ export default ({ data }) => {
   };
 };
 
-export const stylingSchema = ({ intl }) => ({
-  title: 'Hero style',
-  block: 'hero',
-  fieldsets: [
-    {
-      id: 'default',
-      title: 'Default',
-      fields: [
-        'backgroundVariant',
-        'alignContent',
-        'textAlign',
-        'textVariant',
-        'buttonVariant',
-        'buttonAlign',
-      ],
+export const stylingSchema = (props) => {
+  const schema = addStyling(props);
+  schema.properties.styles.schema = {
+    title: 'Hero style',
+    block: 'hero',
+    fieldsets: [
+      {
+        id: 'default',
+        title: 'Default',
+        fields: [
+          'backgroundVariant',
+          'alignContent',
+          'textAlign',
+          'textVariant',
+          'buttonVariant',
+          'buttonAlign',
+        ],
+      },
+    ],
+    properties: {
+      backgroundVariant: {
+        title: 'Background theme',
+        choices: [
+          ['primary', 'Primary'],
+          ['secondary', 'Secondary'],
+          ['tertiary', 'Tertiary'],
+          ['grey', 'Grey'],
+        ],
+      },
+      alignContent: {
+        title: 'Content align',
+        choices: [
+          ['start', 'Top'],
+          ['center', 'Center'],
+          ['end', 'Bottom'],
+        ],
+      },
+      textAlign: {
+        title: 'Text align',
+        widget: 'align',
+        actions: ['left', 'center', 'right'],
+        defaultValue: 'left',
+      },
+      textVariant: {
+        title: 'Text theme',
+        choices: [
+          ['primary', 'Primary'],
+          ['secondary', 'Secondary'],
+          ['tertiary', 'Tertiary'],
+        ],
+      },
+      buttonVariant: {
+        title: 'Button theme',
+        choices: [
+          ['primary', 'Primary'],
+          ['secondary', 'Secondary'],
+          ['tertiary', 'Tertiary'],
+        ],
+      },
+      buttonAlign: {
+        title: 'Button align',
+        widget: 'align',
+        actions: ['left', 'center', 'right'],
+        defaultValue: 'left',
+      },
     },
-  ],
-  properties: {
-    backgroundVariant: {
-      title: 'Background theme',
-      choices: [
-        ['primary', 'Primary'],
-        ['secondary', 'Secondary'],
-        ['tertiary', 'Tertiary'],
-        ['grey', 'Grey'],
-      ],
-    },
-    alignContent: {
-      title: 'Content align',
-      choices: [
-        ['start', 'Top'],
-        ['center', 'Center'],
-        ['end', 'Bottom'],
-      ],
-    },
-    textAlign: {
-      title: 'Text align',
-      widget: 'align',
-      actions: ['left', 'center', 'right'],
-      defaultValue: 'left',
-    },
-    textVariant: {
-      title: 'Text theme',
-      choices: [
-        ['primary', 'Primary'],
-        ['secondary', 'Secondary'],
-        ['tertiary', 'Tertiary'],
-      ],
-    },
-    buttonVariant: {
-      title: 'Button theme',
-      choices: [
-        ['primary', 'Primary'],
-        ['secondary', 'Secondary'],
-        ['tertiary', 'Tertiary'],
-      ],
-    },
-    buttonAlign: {
-      title: 'Button align',
-      widget: 'align',
-      actions: ['left', 'center', 'right'],
-      defaultValue: 'left',
-    },
-  },
-  required: [],
-});
+    required: [],
+  };
+  return schema;
+};
