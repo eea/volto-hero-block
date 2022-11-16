@@ -33,18 +33,28 @@ function Hero({
     <div
       className={cx(
         'eea hero-block',
-        { spaced },
-        { inverted },
-        !image && backgroundVariant && `color-bg-${backgroundVariant}`,
+        !image &&
+          backgroundVariant &&
+          !fullWidth &&
+          `color-bg-${backgroundVariant}`,
         {
+          spaced,
+          inverted,
           'full-height': fullHeight,
         },
       )}
     >
       <div
-        className={cx('hero-block-image-wrapper', {
-          'full-width': fullWidth,
-        })}
+        className={cx(
+          'hero-block-image-wrapper',
+          !image &&
+            backgroundVariant &&
+            fullWidth &&
+            `color-bg-${backgroundVariant}`,
+          {
+            'full-width': fullWidth,
+          },
+        )}
       >
         <div
           className={cx('hero-block-image')}
