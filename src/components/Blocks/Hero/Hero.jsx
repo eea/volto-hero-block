@@ -2,6 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
+import { isImageGif } from '@eeacms/volto-hero-block/helpers';
 
 Hero.propTypes = {
   image: PropTypes.string,
@@ -63,6 +64,8 @@ function Hero({
               ? {
                   backgroundImage: isExternal
                     ? `url(${image})`
+                    : isImageGif(image)
+                    ? `url(${image}/@@images/image)`
                     : `url(${image}/@@images/image/huge)`,
                 }
               : {}
