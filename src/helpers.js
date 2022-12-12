@@ -15,3 +15,7 @@ export const createSlateHeader = (text) => {
 export const serializeText = (text) => {
   return isArray(text) ? serializeNodes(text) : text;
 };
+
+export const isImageGif = (image) => {
+  return image.substr(image.length - 4) === '.gif';
+};
