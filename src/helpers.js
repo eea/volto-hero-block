@@ -17,5 +17,5 @@ export const serializeText = (text) => {
 };
 
 export const isImageGif = (image) => {
-  return image.substr(image.length - 4) === '.gif';
+  return image?.endsWith?.('.gif');
 };
