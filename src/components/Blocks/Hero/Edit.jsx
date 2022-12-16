@@ -91,13 +91,15 @@ const Edit = (props) => {
         <Hero.Meta {...data}>
           <Metadata {...data} />
         </Hero.Meta>
-        {copyright && (
+        {copyright ? (
           <Copyright copyrightPosition={copyrightPosition}>
             <Copyright.Icon>
               <Icon className={copyrightIcon} />
             </Copyright.Icon>
             <Copyright.Text>{copyright}</Copyright.Text>
           </Copyright>
+        ) : (
+          ''
         )}
       </Hero>
 
