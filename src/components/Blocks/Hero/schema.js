@@ -19,6 +19,11 @@ export default () => {
           'image',
         ],
       },
+      {
+        id: 'copyright',
+        title: 'Copyright',
+        fields: ['copyright', 'copyrightIcon', 'copyrightPosition'],
+      },
     ],
     properties: {
       fullWidth: {
@@ -62,6 +67,19 @@ export default () => {
       image: {
         title: 'Image',
         widget: 'attachedimage',
+      },
+      copyright: {
+        title: 'Text',
+      },
+      copyrightIcon: {
+        title: 'Icon',
+        default: 'ri-copyright-line',
+      },
+      copyrightPosition: {
+        title: 'Align',
+        widget: 'align',
+        actions: ['left', 'right'],
+        defaultValue: 'left',
       },
     },
     required: [],

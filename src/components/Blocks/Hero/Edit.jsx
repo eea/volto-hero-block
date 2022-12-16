@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import { connect } from 'react-redux';
+import { Icon } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
 import {
   BlockDataForm,
@@ -16,6 +17,7 @@ import {
 
 import { createSlateHeader } from '@eeacms/volto-hero-block/helpers';
 
+import Copyright from './Copyright';
 import Hero from './Hero';
 import getSchema from './schema';
 
@@ -45,7 +47,7 @@ const Edit = (props) => {
     onChangeBlock,
     onSelectBlock,
   } = props;
-  const { text } = data;
+  const { text, copyright, copyrightIcon, copyrightPosition } = data;
   const schema = React.useMemo(() => getSchema(props), [props]);
 
   const withBlockProperties = React.useCallback(
@@ -89,6 +91,14 @@ const Edit = (props) => {
         <Hero.Meta {...data}>
           <Metadata {...data} />
         </Hero.Meta>
+        {copyright && (
+          <Copyright copyrightPosition={copyrightPosition}>
+            <Copyright.Icon>
+              <Icon className={copyrightIcon} />
+            </Copyright.Icon>
+            <Copyright.Text>{copyright}</Copyright.Text>
+          </Copyright>
+        )}
       </Hero>
 
       <SidebarPortal selected={selected}>
