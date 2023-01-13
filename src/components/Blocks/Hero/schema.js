@@ -108,11 +108,12 @@ export const stylingSchema = (props) => {
     properties: {
       backgroundVariant: {
         title: 'Background theme',
-        choices: [
-          ['primary', 'Primary'],
-          ['secondary', 'Secondary'],
-          ['tertiary', 'Tertiary'],
-          ['grey', 'Grey'],
+        widget: 'color_picker',
+        colors: [
+          { name: 'primary', label: 'Primary' },
+          { name: 'secondary', label: 'Secondary' },
+          { name: 'tertiary', label: 'Tertiary' },
+          { name: 'grey', label: 'Grey' },
         ],
       },
       alignContent: {
@@ -131,18 +132,22 @@ export const stylingSchema = (props) => {
       },
       textVariant: {
         title: 'Text theme',
-        choices: [
-          ['primary', 'Primary'],
-          ['secondary', 'Secondary'],
-          ['tertiary', 'Tertiary'],
+        widget: 'color_picker',
+        colors: [
+          { name: 'primary', label: 'Primary' },
+          { name: 'secondary', label: 'Secondary' },
+          { name: 'tertiary', label: 'Tertiary' },
+          { name: 'grey', label: 'Grey' },
         ],
       },
       buttonVariant: {
         title: 'Button theme',
-        choices: [
-          ['primary', 'Primary'],
-          ['secondary', 'Secondary'],
-          ['tertiary', 'Tertiary'],
+        widget: 'color_picker',
+        colors: [
+          { name: 'primary', label: 'Primary' },
+          { name: 'secondary', label: 'Secondary' },
+          { name: 'tertiary', label: 'Tertiary' },
+          { name: 'grey', label: 'Grey' },
         ],
       },
       buttonAlign: {
