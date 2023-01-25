@@ -5,9 +5,9 @@ import alignCenterSVG from '@plone/volto/icons/row.svg';
 import alignBottomSVG from '@plone/volto/icons/move-down.svg';
 
 const ALIGN_INFO_MAP = {
-  top: [alignTopSVG, 'Top'],
-  center: [alignCenterSVG, 'Center'],
-  bottom: [alignBottomSVG, 'Bottom'],
+  'has--bg--top': [alignTopSVG, 'Top'],
+  'has--bg--center': [alignCenterSVG, 'Center'],
+  'has--bg--bottom': [alignBottomSVG, 'Bottom'],
 };
 
 export default () => {
@@ -122,7 +122,7 @@ export const stylingSchema = (props) => {
         widget: 'align',
         actions: Object.keys(ALIGN_INFO_MAP),
         actionsInfoMap: ALIGN_INFO_MAP,
-        defaultValue: 'center',
+        defaultValue: 'has--bg--center',
       },
       backgroundVariant: {
         title: 'Background theme',
