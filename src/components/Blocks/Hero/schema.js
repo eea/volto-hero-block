@@ -1,5 +1,15 @@
 import { addStyling } from "@plone/volto/helpers";
 
+import alignTopSVG from '@plone/volto/icons/move-up.svg';
+import alignCenterSVG from '@plone/volto/icons/row.svg';
+import alignBottomSVG from '@plone/volto/icons/move-down.svg';
+
+const ALIGN_INFO_MAP = {
+  'has--bg--top': [alignTopSVG, 'Top'],
+  'has--bg--center': [alignCenterSVG, 'Center'],
+  'has--bg--bottom': [alignBottomSVG, 'Bottom'],
+};
+
 export default () => {
   return {
     title: "Hero",
@@ -96,16 +106,24 @@ export const stylingSchema = (props) => {
         id: "default",
         title: "Default",
         fields: [
-          "backgroundVariant",
-          "alignContent",
-          "textAlign",
-          "textVariant",
-          "buttonVariant",
-          "buttonAlign",
+          'backgroundVariant',
+          'bg',
+          'alignContent',
+          'textAlign',
+          'textVariant',
+          'buttonVariant',
+          'buttonAlign',
         ],
       },
     ],
     properties: {
+      bg: {
+        title: 'Background image position',
+        widget: 'align',
+        actions: Object.keys(ALIGN_INFO_MAP),
+        actionsInfoMap: ALIGN_INFO_MAP,
+        defaultValue: 'has--bg--center',
+      },
       backgroundVariant: {
         title: "Background theme",
         widget: "theme_picker",
