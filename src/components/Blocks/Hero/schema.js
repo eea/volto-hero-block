@@ -1,4 +1,5 @@
 import { addStyling } from "@plone/volto/helpers";
+import config from '@plone/volto/registry';
 
 import alignTopSVG from '@plone/volto/icons/move-up.svg';
 import alignCenterSVG from '@plone/volto/icons/row.svg';
@@ -153,22 +154,28 @@ export const stylingSchema = (props) => {
       },
       textVariant: {
         title: "Text theme",
-        widget: "color_picker",
+        widget: "theme_picker",
         colors: [
-          { name: "primary", label: "Primary" },
-          { name: "secondary", label: "Secondary" },
-          { name: "tertiary", label: "Tertiary" },
-          { name: "grey", label: "Grey" },
+          ...(config.settings && config.settings.themeColors
+            ? config.settings.themeColors.map(({ value, title }) => ({
+                name: value,
+                label: title,
+              }))
+            : []),
+          //and add extra ones here
         ],
       },
       buttonVariant: {
         title: "Button theme",
-        widget: "color_picker",
+        widget: "theme_picker",
         colors: [
-          { name: "primary", label: "Primary" },
-          { name: "secondary", label: "Secondary" },
-          { name: "tertiary", label: "Tertiary" },
-          { name: "grey", label: "Grey" },
+          ...(config.settings && config.settings.themeColors
+            ? config.settings.themeColors.map(({ value, title }) => ({
+                name: value,
+                label: title,
+              }))
+            : []),
+          //and add extra ones here
         ],
       },
       buttonAlign: {
