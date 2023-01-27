@@ -58,7 +58,7 @@ function Hero({
         )}
       >
         <div
-          className={cx('hero-block-image')}
+          className={cx('hero-block-image', styles?.bg)}
           style={
             image
               ? {
