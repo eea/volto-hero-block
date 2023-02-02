@@ -21,7 +21,7 @@
   ],
   "dependencies": {
     "@eeacms/volto-object-widget": "*",
-    "@eeacms/volto-widget-theme-picker": "1.0.0"
+    "@eeacms/volto-widget-theme-picker": "^1.0.1"
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.10.0",
