@@ -1,4 +1,5 @@
 import { addStyling } from '@plone/volto/helpers';
+import config from '@plone/volto/registry';
 
 import alignTopSVG from '@plone/volto/icons/move-up.svg';
 import alignCenterSVG from '@plone/volto/icons/row.svg';
@@ -126,11 +127,15 @@ export const stylingSchema = (props) => {
       },
       backgroundVariant: {
         title: 'Background theme',
-        choices: [
-          ['primary', 'Primary'],
-          ['secondary', 'Secondary'],
-          ['tertiary', 'Tertiary'],
-          ['grey', 'Grey'],
+        widget: 'theme_picker',
+        colors: [
+          ...(config.settings && config.settings.themeColors
+            ? config.settings.themeColors.map(({ value, title }) => ({
+                name: value,
+                label: title,
+              }))
+            : []),
+          //and add extra ones here
         ],
       },
       alignContent: {
@@ -149,18 +154,28 @@ export const stylingSchema = (props) => {
       },
       textVariant: {
         title: 'Text theme',
-        choices: [
-          ['primary', 'Primary'],
-          ['secondary', 'Secondary'],
-          ['tertiary', 'Tertiary'],
+        widget: 'theme_picker',
+        colors: [
+          ...(config.settings && config.settings.themeColors
+            ? config.settings.themeColors.map(({ value, title }) => ({
+                name: value,
+                label: title,
+              }))
+            : []),
+          //and add extra ones here
         ],
       },
       buttonVariant: {
         title: 'Button theme',
-        choices: [
-          ['primary', 'Primary'],
-          ['secondary', 'Secondary'],
-          ['tertiary', 'Tertiary'],
+        widget: 'theme_picker',
+        colors: [
+          ...(config.settings && config.settings.themeColors
+            ? config.settings.themeColors.map(({ value, title }) => ({
+                name: value,
+                label: title,
+              }))
+            : []),
+          //and add extra ones here
         ],
       },
       buttonAlign: {
