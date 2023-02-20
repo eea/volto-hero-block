@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 
 function useOnScreen(ref, rootMargin = '0px') {
