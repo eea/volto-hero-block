@@ -3,6 +3,7 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 import { isImageGif } from '@eeacms/volto-hero-block/helpers';
+import { useOnScreen } from '../../../hooks';
 
 Hero.propTypes = {
   image: PropTypes.string,
@@ -30,6 +31,10 @@ function Hero({
   const isExternal = !isInternalURL(image);
   const { alignContent = 'center', backgroundVariant = 'primary' } =
     styles || {};
+
+  const bgImgRef = React.useRef();
+  const onScreen = useOnScreen(bgImgRef, '-10px');
+
   return (
     <div
       className={cx(
@@ -59,8 +64,9 @@ function Hero({
       >
         <div
           className={cx('hero-block-image', styles?.bg)}
+          ref={bgImgRef}
           style={
-            image
+            image && onScreen
               ? {
                   backgroundImage: isExternal
                     ? `url(${image})`
