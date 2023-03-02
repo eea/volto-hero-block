@@ -33,8 +33,7 @@ function Hero({
     styles || {};
 
   const bgImgRef = React.useRef();
-  const onScreen = useOnScreen(bgImgRef, '-10px');
-
+  const onScreen = useOnScreen(bgImgRef);
   return (
     <div
       className={cx(

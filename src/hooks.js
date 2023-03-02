@@ -4,6 +4,7 @@ import React from 'react';
 function useOnScreen(ref, rootMargin = '0px') {
   // State and setter for storing whether element is visible
   const [isIntersecting, setIntersecting] = React.useState(false);
+
   React.useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -12,15 +13,20 @@ function useOnScreen(ref, rootMargin = '0px') {
       },
       {
         rootMargin,
+        threshold: 0,
+        root: null,
       },
     );
-    if (ref.current) {
+    if (ref?.current) {
       observer.observe(ref.current);
     }
     return () => {
-      observer.unobserve(ref.current);
+      if (ref?.current) {
+        observer.unobserve(ref.current);
+      }
+      observer.disconnect();
     };
-  }, []); // Empty array ensures that effect is only run on mount and unmount
+  }, [ref, rootMargin]); // Empty array ensures that effect is only run on mount and unmount
   return isIntersecting;
 }
 
