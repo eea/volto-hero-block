@@ -3,7 +3,7 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 import { isImageGif } from '@eeacms/volto-hero-block/helpers';
-import { useOnScreen } from '../../../hooks';
+import { useOnScreen } from '@eeacms/volto-hero-block/hooks';
 
 Hero.propTypes = {
   image: PropTypes.string,
