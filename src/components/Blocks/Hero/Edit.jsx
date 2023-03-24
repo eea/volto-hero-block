@@ -8,6 +8,7 @@ import {
   SidebarPortal,
   UniversalLink,
 } from '@plone/volto/components';
+import { BodyClass } from '@plone/volto/helpers';
 import SlateEditor from '@plone/volto-slate/editor/SlateEditor';
 import { handleKey } from '@plone/volto-slate/blocks/Text/keyboard';
 import {
@@ -66,6 +67,7 @@ const Edit = (props) => {
 
   return (
     <>
+      <BodyClass className="with-hero-block" />
       <Hero {...data}>
         <Hero.Text {...data}>
           <SlateEditor
