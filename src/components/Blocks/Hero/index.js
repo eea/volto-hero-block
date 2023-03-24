@@ -1,7 +1,7 @@
 import codeSVG from '@plone/volto/icons/code.svg';
 import HeroEdit from './Edit';
 import HeroView from './View';
-import { stylingSchema } from './schema';
+import schema, { stylingSchema } from './schema';
 
 export default (config) => {
   config.blocks.blocksConfig.hero = {
@@ -20,6 +20,7 @@ export default (config) => {
       addPermission: [],
       view: [],
     },
+    schema,
   };
 
   config.settings.blocksWithFootnotesSupport = {

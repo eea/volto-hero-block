@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import { connect } from 'react-redux';
+import isFunction from 'lodash/isFunction';
 import { Icon } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
 import {
@@ -20,7 +21,6 @@ import { createSlateHeader } from '@eeacms/volto-hero-block/helpers';
 
 import Copyright from './Copyright';
 import Hero from './Hero';
-import getSchema from './schema';
 
 const Metadata = ({ buttonLabel, buttonLink, inverted, styles }) => {
   const { buttonVariant } = styles || {};
@@ -49,7 +49,13 @@ const Edit = (props) => {
     onSelectBlock,
   } = props;
   const { text, copyright, copyrightIcon, copyrightPosition } = data;
-  const schema = React.useMemo(() => getSchema(props), [props]);
+  const schema = React.useMemo(() => {
+    const blockSchema = config.blocks.blocksConfig.hero.schema;
+    if (isFunction(blockSchema)) {
+      return blockSchema(props);
+    }
+    return blockSchema;
+  }, [props]);
 
   const withBlockProperties = React.useCallback(
     (editor) => {
