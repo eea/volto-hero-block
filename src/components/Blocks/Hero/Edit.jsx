@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import { connect } from 'react-redux';
-import isFunction from 'lodash/function';
+import isFunction from 'lodash/isFunction';
 import { Icon } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
 import {
