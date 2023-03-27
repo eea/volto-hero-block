@@ -6,6 +6,7 @@ import { BodyClass } from '@plone/volto/helpers';
 import Hero from './Hero';
 import Copyright from './Copyright';
 import { serializeText } from '@eeacms/volto-hero-block/helpers';
+import config from '@plone/volto/registry';
 
 const Metadata = ({ buttonLabel, buttonLink, inverted, styles }) => {
   const { buttonVariant = 'white' } = styles || {};
@@ -25,6 +26,7 @@ const Metadata = ({ buttonLabel, buttonLink, inverted, styles }) => {
 const View = (props) => {
   const { data = {} } = props;
   const { text, copyright, copyrightIcon, copyrightPosition } = data;
+  const copyrightPrefix = config.blocks.blocksConfig.hero.copyrightPrefix || '';
   return (
     <React.Fragment>
       <BodyClass className="with-hero-block" />
@@ -35,6 +37,7 @@ const View = (props) => {
         </Hero.Meta>
         {copyright ? (
           <Copyright copyrightPosition={copyrightPosition}>
+            <Copyright.Prefix>{copyrightPrefix}</Copyright.Prefix>
             <Copyright.Icon>
               <Icon className={copyrightIcon} />
             </Copyright.Icon>

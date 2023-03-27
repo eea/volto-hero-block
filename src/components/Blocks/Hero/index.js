@@ -16,6 +16,7 @@ export default (config) => {
     restricted: false,
     mostUsed: false,
     sidebarTab: 1,
+    copyrightPrefix: '',
     security: {
       addPermission: [],
       view: [],

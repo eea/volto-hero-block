@@ -49,6 +49,7 @@ const Edit = (props) => {
     onSelectBlock,
   } = props;
   const { text, copyright, copyrightIcon, copyrightPosition } = data;
+  const copyrightPrefix = config.blocks.blocksConfig.hero.copyrightPrefix || '';
   const schema = React.useMemo(() => {
     const blockSchema = config.blocks.blocksConfig.hero.schema;
     if (isFunction(blockSchema)) {
@@ -101,6 +102,7 @@ const Edit = (props) => {
         </Hero.Meta>
         {copyright ? (
           <Copyright copyrightPosition={copyrightPosition}>
+            <Copyright.Prefix>{copyrightPrefix}</Copyright.Prefix>
             <Copyright.Icon>
               <Icon className={copyrightIcon} />
             </Copyright.Icon>
