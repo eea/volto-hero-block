@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
-import { isImageGif } from '@eeacms/volto-hero-block/helpers';
+import { isImageGif, getFieldURL } from '@eeacms/volto-hero-block/helpers';
 import { useOnScreen } from '@eeacms/volto-hero-block/hooks';
 
 Hero.propTypes = {
@@ -28,7 +28,8 @@ function Hero({
   inverted = true,
   styles,
 }) {
-  const isExternal = !isInternalURL(image);
+  const imgURL = getFieldURL(image);
+  const isExternal = !isInternalURL(imgURL);
   const { alignContent = 'center', backgroundVariant = 'primary' } =
     styles || {};
 
@@ -38,7 +39,7 @@ function Hero({
     <div
       className={cx(
         'eea hero-block',
-        !image &&
+        !imgURL &&
           backgroundVariant &&
           !fullWidth &&
           `color-bg-${backgroundVariant}`,
@@ -52,7 +53,7 @@ function Hero({
       <div
         className={cx(
           'hero-block-image-wrapper',
-          !image &&
+          !imgURL &&
             backgroundVariant &&
             fullWidth &&
             `color-bg-${backgroundVariant}`,
@@ -65,18 +66,18 @@ function Hero({
           className={cx('hero-block-image', styles?.bg)}
           ref={bgImgRef}
           style={
-            image && onScreen
+            imgURL && onScreen
               ? {
                   backgroundImage: isExternal
-                    ? `url(${image})`
-                    : isImageGif(image)
-                    ? `url(${image}/@@images/image)`
-                    : `url(${image}/@@images/image/huge)`,
+                    ? `url(${imgURL})`
+                    : isImageGif(imgURL)
+                    ? `url(${imgURL}/@@images/image)`
+                    : `url(${imgURL}/@@images/image/huge)`,
                 }
               : {}
           }
         />
-        {image && overlay && (
+        {imgURL && overlay && (
           <div className="hero-block-image-overlay dark-overlay-4"></div>
         )}
       </div>
