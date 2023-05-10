@@ -19,7 +19,6 @@ Hero.propTypes = {
 };
 
 function Hero({
-  image,
   overlay = true,
   fullWidth = true,
   fullHeight = true,
@@ -27,9 +26,10 @@ function Hero({
   spaced = false,
   inverted = true,
   styles,
+  ...props
 }) {
-  const imgURL = getFieldURL(image);
-  const isExternal = !isInternalURL(imgURL);
+  const image = getFieldURL(props.image);
+  const isExternal = !isInternalURL(image);
   const { alignContent = 'center', backgroundVariant = 'primary' } =
     styles || {};
 
@@ -39,7 +39,7 @@ function Hero({
     <div
       className={cx(
         'eea hero-block',
-        !imgURL &&
+        !image &&
           backgroundVariant &&
           !fullWidth &&
           `color-bg-${backgroundVariant}`,
@@ -53,7 +53,7 @@ function Hero({
       <div
         className={cx(
           'hero-block-image-wrapper',
-          !imgURL &&
+          !image &&
             backgroundVariant &&
             fullWidth &&
             `color-bg-${backgroundVariant}`,
@@ -66,18 +66,18 @@ function Hero({
           className={cx('hero-block-image', styles?.bg)}
           ref={bgImgRef}
           style={
-            imgURL && onScreen
+            image && onScreen
               ? {
                   backgroundImage: isExternal
-                    ? `url(${imgURL})`
-                    : isImageGif(imgURL)
-                    ? `url(${imgURL}/@@images/image)`
-                    : `url(${imgURL}/@@images/image/huge)`,
+                    ? `url(${image})`
+                    : isImageGif(image)
+                    ? `url(${image}/@@images/image)`
+                    : `url(${image}/@@images/image/huge)`,
                 }
               : {}
           }
         />
-        {imgURL && overlay && (
+        {image && overlay && (
           <div className="hero-block-image-overlay dark-overlay-4"></div>
         )}
       </div>
