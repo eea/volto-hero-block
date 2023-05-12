@@ -6,9 +6,11 @@ import { BodyClass } from '@plone/volto/helpers';
 import Hero from './Hero';
 import Copyright from './Copyright';
 import { serializeText } from '@eeacms/volto-hero-block/helpers';
+import { getFieldURL } from '@eeacms/volto-hero-block/helpers';
 import config from '@plone/volto/registry';
 
-const Metadata = ({ buttonLabel, buttonLink, inverted, styles }) => {
+const Metadata = ({ buttonLabel, inverted, styles, ...props }) => {
+  const buttonLink = getFieldURL(props.buttonLink);
   const { buttonVariant = 'white' } = styles || {};
 
   return buttonLabel ? (
