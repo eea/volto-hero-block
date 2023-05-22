@@ -3,7 +3,7 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 import { isImageGif } from '@eeacms/volto-hero-block/helpers';
-import { useOnScreen } from '@eeacms/volto-hero-block/hooks';
+import { useFirstVisited } from '@eeacms/volto-hero-block/hooks';
 
 Hero.propTypes = {
   image: PropTypes.string,
@@ -33,7 +33,7 @@ function Hero({
     styles || {};
 
   const bgImgRef = React.useRef();
-  const onScreen = useOnScreen(bgImgRef);
+  const onScreen = useFirstVisited(bgImgRef);
   return (
     <div
       className={cx(
