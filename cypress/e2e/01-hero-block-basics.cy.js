@@ -30,9 +30,6 @@ describe('Blocks Tests', () => {
       .type('Test Button');
 
     cy.get('.ui.form #blockform-fieldset-styling').click();
-    cy.get('.color-picker-widget .buttons button[aria-label="Primary"]')
-      .eq(2)
-      .click();
 
     cy.get(
       '.inline.field.align-widget.field-wrapper-textAlign-3-styles .align-buttons button[aria-label="Center"]',
