@@ -18,11 +18,13 @@ import {
 } from '@plone/volto-slate/actions';
 
 import { createSlateHeader } from '@eeacms/volto-hero-block/helpers';
+import { getFieldURL } from '@eeacms/volto-hero-block/helpers';
 
 import Copyright from './Copyright';
 import Hero from './Hero';
 
-const Metadata = ({ buttonLabel, buttonLink, inverted, styles }) => {
+const Metadata = ({ buttonLabel, inverted, styles, ...props }) => {
+  const buttonLink = getFieldURL(props.buttonLink);
   const { buttonVariant } = styles || {};
 
   return buttonLabel ? (
