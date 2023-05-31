@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders copyright 1`] = `
+<div
+  className="eea copyright left"
+>
+  <div
+    className="wrapper"
+  >
+    
+    <span
+      className="icon-wrapper"
+    >
+      <i
+        aria-hidden="true"
+        className="icon copyright outline"
+        onClick={[Function]}
+      />
+    </span>
+    <span
+      className="icon-content"
+    >
+      Copyright Text Test
+    </span>
+  </div>
+</div>
+`;
