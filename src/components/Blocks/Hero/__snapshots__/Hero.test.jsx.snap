@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a hero component 1`] = `
+<div
+  className="eea hero-block inverted full-height"
+>
+  <div
+    className="hero-block-image-wrapper color-bg-primary full-width"
+  >
+    <div
+      className="hero-block-image"
+      style={Object {}}
+    />
+    
+  </div>
+  <div
+    className="hero-block-inner-wrapper d-flex flex-items-center"
+  >
+    <div
+      className="hero-block-body"
+    >
+      <div
+        className="hero-block-text color-fg-white text-left"
+      >
+        <div
+          className=""
+        >
+          Text test
+        </div>
+      </div>
+      <div
+        className="hero-block-meta text-left"
+      >
+        Test meta
+      </div>
+    </div>
+  </div>
+</div>
+`;
