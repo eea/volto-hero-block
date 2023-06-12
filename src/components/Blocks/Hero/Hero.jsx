@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
-import { isImageGif } from '@eeacms/volto-hero-block/helpers';
+import { isImageGif, getFieldURL } from '@eeacms/volto-hero-block/helpers';
 import { useFirstVisited } from '@eeacms/volto-hero-block/hooks';
 
 Hero.propTypes = {
@@ -19,7 +19,6 @@ Hero.propTypes = {
 };
 
 function Hero({
-  image,
   overlay = true,
   fullWidth = true,
   fullHeight = true,
@@ -27,7 +26,9 @@ function Hero({
   spaced = false,
   inverted = true,
   styles,
+  ...props
 }) {
+  const image = getFieldURL(props.image);
   const isExternal = !isInternalURL(image);
   const { alignContent = 'center', backgroundVariant = 'primary' } =
     styles || {};
