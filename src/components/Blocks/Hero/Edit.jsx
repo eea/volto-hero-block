@@ -16,10 +16,10 @@ import {
   uploadContent,
   saveSlateBlockSelection,
 } from '@plone/volto-slate/actions';
-
-import { createSlateHeader } from '@eeacms/volto-hero-block/helpers';
-import { getFieldURL } from '@eeacms/volto-hero-block/helpers';
-
+import {
+  createSlateHeader,
+  getFieldURL,
+} from '@eeacms/volto-hero-block/helpers';
 import Copyright from './Copyright';
 import Hero from './Hero';
 
