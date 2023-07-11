@@ -1,8 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { isInternalURL } from '@plone/volto/helpers/Url/Url';
-import { isImageGif, getFieldURL } from '@eeacms/volto-hero-block/helpers';
+import { getImageScaleParams } from '@eeacms/volto-hero-block/helpers';
 import { useFirstVisited } from '@eeacms/volto-hero-block/hooks';
 
 Hero.propTypes = {
@@ -26,10 +25,10 @@ function Hero({
   spaced = false,
   inverted = true,
   styles,
+  image,
   ...props
 }) {
-  const image = getFieldURL(props.image);
-  const isExternal = !isInternalURL(image);
+  const scaledImage = getImageScaleParams(image, 'huge');
   const { alignContent = 'center', backgroundVariant = 'primary' } =
     styles || {};
 
@@ -39,7 +38,7 @@ function Hero({
     <div
       className={cx(
         'eea hero-block',
-        !image &&
+        !scaledImage &&
           backgroundVariant &&
           !fullWidth &&
           `color-bg-${backgroundVariant}`,
@@ -53,7 +52,7 @@ function Hero({
       <div
         className={cx(
           'hero-block-image-wrapper',
-          !image &&
+          !scaledImage &&
             backgroundVariant &&
             fullWidth &&
             `color-bg-${backgroundVariant}`,
@@ -66,18 +65,14 @@ function Hero({
           className={cx('hero-block-image', styles?.bg)}
           ref={bgImgRef}
           style={
-            image && onScreen
+            scaledImage && onScreen
               ? {
-                  backgroundImage: isExternal
-                    ? `url(${image})`
-                    : isImageGif(image)
-                    ? `url(${image}/@@images/image)`
-                    : `url(${image}/@@images/image/huge)`,
+                  backgroundImage: `url(${scaledImage?.download})`,
                 }
               : {}
           }
         />
-        {image && overlay && (
+        {scaledImage && overlay && (
           <div className="hero-block-image-overlay dark-overlay-4"></div>
         )}
       </div>
