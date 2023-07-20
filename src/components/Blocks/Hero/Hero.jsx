@@ -67,7 +67,9 @@ function Hero({
           style={
             scaledImage && onScreen
               ? {
-                  backgroundImage: `url(${scaledImage?.download})`,
+                  backgroundImage: `url(${
+                    scaledImage?.download ?? scaledImage
+                  })`,
                 }
               : {}
           }
