@@ -5,8 +5,7 @@ import { UniversalLink } from '@plone/volto/components';
 import { BodyClass } from '@plone/volto/helpers';
 import Hero from './Hero';
 import Copyright from './Copyright';
-import { serializeText } from '@eeacms/volto-hero-block/helpers';
-import { getFieldURL } from '@eeacms/volto-hero-block/helpers';
+import { serializeText, getFieldURL } from '@eeacms/volto-hero-block/helpers';
 import config from '@plone/volto/registry';
 
 const Metadata = ({ buttonLabel, inverted, styles, ...props }) => {
