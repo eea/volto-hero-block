@@ -14,12 +14,11 @@
 [![Bugs](https://sonarqube.eea.europa.eu/api/project_badges/measure?project=volto-hero-block-develop&metric=bugs)](https://sonarqube.eea.europa.eu/dashboard?id=volto-hero-block-develop)
 [![Duplicated Lines (%)](https://sonarqube.eea.europa.eu/api/project_badges/measure?project=volto-hero-block-develop&metric=duplicated_lines_density)](https://sonarqube.eea.europa.eu/dashboard?id=volto-hero-block-develop)
 
-
 Enhanced Hero Block [Volto](https://github.com/plone/volto) add-on
 
 ## Features
 
-![Hero Block](https://github.com/eea/volto-hero-block/raw/docs/docs/volto-hero.gif)
+![Hero Block](https://github.com/eea/volto-hero-block/raw/develop/docs/volto-hero-block.gif)
 
 ## Upgrade
 
@@ -35,25 +34,25 @@ This version requires: `@plone/volto >= 16.0.0.alpha.46` (schemaEnhancer / addSt
 
 1. Start Volto frontend
 
-* If you already have a volto project, just update `package.json`:
+- If you already have a volto project, just update `package.json`:
 
-   ```JSON
-   "addons": [
-       "@eeacms/volto-hero-block"
-   ],
+  ```JSON
+  "addons": [
+      "@eeacms/volto-hero-block"
+  ],
 
-   "dependencies": {
-       "@eeacms/volto-hero-block": "^1.0.0"
-   }
-   ```
+  "dependencies": {
+      "@eeacms/volto-hero-block": "^1.0.0"
+  }
+  ```
 
-* If not, create one:
+- If not, create one:
 
-   ```
-   npm install -g yo @plone/generator-volto
-   yo @plone/volto my-volto-project --addon @eeacms/volto-hero-block
-   cd my-volto-project
-   ```
+  ```
+  npm install -g yo @plone/generator-volto
+  yo @plone/volto my-volto-project --addon @eeacms/volto-hero-block
+  cd my-volto-project
+  ```
 
 1. Install new add-ons and restart Volto:
 
@@ -81,8 +80,6 @@ All Rights Reserved.
 
 See [LICENSE.md](https://github.com/eea/volto-hero-block/blob/master/LICENSE.md) for details.
 
-
 ## Funding
 
 [European Environment Agency (EU)](http://eea.europa.eu)
-
