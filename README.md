@@ -29,9 +29,22 @@ This version requires: `@plone/volto >= 16.0.0.alpha.46` (schemaEnhancer / addSt
 
 ## Getting started
 
+### Try volto-hero-block with Docker
+
+      git clone https://github.com/eea/volto-hero-block.git
+      cd volto-hero-block
+      make
+      make start
+
+Go to http://localhost:3000
+
 ### Add volto-hero-block to your Volto project
 
 1. Make sure you have a [Plone backend](https://plone.org/download) up-and-running at http://localhost:8080/Plone
+
+   ```Bash
+   docker compose up backend
+   ```
 
 1. Start Volto frontend
 
