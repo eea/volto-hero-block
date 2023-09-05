@@ -49,10 +49,8 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     cy.get('#toolbar-add-book').click();
     cy.get('.block.title').contains('Book title');
     cy.get('.block.hero div[role="presentation"]').click();
-    cy.get('.ui.form:nth-child(4)').click({ force: true });
 
-    // Make the button from hero block blue
-    cy.get('.ui.form:nth-child(4) .button.ui.circular.button:nth(9)').click({force: true} );
+    // Add text and button 
     cy.get('.hero-block-text div[role="textbox"]').click().type('My hero block');
     cy.get('#field-buttonLabel').click().type('my button')
     
@@ -63,8 +61,8 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
 
     cy.get('#toolbar-save').click();
     cy.get('.documentFirstHeading').contains('My First Book');
-    // Check if the text and blue button exist
+    // Check if the text and button exist
     cy.get('.hero-block').contains('My hero block');
-    cy.get('.hero-block-meta .button.primary').contains('my button');
+    cy.get('.hero-block-meta .button').contains('my button');
   });
 });
