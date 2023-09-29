@@ -29,9 +29,22 @@ This version requires: `@plone/volto >= 16.0.0.alpha.46` (schemaEnhancer / addSt
 
 ## Getting started
 
+### Try volto-hero-block with Docker
+
+      git clone https://github.com/eea/volto-hero-block.git
+      cd volto-hero-block
+      make
+      make start
+
+Go to http://localhost:3000
+
 ### Add volto-hero-block to your Volto project
 
 1. Make sure you have a [Plone backend](https://plone.org/download) up-and-running at http://localhost:8080/Plone
+
+   ```Bash
+   docker compose up backend
+   ```
 
 1. Start Volto frontend
 
@@ -43,7 +56,7 @@ This version requires: `@plone/volto >= 16.0.0.alpha.46` (schemaEnhancer / addSt
    ],
 
    "dependencies": {
-       "@eeacms/volto-hero-block": "^1.0.0"
+       "@eeacms/volto-hero-block": "*"
    }
    ```
 
@@ -51,7 +64,7 @@ This version requires: `@plone/volto >= 16.0.0.alpha.46` (schemaEnhancer / addSt
 
    ```
    npm install -g yo @plone/generator-volto
-   yo @plone/volto my-volto-project --addon @eeacms/volto-hero-block
+   yo @plone/volto my-volto-project --canary --addon @eeacms/volto-hero-block
    cd my-volto-project
    ```
 
@@ -81,8 +94,6 @@ All Rights Reserved.
 
 See [LICENSE.md](https://github.com/eea/volto-hero-block/blob/master/LICENSE.md) for details.
 
-
 ## Funding
 
 [European Environment Agency (EU)](http://eea.europa.eu)
-
