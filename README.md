@@ -19,7 +19,7 @@ Enhanced Hero Block [Volto](https://github.com/plone/volto) add-on
 
 ## Features
 
-![Hero Block](https://github.com/eea/volto-hero-block/raw/docs/docs/volto-hero.gif)
+![Hero Block](https://github.com/eea/volto-hero-block/raw/master/docs/volto-hero.gif)
 
 ## Upgrade
 
