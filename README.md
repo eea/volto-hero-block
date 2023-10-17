@@ -19,7 +19,7 @@ Enhanced Hero Block [Volto](https://github.com/plone/volto) add-on
 
 ## Features
 
-![Hero Block](https://github.com/eea/volto-hero-block/raw/docs/docs/volto-hero.gif)
+![Hero Block](https://github.com/eea/volto-hero-block/raw/master/docs/volto-hero.gif)
 
 ## Upgrade
 
@@ -56,7 +56,7 @@ Go to http://localhost:3000
    ],
 
    "dependencies": {
-       "@eeacms/volto-hero-block": "^1.0.0"
+       "@eeacms/volto-hero-block": "*"
    }
    ```
 
@@ -64,7 +64,7 @@ Go to http://localhost:3000
 
    ```
    npm install -g yo @plone/generator-volto
-   yo @plone/volto my-volto-project --addon @eeacms/volto-hero-block
+   yo @plone/volto my-volto-project --canary --addon @eeacms/volto-hero-block
    cd my-volto-project
    ```
 
@@ -94,8 +94,6 @@ All Rights Reserved.
 
 See [LICENSE.md](https://github.com/eea/volto-hero-block/blob/master/LICENSE.md) for details.
 
-
 ## Funding
 
 [European Environment Agency (EU)](http://eea.europa.eu)
-
