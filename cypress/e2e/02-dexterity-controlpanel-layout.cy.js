@@ -54,6 +54,11 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     cy.get('.hero-block-text div[role="textbox"]')
       .click()
       .type('My hero block');
+    cy.get('label[for="field-fullWidth"]').click();
+    cy.get('label[for="field-fullHeight"]').click();
+    cy.get('label[for="field-quoted"]').click();
+    cy.get('label[for="field-spaced"]').click();
+    cy.get('.field-wrapper-buttonLabel #field-buttonLabel').click().type('Label')
     cy.get('#field-buttonLabel').click().type('my button');
     cy.get('.inline.field.field-attached-image .ui.input')
       .click()
@@ -72,5 +77,7 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     // Check if the button exist
     cy.get('.hero-block-meta .button').contains('my button');
     cy.get('.hero-block-image-wrapper');
+    cy.get('.eea.hero-block.spaced.inverted.full-height');
+    cy.get('.hero-block-meta.text-left .button').contains('Label')
   });
 });
