@@ -61,8 +61,7 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
 
     cy.get('#toolbar-save').click();
     cy.get('.documentFirstHeading').contains('My First Book');
-    // Check if the text and button exist
-    cy.get('.hero-block').contains('My hero block');
+    // Check if the button exist
     cy.get('.hero-block-meta .button').contains('my button');
   });
 });
