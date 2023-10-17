@@ -50,10 +50,18 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     cy.get('.block.title').contains('Book title');
     cy.get('.block.hero div[role="presentation"]').click();
 
-    // Add text and button 
-    cy.get('.hero-block-text div[role="textbox"]').click().type('My hero block');
-    cy.get('#field-buttonLabel').click().type('my button')
-    
+    // Add text and button
+    cy.get('.hero-block-text div[role="textbox"]')
+      .click()
+      .type('My hero block');
+    cy.get('#field-buttonLabel').click().type('my button');
+    cy.get('.inline.field.field-attached-image .ui.input')
+      .click()
+      .type('https://eea.github.io/volto-eea-design-system/img/eea_icon.png');
+    cy.get(
+      '.inline.field.field-attached-image .ui.buttons .primary.button',
+    ).click();
+
     // Change book title
     cy.clearSlateTitle();
     cy.getSlateTitle().type('My First Book');
@@ -63,5 +71,6 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     cy.get('.documentFirstHeading').contains('My First Book');
     // Check if the button exist
     cy.get('.hero-block-meta .button').contains('my button');
+    cy.get('.hero-block-image-wrapper');
   });
 });
