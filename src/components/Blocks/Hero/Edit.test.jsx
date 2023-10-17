@@ -122,7 +122,7 @@ describe('Edit component', () => {
       },
     };
     const onSelectBlock = jest.fn();
-    const { getByText } = render(
+    render(
       <Provider store={store}>
         <Edit onSelectBlock={onSelectBlock} />
       </Provider>,
