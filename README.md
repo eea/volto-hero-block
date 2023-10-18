@@ -14,12 +14,11 @@
 [![Bugs](https://sonarqube.eea.europa.eu/api/project_badges/measure?project=volto-hero-block-develop&metric=bugs)](https://sonarqube.eea.europa.eu/dashboard?id=volto-hero-block-develop)
 [![Duplicated Lines (%)](https://sonarqube.eea.europa.eu/api/project_badges/measure?project=volto-hero-block-develop&metric=duplicated_lines_density)](https://sonarqube.eea.europa.eu/dashboard?id=volto-hero-block-develop)
 
-
 Enhanced Hero Block [Volto](https://github.com/plone/volto) add-on
 
 ## Features
 
-![Hero Block](https://github.com/eea/volto-hero-block/raw/master/docs/volto-hero.gif)
+![Hero Block](https://raw.githubusercontent.com/eea/volto-hero-block/raw/master/docs/volto-hero-block.gif "Hero Block")
 
 ## Upgrade
 
@@ -48,19 +47,19 @@ Go to http://localhost:3000
 
 1. Start Volto frontend
 
-* If you already have a volto project, just update `package.json`:
+- If you already have a volto project, just update `package.json`:
 
-   ```JSON
-   "addons": [
-       "@eeacms/volto-hero-block"
-   ],
+  ```JSON
+  "addons": [
+      "@eeacms/volto-hero-block"
+  ],
 
    "dependencies": {
        "@eeacms/volto-hero-block": "*"
    }
    ```
 
-* If not, create one:
+- If not, create one:
 
    ```
    npm install -g yo @plone/generator-volto
