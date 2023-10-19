@@ -20,6 +20,7 @@ import {
   createSlateHeader,
   getFieldURL,
 } from '@eeacms/volto-hero-block/helpers';
+import { HeroBlockSchema } from './schema';
 import Copyright from './Copyright';
 import Hero from './Hero';
 
@@ -53,11 +54,10 @@ const Edit = (props) => {
   const { text, copyright, copyrightIcon, copyrightPosition } = data;
   const copyrightPrefix = config.blocks.blocksConfig.hero.copyrightPrefix || '';
   const schema = React.useMemo(() => {
-    const blockSchema = config.blocks.blocksConfig.hero.schema;
-    if (isFunction(blockSchema)) {
-      return blockSchema(props);
+    if (isFunction(HeroBlockSchema)) {
+      return HeroBlockSchema(props);
     }
-    return blockSchema;
+    return HeroBlockSchema;
   }, [props]);
 
   const withBlockProperties = React.useCallback(

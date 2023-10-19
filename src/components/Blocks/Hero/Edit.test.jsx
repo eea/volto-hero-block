@@ -110,4 +110,22 @@ describe('Edit component', () => {
     fireEvent.focus(getByText('Add text...'));
     expect(onSelectBlock).toHaveBeenCalled();
   });
+
+  it('renders without copyrightPrefix', () => {
+    config.blocks = {
+      blocksConfig: {
+        hero: {
+          schema: () => ({
+            title: 'Hero',
+          }),
+        },
+      },
+    };
+    const onSelectBlock = jest.fn();
+    render(
+      <Provider store={store}>
+        <Edit onSelectBlock={onSelectBlock} />
+      </Provider>,
+    );
+  });
 });

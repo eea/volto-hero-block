@@ -1,7 +1,26 @@
 import codeSVG from '@plone/volto/icons/code.svg';
 import HeroEdit from './Edit';
 import HeroView from './View';
-import schema, { stylingSchema } from './schema';
+import { stylingSchema } from './schema';
+import LayoutSchema from './LayoutSchema';
+import { defineMessages, createIntlCache, createIntl } from 'react-intl';
+
+const messages = defineMessages({
+  heroTitle: {
+    id: 'Hero',
+    defaultMessage: 'Hero',
+  },
+});
+
+const cache = createIntlCache();
+
+const intl = createIntl(
+  {
+    locale: 'en',
+    messages: messages,
+  },
+  cache,
+);
 
 export default (config) => {
   config.blocks.blocksConfig.hero = {
@@ -21,7 +40,7 @@ export default (config) => {
       addPermission: [],
       view: [],
     },
-    schema,
+    schema: LayoutSchema(intl),
   };
 
   config.settings.blocksWithFootnotesSupport = {

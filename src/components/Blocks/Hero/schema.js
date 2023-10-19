@@ -11,7 +11,7 @@ const ALIGN_INFO_MAP = {
   'has--bg--bottom': [alignBottomSVG, 'Bottom'],
 };
 
-export default () => {
+export const HeroBlockSchema = () => {
   return {
     title: 'Hero',
     fieldsets: [
