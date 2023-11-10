@@ -7,7 +7,7 @@ import {
 } from './helpers';
 import { isArray } from 'lodash';
 import { serializeNodes } from '@plone/volto-slate/editor/render';
-import { flattenToAppURL } from '@plone/volto/helpers';
+import { flattenToAppURL, isInternalURL } from '@plone/volto/helpers';
 
 jest.mock('@plone/volto-slate/editor/render', () => ({
   serializeNodes: jest.fn(),
@@ -78,6 +78,43 @@ describe('getImageScaleParams', () => {
     const size = 'large';
     getImageScaleParams(url, size);
     expect(flattenToAppURL).toHaveBeenCalledWith('http://localhost:3000/image');
+  });
+
+  it('returns expected image scale URL string when image url (string) is passed', () => {
+    const image = 'http://localhost:3000/image/@@images/image.png';
+    expect(getImageScaleParams(image, 'preview')).toEqual({
+      download: `${image}/@@images/image/preview`,
+    });
+  });
+
+  it('returns image URL string when external image url (string) is passed', () => {
+    isInternalURL.mockReturnValue(false);
+    const image = 'http://external-url.com';
+    expect(getImageScaleParams(image)).toEqual({
+      download: image,
+    });
+  });
+
+  it('returns image URL string when external image url (object) is passed', () => {
+    isInternalURL.mockReturnValue(false);
+    const image = {
+      '@id': 'http://external-url.com',
+      image: {
+        download: 'http://external-url.com',
+        width: 400,
+        height: 400,
+        scales: {
+          preview: {
+            download: 'hhttp://external-url.com',
+            width: 400,
+            height: 400,
+          },
+        },
+      },
+    };
+    expect(getImageScaleParams(image)).toEqual({
+      download: image['@id'],
+    });
   });
 });
 
