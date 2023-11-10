@@ -49,6 +49,29 @@ describe('getImageScaleParams', () => {
     expect(getImageScaleParams(image, 'preview')).toEqual(expectedUrlObj);
   });
 
+  it('returns expected image scale URL obj when image_field and image_scales properties are passed but with no scales', () => {
+    const image = {
+      '@id': 'http://localhost:3000/image',
+      image_field: 'image',
+      image_scales: {
+        image: [
+          {
+            download: '@@images/image.png',
+            width: 400,
+            height: 400,
+          },
+        ],
+      },
+    };
+
+    const expectedUrlObj = {
+      download: 'http://localhost:3000/image/@@images/image.png',
+      width: 400,
+      height: 400,
+    };
+    expect(getImageScaleParams(image, 'preview')).toEqual(expectedUrlObj);
+  });
+
   it('returns expected image scale URL obj when image properties are passed', () => {
     const image = {
       '@id': 'http://localhost:3000/image',
@@ -92,6 +115,21 @@ describe('getImageScaleParams', () => {
     const image = 'http://external-url.com';
     expect(getImageScaleParams(image)).toEqual({
       download: image,
+    });
+  });
+
+  it('returns image URL string when image url (object) with no scales is passed', () => {
+    isInternalURL.mockReturnValue(true);
+    const image = {
+      '@id': 'http://localhost:3000/image',
+      image: {
+        download: 'http://localhost:3000/image/@@images/image.png',
+        width: 400,
+        height: 400,
+      },
+    };
+    expect(getImageScaleParams(image)).toEqual({
+      download: `${image['@id']}/@@images/image/preview`,
     });
   });
 
