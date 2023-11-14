@@ -131,7 +131,7 @@ export const stylingSchema = (props) => {
     ],
     properties: {
       bg: {
-        title: 'Background image position',
+        title: 'Image position',
         widget: 'align',
         actions: Object.keys(ALIGN_INFO_MAP),
         actionsInfoMap: ALIGN_INFO_MAP,
