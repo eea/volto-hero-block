@@ -4,11 +4,13 @@ import config from '@plone/volto/registry';
 import alignTopSVG from '@plone/volto/icons/move-up.svg';
 import alignCenterSVG from '@plone/volto/icons/row.svg';
 import alignBottomSVG from '@plone/volto/icons/move-down.svg';
+import clearSVG from '@plone/volto/icons/clear.svg';
 
 const ALIGN_INFO_MAP = {
   'has--bg--top': [alignTopSVG, 'Top'],
   'has--bg--center': [alignCenterSVG, 'Center'],
   'has--bg--bottom': [alignBottomSVG, 'Bottom'],
+  '': [clearSVG, 'None'],
 };
 
 export const HeroBlockSchema = () => {
