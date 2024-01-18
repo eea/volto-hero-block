@@ -91,7 +91,7 @@ export const HeroBlockSchema = () => {
             Ex. ri-copyright-line. See{' '}
             <a
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
               href="https://remixicon.com/"
             >
               Remix Icon set
