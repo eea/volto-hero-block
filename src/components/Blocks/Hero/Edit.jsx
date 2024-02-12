@@ -11,7 +11,10 @@ import {
 } from '@plone/volto/components';
 import { BodyClass } from '@plone/volto/helpers';
 import SlateEditor from '@plone/volto-slate/editor/SlateEditor';
-import { handleKey } from '@plone/volto-slate/blocks/Text/keyboard';
+import {
+  handleKey,
+  handleKeyDetached,
+} from '@plone/volto-slate/blocks/Text/keyboard';
 import {
   uploadContent,
   saveSlateBlockSelection,
@@ -51,7 +54,13 @@ const Edit = (props) => {
     onChangeBlock,
     onSelectBlock,
   } = props;
-  const { text, copyright, copyrightIcon, copyrightPosition } = data;
+  const {
+    text,
+    copyright,
+    copyrightIcon,
+    copyrightPosition,
+    isMultiline,
+  } = data;
   const copyrightPrefix = config.blocks.blocksConfig.hero.copyrightPrefix || '';
   const schema = React.useMemo(() => {
     if (isFunction(HeroBlockSchema)) {
@@ -74,17 +83,31 @@ const Edit = (props) => {
     }
   }, [onSelectBlock, selected, block]);
 
+  const extensions = React.useMemo(() => {
+    if (isMultiline) {
+      return slate.textblockExtensions.filter(
+        (f) => f.name !== 'withSplitBlocksOnBreak',
+      );
+    } else {
+      return slate.textblockExtensions;
+    }
+  }, [slate.textblockExtensions, isMultiline]);
+
+  const value = createSlateHeader(text);
+
   return (
     <>
       <BodyClass className="with-hero-block" />
       <Hero {...data}>
         <Hero.Text {...data}>
           <SlateEditor
+            key={isMultiline}
+            detached={!isMultiline}
             index={index}
             properties={properties}
-            extensions={slate.textblockExtensions}
+            extensions={extensions}
             renderExtensions={[withBlockProperties]}
-            value={createSlateHeader(text)}
+            value={value}
             onChange={(text) => {
               onChangeBlock(block, {
                 ...data,
@@ -93,7 +116,7 @@ const Edit = (props) => {
             }}
             block={block}
             onFocus={handleFocus}
-            onKeyDown={handleKey}
+            onKeyDown={isMultiline ? handleKeyDetached : handleKey}
             selected={selected}
             placeholder="Add text..."
             slateSettings={slate}

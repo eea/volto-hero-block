@@ -26,6 +26,7 @@ export const HeroBlockSchema = () => {
           'quoted',
           'spaced',
           'inverted',
+          'isMultiline',
           'buttonLabel',
           'buttonLink',
           'overlay',
@@ -63,6 +64,11 @@ export const HeroBlockSchema = () => {
         title: 'Inverted',
         type: 'boolean',
         defaultValue: true,
+      },
+      isMultiline: {
+        title: 'Multiline',
+        type: 'boolean',
+        defaultValue: false,
       },
       buttonLabel: {
         title: 'Button label',
