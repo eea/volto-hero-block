@@ -11,7 +11,10 @@ import {
 } from '@plone/volto/components';
 import { BodyClass } from '@plone/volto/helpers';
 import SlateEditor from '@plone/volto-slate/editor/SlateEditor';
-import { handleKeyDetached } from '@plone/volto-slate/blocks/Text/keyboard';
+import {
+  handleKey,
+  handleKeyDetached,
+} from '@plone/volto-slate/blocks/Text/keyboard';
 import {
   uploadContent,
   saveSlateBlockSelection,
@@ -113,7 +116,7 @@ const Edit = (props) => {
             }}
             block={block}
             onFocus={handleFocus}
-            onKeyDown={handleKeyDetached}
+            onKeyDown={isMultiline ? handleKeyDetached : handleKey}
             selected={selected}
             placeholder="Add text..."
             slateSettings={slate}
