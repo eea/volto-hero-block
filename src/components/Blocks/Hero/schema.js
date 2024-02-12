@@ -147,9 +147,9 @@ export const stylingSchema = (props) => {
         colors: [
           ...(config.settings && config.settings.themeColors
             ? config.settings.themeColors.map(({ value, title }) => ({
-              name: value,
-              label: title,
-            }))
+                name: value,
+                label: title,
+              }))
             : []),
           //and add extra ones here
         ],
@@ -174,9 +174,9 @@ export const stylingSchema = (props) => {
         colors: [
           ...(config.settings && config.settings.themeColors
             ? config.settings.themeColors.map(({ value, title }) => ({
-              name: value,
-              label: title,
-            }))
+                name: value,
+                label: title,
+              }))
             : []),
           //and add extra ones here
         ],
@@ -187,9 +187,9 @@ export const stylingSchema = (props) => {
         colors: [
           ...(config.settings && config.settings.themeColors
             ? config.settings.themeColors.map(({ value, title }) => ({
-              name: value,
-              label: title,
-            }))
+                name: value,
+                label: title,
+              }))
             : []),
           //and add extra ones here
         ],
