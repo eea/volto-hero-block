@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-hero-block",
-  "version": "5.4.7",
+  "version": "5.5.0",
   "description": "@eeacms/volto-hero-block: Volto add-on",
   "main": "src/index.js",
   "author": "European Environment Agency: IDM2 A-Team",
