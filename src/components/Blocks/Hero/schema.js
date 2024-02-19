@@ -26,6 +26,7 @@ export const HeroBlockSchema = () => {
           'quoted',
           'spaced',
           'inverted',
+          'isMultiline',
           'buttonLabel',
           'buttonLink',
           'overlay',
@@ -64,6 +65,11 @@ export const HeroBlockSchema = () => {
         type: 'boolean',
         defaultValue: true,
       },
+      isMultiline: {
+        title: 'Multiline',
+        type: 'boolean',
+        defaultValue: false,
+      },
       buttonLabel: {
         title: 'Button label',
         widget: 'textarea',
@@ -89,11 +95,7 @@ export const HeroBlockSchema = () => {
         description: (
           <>
             Ex. ri-copyright-line. See{' '}
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://remixicon.com/"
-            >
+            <a target="_blank" rel="noopener" href="https://remixicon.com/">
               Remix Icon set
             </a>
           </>

@@ -1,6 +1,5 @@
 import React from 'react';
 import cx from 'classnames';
-import { connect } from 'react-redux';
 import isFunction from 'lodash/isFunction';
 import { Icon } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
@@ -11,11 +10,10 @@ import {
 } from '@plone/volto/components';
 import { BodyClass } from '@plone/volto/helpers';
 import SlateEditor from '@plone/volto-slate/editor/SlateEditor';
-import { handleKey } from '@plone/volto-slate/blocks/Text/keyboard';
 import {
-  uploadContent,
-  saveSlateBlockSelection,
-} from '@plone/volto-slate/actions';
+  handleKey,
+  handleKeyDetached,
+} from '@plone/volto-slate/blocks/Text/keyboard';
 import {
   createSlateHeader,
   getFieldURL,
@@ -40,7 +38,7 @@ const Metadata = ({ buttonLabel, inverted, styles, ...props }) => {
   );
 };
 
-const Edit = (props) => {
+export default function Edit(props) {
   const { slate } = config.settings;
   const {
     data = {},
@@ -51,7 +49,13 @@ const Edit = (props) => {
     onChangeBlock,
     onSelectBlock,
   } = props;
-  const { text, copyright, copyrightIcon, copyrightPosition } = data;
+  const {
+    text,
+    copyright,
+    copyrightIcon,
+    copyrightPosition,
+    isMultiline,
+  } = data;
   const copyrightPrefix = config.blocks.blocksConfig.hero.copyrightPrefix || '';
   const schema = React.useMemo(() => {
     if (isFunction(HeroBlockSchema)) {
@@ -74,17 +78,31 @@ const Edit = (props) => {
     }
   }, [onSelectBlock, selected, block]);
 
+  const extensions = React.useMemo(() => {
+    if (isMultiline) {
+      return slate.textblockExtensions.filter(
+        (f) => f.name !== 'withSplitBlocksOnBreak',
+      );
+    } else {
+      return slate.textblockExtensions;
+    }
+  }, [slate.textblockExtensions, isMultiline]);
+
+  const value = createSlateHeader(text);
+
   return (
     <>
       <BodyClass className="with-hero-block" />
       <Hero {...data}>
         <Hero.Text {...data}>
           <SlateEditor
+            key={isMultiline}
+            detached={!isMultiline}
             index={index}
             properties={properties}
-            extensions={slate.textblockExtensions}
+            extensions={extensions}
             renderExtensions={[withBlockProperties]}
-            value={createSlateHeader(text)}
+            value={value}
             onChange={(text) => {
               onChangeBlock(block, {
                 ...data,
@@ -93,7 +111,7 @@ const Edit = (props) => {
             }}
             block={block}
             onFocus={handleFocus}
-            onKeyDown={handleKey}
+            onKeyDown={isMultiline ? handleKeyDetached : handleKey}
             selected={selected}
             placeholder="Add text..."
             slateSettings={slate}
@@ -131,21 +149,4 @@ const Edit = (props) => {
       </SidebarPortal>
     </>
   );
-};
-
-export default connect(
-  (state, props) => {
-    const blockId = props.block;
-    return {
-      defaultSelection: blockId
-        ? state.slate_block_selections?.[blockId]
-        : null,
-      uploadRequest: state.upload_content?.[props.block]?.upload || {},
-      uploadedContent: state.upload_content?.[props.block]?.data || {},
-    };
-  },
-  {
-    uploadContent,
-    saveSlateBlockSelection, // needed as editor blockProps
-  },
-)(Edit);
+}
