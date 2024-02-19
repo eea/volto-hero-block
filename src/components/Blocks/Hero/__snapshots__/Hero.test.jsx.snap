@@ -5,13 +5,19 @@ exports[`Hero block renders a hero component 1`] = `
   className="eea hero-block inverted full-height"
 >
   <div
-    className="hero-block-image-wrapper color-bg-primary full-width"
+    className="hero-block-image-wrapper full-width"
   >
     <div
       className="hero-block-image"
-      style={Object {}}
+      style={
+        Object {
+          "backgroundImage": "url()",
+        }
+      }
     />
-    
+    <div
+      className="hero-block-image-overlay dark-overlay-4"
+    />
   </div>
   <div
     className="hero-block-inner-wrapper d-flex flex-items-center"
@@ -40,16 +46,22 @@ exports[`Hero block renders a hero component 1`] = `
 
 exports[`Hero block renders a hero component 2`] = `
 <div
-  className="eea hero-block color-bg-primary inverted full-height"
+  className="eea hero-block inverted full-height"
 >
   <div
     className="hero-block-image-wrapper"
   >
     <div
       className="hero-block-image"
-      style={Object {}}
+      style={
+        Object {
+          "backgroundImage": "url()",
+        }
+      }
     />
-    
+    <div
+      className="hero-block-image-overlay dark-overlay-4"
+    />
   </div>
   <div
     className="hero-block-inner-wrapper d-flex flex-items-center"
@@ -175,7 +187,7 @@ exports[`Hero block renders a hero component 5`] = `
       className="hero-block-image"
       style={
         Object {
-          "backgroundImage": "url(/foo/bar.gif/@@images/image)",
+          "backgroundImage": "url(/foo/bar.gif/@@images/image/huge)",
         }
       }
     />
@@ -219,7 +231,7 @@ exports[`Hero block renders a hero component 6`] = `
       className="hero-block-image"
       style={
         Object {
-          "backgroundImage": "url(/foo/bar.gif/@@images/image)",
+          "backgroundImage": "url(/foo/bar.gif/@@images/image/huge)",
         }
       }
     />
@@ -263,7 +275,7 @@ exports[`Hero block renders a hero component 7`] = `
       className="hero-block-image"
       style={
         Object {
-          "backgroundImage": "url(/foo/bar.gif/@@images/image)",
+          "backgroundImage": "url(/foo/bar.gif/@@images/image/huge)",
         }
       }
     />
