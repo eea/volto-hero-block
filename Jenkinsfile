@@ -244,7 +244,7 @@ pipeline {
               }
             }
 
-           stage('Integration tests') {
+           stage('Integration tests Volto 16') {
               steps {
                 script {
                   try {
