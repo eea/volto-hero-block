@@ -45,6 +45,7 @@ pipeline {
       }
       steps {
         script {
+            checkout scm
             withCredentials([string(credentialsId: 'eea-jenkins-token', variable: 'GITHUB_TOKEN')]) {
               check_result = sh script: '''docker run --pull always -i --rm --name="$IMAGE_NAME-gitflow-check" -e GIT_TOKEN="$GITHUB_TOKEN" -e GIT_BRANCH="$BRANCH_NAME" -e GIT_ORG="$GIT_ORG" -e GIT_NAME="$GIT_NAME" eeacms/gitflow /check_if_testing_needed.sh''', returnStatus: true
 
@@ -77,13 +78,11 @@ pipeline {
           parallel {
             stage('Volto17') {
               steps {
-                checkout scm
                 sh '''docker build --pull --build-arg="VOLTO_VERSION=$VOLTO" --build-arg="ADDON_NAME=$NAMESPACE/$GIT_NAME"  --build-arg="ADDON_PATH=$GIT_NAME" . -t $IMAGE_NAME-frontend'''
               }
             }
             stage('Volto16') {
               steps {
-                checkout scm
                 sh '''docker build --pull --build-arg="VOLTO_VERSION=16" --build-arg="ADDON_NAME=$NAMESPACE/$GIT_NAME"  --build-arg="ADDON_PATH=$GIT_NAME" . -t $IMAGE_NAME-frontend16'''
               }
             }
