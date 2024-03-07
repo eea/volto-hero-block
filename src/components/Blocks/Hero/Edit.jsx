@@ -49,13 +49,8 @@ export default function Edit(props) {
     onChangeBlock,
     onSelectBlock,
   } = props;
-  const {
-    text,
-    copyright,
-    copyrightIcon,
-    copyrightPosition,
-    isMultiline,
-  } = data;
+  const { text, copyright, copyrightIcon, copyrightPosition, isMultiline } =
+    data;
   const copyrightPrefix = config.blocks.blocksConfig.hero.copyrightPrefix || '';
   const schema = React.useMemo(() => {
     if (isFunction(HeroBlockSchema)) {
