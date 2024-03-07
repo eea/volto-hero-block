@@ -75,7 +75,6 @@ pipeline {
       stages {
         stage('Build test image') {
           parallel {
-
             stage('Volto17') {
               steps {
                 checkout scm
@@ -88,6 +87,7 @@ pipeline {
                 sh '''docker build --pull --build-arg="VOLTO_VERSION=16" --build-arg="ADDON_NAME=$NAMESPACE/$GIT_NAME"  --build-arg="ADDON_PATH=$GIT_NAME" . -t $IMAGE_NAME-frontend16'''
               }
             }
+          }  
         }
         
         stage('Fix code') {
