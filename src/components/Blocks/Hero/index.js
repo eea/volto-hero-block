@@ -22,7 +22,7 @@ const intl = createIntl(
   cache,
 );
 
-export default (config) => {
+const heroConfig = (config) => {
   config.blocks.blocksConfig.hero = {
     id: 'hero',
     title: 'Hero',
@@ -50,3 +50,5 @@ export default (config) => {
 
   return config;
 };
+
+export default heroConfig;
