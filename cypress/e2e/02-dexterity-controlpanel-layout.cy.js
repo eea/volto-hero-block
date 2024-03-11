@@ -6,10 +6,6 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
 
   it('Edit Blocks Layout for Book', () => {
     cy.visit('/controlpanel/dexterity-types');
-    // cy.waitForResourceToLoad('@navigation');
-    // cy.waitForResourceToLoad('@breadcrumbs');
-    // cy.waitForResourceToLoad('@actions');
-    // cy.waitForResourceToLoad('@types');
 
     cy.get('a[href="/controlpanel/dexterity-types/book"]').should(
       'have.text',
