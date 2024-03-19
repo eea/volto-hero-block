@@ -51,8 +51,7 @@ const messages = defineMessages({
     defaultMessage: 'Fixed layout',
   },
   FixedlayoutNewPanesTabs: {
-    id:
-      'Fixed layout, New panes (tabs) created by Editor within this block will be ignored',
+    id: 'Fixed layout, New panes (tabs) created by Editor within this block will be ignored',
     defaultMessage:
       'Fixed layout, New panes (tabs) created by Editor within this block will be ignored',
   },
@@ -98,7 +97,7 @@ const messages = defineMessages({
   },
 });
 
-export default (intl) => ({
+const layoutSchema = (intl) => ({
   title: intl.formatMessage(messages.HeroBlockSettings),
   fieldsets: [
     {
@@ -172,3 +171,5 @@ export default (intl) => ({
   },
   required: [],
 });
+
+export default layoutSchema;
