@@ -111,7 +111,13 @@ export default function Edit(props) {
             }}
             block={block}
             onFocus={handleFocus}
-            onKeyDown={isMultiline ? handleKeyDetached : handleKey}
+            onKeyDown={(e) => {
+              if (!isMultiline && e.event.code === 'Enter') {
+                e.event.preventDefault();
+                return;
+              }
+              if (isMultiline) handleKeyDetached(e);
+            }}
             selected={selected}
             placeholder="Add text..."
             slateSettings={slate}
