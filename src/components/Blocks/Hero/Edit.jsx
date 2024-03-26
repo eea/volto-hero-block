@@ -49,7 +49,8 @@ const Metadata = ({ buttonLabel, inverted, styles, ...props }) => {
 };
 
 export default function Edit(props) {
-  const [selectedBlock, setSelectedBlock] = useState(null);
+  const id = uuid();
+  const [selectedBlock, setSelectedBlock] = useState(id);
   const {
     data = {},
     block = null,
@@ -73,21 +74,51 @@ export default function Edit(props) {
 
   const blockState = {};
   const data_blocks = data?.data?.blocks;
-  const id = uuid();
-  const childBlocksForm = isEmpty(data_blocks)
-    ? data.text
-      ? {
-          blocks: {
-            [id]: {
-              '@type': 'slate',
-              value: data.text,
-            },
-          },
-          blocks_layout: { items: [id] },
-        }
-      : emptyBlocksForm()
-    : data.data;
+  if (data?.text || isEmpty(data_blocks)) {
+    let a = { ...data };
+    if (a.text) delete a.text;
 
+    onChangeBlock(block, {
+      ...a,
+      data: data?.text
+        ? {
+            blocks: {
+              [id]: {
+                '@type': 'slate',
+                value: data.text,
+                plaintext: data.text?.[0].children?.[0].text,
+              },
+            },
+            blocks_layout: { items: [id] },
+          }
+        : emptyBlocksForm(),
+    });
+  }
+  const handleKeyDown = (
+    e,
+    index,
+    block,
+    node,
+    {
+      disableEnter = false,
+      disableArrowUp = false,
+      disableArrowDown = false,
+    } = {},
+  ) => {
+    const hasblockActive = !!selectedBlock;
+    if (e.key === 'ArrowUp' && !disableArrowUp && !hasblockActive) {
+      props.onFocusPreviousBlock(block, node);
+      e.preventDefault();
+    }
+    if (e.key === 'ArrowDown' && !disableArrowDown && !hasblockActive) {
+      props.onFocusNextBlock(block, node);
+      e.preventDefault();
+    }
+    if (e.key === 'Enter' && !disableEnter && !hasblockActive) {
+      props.onAddBlock(config.settings.defaultBlockType, index + 1);
+      e.preventDefault();
+    }
+  };
   return (
     <>
       <BodyClass className="with-hero-block" />
@@ -96,26 +127,30 @@ export default function Edit(props) {
         <Hero.Text {...data}>
           <BlocksForm
             metadata={properties || metadata}
-            properties={childBlocksForm}
+            properties={data.data || {}}
             manage={false}
             allowedBlocks={'slate'}
             selectedBlock={selected ? selectedBlock : null}
             title={data.placeholder}
-            onSelectBlock={(id) => {
-              setSelectedBlock(id);
+            onSelectBlock={(s, e) => {
+              setSelectedBlock(s);
             }}
             onChangeFormData={(newFormData) => {
+              let a = { ...data };
+              if (a.text) delete a.text;
               onChangeBlock(block, {
-                ...data,
+                ...a,
                 data: newFormData,
               });
             }}
             onChangeField={(id, value) => {
               if (['blocks', 'blocks_layout'].indexOf(id) > -1) {
                 blockState[id] = value;
-                if (data.text) delete data.text;
+                // if (data.text) delete data.text;
+                let a = { ...data };
+                if (a.text) delete a.text;
                 onChangeBlock(block, {
-                  ...data,
+                  ...a,
                   data: {
                     ...data.data,
                     ...blockState,
