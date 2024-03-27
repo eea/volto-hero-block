@@ -12,11 +12,11 @@ const unobserve = jest.fn();
 
 jest.mock('react-router-dom', () => ({
   useLocation: jest.fn().mockReturnValue({
-    pathname: '/test',
+    pathname: '/test-jest',
     search: '',
     hash: '',
     state: null,
-    key: 'test',
+    key: 'test-jest',
   }),
 }));
 
