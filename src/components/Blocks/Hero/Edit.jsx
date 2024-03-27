@@ -7,27 +7,16 @@ import { BlocksForm } from '@plone/volto/components';
 import EditBlockWrapper from './EditBlockWrapper';
 import { v4 as uuid } from 'uuid';
 
-import {
-  emptyBlocksForm,
-  withBlockExtensions,
-  getBlocksLayoutFieldname,
-} from '@plone/volto/helpers';
-import { isEmpty, without } from 'lodash';
+import { emptyBlocksForm } from '@plone/volto/helpers';
+import { isEmpty } from 'lodash';
 import {
   BlockDataForm,
   SidebarPortal,
   UniversalLink,
 } from '@plone/volto/components';
 import { BodyClass } from '@plone/volto/helpers';
-import SlateEditor from '@plone/volto-slate/editor/SlateEditor';
-import {
-  handleKey,
-  handleKeyDetached,
-} from '@plone/volto-slate/blocks/Text/keyboard';
-import {
-  createSlateHeader,
-  getFieldURL,
-} from '@eeacms/volto-hero-block/helpers';
+
+import { getFieldURL } from '@eeacms/volto-hero-block/helpers';
 import { HeroBlockSchema } from './schema';
 import Copyright from './Copyright';
 import Hero from './Hero';
@@ -55,10 +44,8 @@ export default function Edit(props) {
     data = {},
     block = null,
     selected,
-
     properties,
     onChangeBlock,
-
     onChangeField,
     pathname,
     metadata = null,
@@ -94,31 +81,7 @@ export default function Edit(props) {
         : emptyBlocksForm(),
     });
   }
-  const handleKeyDown = (
-    e,
-    index,
-    block,
-    node,
-    {
-      disableEnter = false,
-      disableArrowUp = false,
-      disableArrowDown = false,
-    } = {},
-  ) => {
-    const hasblockActive = !!selectedBlock;
-    if (e.key === 'ArrowUp' && !disableArrowUp && !hasblockActive) {
-      props.onFocusPreviousBlock(block, node);
-      e.preventDefault();
-    }
-    if (e.key === 'ArrowDown' && !disableArrowDown && !hasblockActive) {
-      props.onFocusNextBlock(block, node);
-      e.preventDefault();
-    }
-    if (e.key === 'Enter' && !disableEnter && !hasblockActive) {
-      props.onAddBlock(config.settings.defaultBlockType, index + 1);
-      e.preventDefault();
-    }
-  };
+
   return (
     <>
       <BodyClass className="with-hero-block" />
@@ -146,7 +109,6 @@ export default function Edit(props) {
             onChangeField={(id, value) => {
               if (['blocks', 'blocks_layout'].indexOf(id) > -1) {
                 blockState[id] = value;
-                // if (data.text) delete data.text;
                 let a = { ...data };
                 if (a.text) delete a.text;
                 onChangeBlock(block, {
