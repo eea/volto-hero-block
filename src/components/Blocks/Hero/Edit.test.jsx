@@ -7,25 +7,19 @@ import config from '@plone/volto/registry';
 import '@testing-library/jest-dom/extend-expect';
 
 const mockStore = configureStore([]);
-
-jest.mock('@plone/volto-slate/editor/SlateEditor', () => {
-  return {
-    __esModule: true,
-    default: ({ placeholder, children, onChange, onFocus }) => (
-      <div
-        onChange={(target) => onChange(target)}
-        onFocus={() => onFocus()}
-        id="test"
-      >
-        <div>{placeholder}</div>
-        {children}
-      </div>
-    ),
-  };
-});
-
 const observe = jest.fn();
 const unobserve = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  useLocation: jest.fn().mockReturnValue({
+    pathname: '/test',
+    search: '',
+    hash: '',
+    state: null,
+    key: 'test',
+  }),
+}));
+
 window.IntersectionObserver = jest.fn((callback) => ({
   observe,
   unobserve,
