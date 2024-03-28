@@ -9,7 +9,30 @@ window.IntersectionObserver = jest.fn((callback) => ({
   observe,
   unobserve,
 }));
-
+jest.mock('@plone/volto/components', () => {
+  return {
+    __esModule: true,
+    BlocksForm: ({ placeholder, children, onChange, onFocus }) => (
+      <div id="test">
+        <div>{placeholder}</div>
+        {children}
+      </div>
+    ),
+    SidebarPortal: ({ children }) => <div>{children}</div>,
+    BlockDataForm: () => <div></div>,
+    UniversalLink: () => <div></div>,
+    RenderBlocks: () => <div></div>,
+  };
+});
+jest.mock('react-router-dom', () => ({
+  useLocation: jest.fn().mockReturnValue({
+    pathname: '/test-jest',
+    search: '',
+    hash: '',
+    state: null,
+    key: 'test-jest',
+  }),
+}));
 describe('View Component', () => {
   it('renders view component', () => {
     config.blocks = {
