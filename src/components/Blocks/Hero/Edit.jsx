@@ -62,11 +62,11 @@ export default function Edit(props) {
   const blockState = {};
   const data_blocks = data?.data?.blocks;
   if (data?.text || isEmpty(data_blocks)) {
-    let a = { ...data };
-    if (a.text) delete a.text;
+    let dataWithoutText = { ...data };
+    if (dataWithoutText) delete dataWithoutText.text;
 
     onChangeBlock(block, {
-      ...a,
+      ...dataWithoutText,
       data: data?.text
         ? {
             blocks: {
@@ -99,20 +99,16 @@ export default function Edit(props) {
               setSelectedBlock(s);
             }}
             onChangeFormData={(newFormData) => {
-              let a = { ...data };
-              if (a.text) delete a.text;
               onChangeBlock(block, {
-                ...a,
+                ...data,
                 data: newFormData,
               });
             }}
             onChangeField={(id, value) => {
               if (['blocks', 'blocks_layout'].indexOf(id) > -1) {
                 blockState[id] = value;
-                let a = { ...data };
-                if (a.text) delete a.text;
                 onChangeBlock(block, {
-                  ...a,
+                  ...data,
                   data: {
                     ...data.data,
                     ...blockState,
