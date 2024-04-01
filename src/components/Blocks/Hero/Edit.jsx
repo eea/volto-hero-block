@@ -96,9 +96,9 @@ export default function Edit(props) {
   return (
     <>
       <BodyClass className="with-hero-block" />
-
-      <Hero
-        {...data}
+      <div
+        className="hero-edit-wrapper"
+        role="presentation"
         onClick={(e) => {
           if (e.target.className.includes('hero')) {
             setSelectedBlock(id);
@@ -106,66 +106,67 @@ export default function Edit(props) {
           }
         }}
       >
-        <Hero.Text {...data}>
-          <BlocksForm
-            metadata={properties || metadata}
-            properties={data.data || {}}
-            manage={false}
-            allowedBlocks={'slate'}
-            selectedBlock={selectedBlock}
-            title={data.placeholder}
-            onSelectBlock={(s, e) => {
-              setSelectedBlock(s);
-            }}
-            onChangeFormData={(newFormData) => {
-              onChangeBlock(block, {
-                ...data,
-                data: newFormData,
-              });
-            }}
-            onChangeField={(id, value) => {
-              if (['blocks', 'blocks_layout'].indexOf(id) > -1) {
-                blockState[id] = value;
+        <Hero {...data}>
+          <Hero.Text {...data}>
+            <BlocksForm
+              metadata={properties || metadata}
+              properties={data.data || {}}
+              manage={false}
+              allowedBlocks={'slate'}
+              selectedBlock={selectedBlock}
+              title={data.placeholder}
+              onSelectBlock={(s, e) => {
+                setSelectedBlock(s);
+              }}
+              onChangeFormData={(newFormData) => {
                 onChangeBlock(block, {
                   ...data,
-                  data: {
-                    ...data.data,
-                    ...blockState,
-                  },
+                  data: newFormData,
                 });
-              } else {
-                onChangeField(id, value);
-              }
-            }}
-            pathname={pathname}
-          >
-            {({ draginfo }, editBlock, blockProps) => (
-              <EditBlockWrapper
-                draginfo={draginfo}
-                blockProps={blockProps}
-                disabled={data.disableInnerButtons}
-              >
-                {editBlock}
-              </EditBlockWrapper>
-            )}
-          </BlocksForm>
-        </Hero.Text>
-        <Hero.Meta {...data}>
-          <Metadata {...data} />
-        </Hero.Meta>
-        {copyright ? (
-          <Copyright copyrightPosition={copyrightPosition}>
-            <Copyright.Prefix>{copyrightPrefix}</Copyright.Prefix>
-            <Copyright.Icon>
-              <Icon className={copyrightIcon} />
-            </Copyright.Icon>
-            <Copyright.Text>{copyright}</Copyright.Text>
-          </Copyright>
-        ) : (
-          ''
-        )}
-      </Hero>
-
+              }}
+              onChangeField={(id, value) => {
+                if (['blocks', 'blocks_layout'].indexOf(id) > -1) {
+                  blockState[id] = value;
+                  onChangeBlock(block, {
+                    ...data,
+                    data: {
+                      ...data.data,
+                      ...blockState,
+                    },
+                  });
+                } else {
+                  onChangeField(id, value);
+                }
+              }}
+              pathname={pathname}
+            >
+              {({ draginfo }, editBlock, blockProps) => (
+                <EditBlockWrapper
+                  draginfo={draginfo}
+                  blockProps={blockProps}
+                  disabled={data.disableInnerButtons}
+                >
+                  {editBlock}
+                </EditBlockWrapper>
+              )}
+            </BlocksForm>
+          </Hero.Text>
+          <Hero.Meta {...data}>
+            <Metadata {...data} />
+          </Hero.Meta>
+          {copyright ? (
+            <Copyright copyrightPosition={copyrightPosition}>
+              <Copyright.Prefix>{copyrightPrefix}</Copyright.Prefix>
+              <Copyright.Icon>
+                <Icon className={copyrightIcon} />
+              </Copyright.Icon>
+              <Copyright.Text>{copyright}</Copyright.Text>
+            </Copyright>
+          ) : (
+            ''
+          )}
+        </Hero>
+      </div>
       <SidebarPortal selected={selected}>
         <BlockDataForm
           block={block}
