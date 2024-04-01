@@ -26,6 +26,7 @@ function Hero({
   spaced = false,
   inverted = true,
   styles,
+  onClick = () => {},
   ...props
 }) {
   const image = getFieldURL(props.image);
@@ -35,6 +36,7 @@ function Hero({
 
   const bgImgRef = React.useRef();
   const onScreen = useFirstVisited(bgImgRef);
+
   return (
     <div
       className={cx(
@@ -49,6 +51,8 @@ function Hero({
           'full-height': fullHeight,
         },
       )}
+      role="banner"
+      onClick={onClick}
     >
       <div
         className={cx(
@@ -101,9 +105,10 @@ Hero.Text = ({ children, quoted, styles }) => {
         'hero-block-text',
         `color-fg-${textVariant}`,
         `text-${textAlign}`,
+        quoted ? 'quoted-wrapper' : '',
       )}
     >
-      <div className={quoted ? 'quoted-wrapper' : ''}>{children}</div>
+      {children}
     </div>
   );
 };

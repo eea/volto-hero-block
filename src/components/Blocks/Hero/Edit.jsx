@@ -7,7 +7,6 @@ import { BlocksForm } from '@plone/volto/components';
 import EditBlockWrapper from './EditBlockWrapper';
 import { v4 as uuid } from 'uuid';
 
-import { emptyBlocksForm } from '@plone/volto/helpers';
 import { isEmpty } from 'lodash';
 import {
   BlockDataForm,
@@ -51,6 +50,7 @@ export default function Edit(props) {
     metadata = null,
   } = props;
   const { copyright, copyrightIcon, copyrightPosition } = data;
+
   const copyrightPrefix = config.blocks.blocksConfig.hero.copyrightPrefix || '';
   const schema = React.useMemo(() => {
     if (isFunction(HeroBlockSchema)) {
@@ -61,6 +61,7 @@ export default function Edit(props) {
 
   const blockState = {};
   const data_blocks = data?.data?.blocks;
+
   if (data?.text || isEmpty(data_blocks)) {
     let dataWithoutText = { ...data };
     if (dataWithoutText) delete dataWithoutText.text;
@@ -72,13 +73,22 @@ export default function Edit(props) {
             blocks: {
               [id]: {
                 '@type': 'slate',
-                value: data.text,
+                value: { ...data.text },
                 plaintext: data.text?.[0].children?.[0].text,
               },
             },
             blocks_layout: { items: [id] },
           }
-        : emptyBlocksForm(),
+        : {
+            blocks: {
+              [id]: {
+                '@type': 'slate',
+                value: [{ type: 'h2', children: [{ text: '' }] }],
+                plaintext: '',
+              },
+            },
+            blocks_layout: { items: [id] },
+          },
     });
   }
 
@@ -86,14 +96,19 @@ export default function Edit(props) {
     <>
       <BodyClass className="with-hero-block" />
 
-      <Hero {...data}>
+      <Hero
+        {...data}
+        onClick={(e) => {
+          if (e.target.className.includes('hero')) setSelectedBlock(null);
+        }}
+      >
         <Hero.Text {...data}>
           <BlocksForm
             metadata={properties || metadata}
             properties={data.data || {}}
             manage={false}
             allowedBlocks={'slate'}
-            selectedBlock={selected ? selectedBlock : null}
+            selectedBlock={selectedBlock}
             title={data.placeholder}
             onSelectBlock={(s, e) => {
               setSelectedBlock(s);

@@ -2,6 +2,7 @@ import { serializeNodes } from '@plone/volto-slate/editor/render';
 import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
+import { v4 as uuid } from 'uuid';
 import { isInternalURL, flattenToAppURL } from '@plone/volto/helpers';
 
 export const getFieldURL = (data) => {
@@ -23,6 +24,38 @@ const createEmptyHeader = () => {
   return {
     type: 'h2',
     children: [{ text: '' }],
+  };
+};
+
+export const addEmptyHeaderSlateBlockToData = (
+  data,
+  index,
+  setSelectedBlock,
+) => {
+  console.log(index);
+  const id = uuid();
+  setSelectedBlock(id);
+  return {
+    ...data,
+    blocks: {
+      ...data.blocks,
+      [id]: {
+        '@type': 'slate',
+        value: [{ type: 'h2', children: [{ text: '' }] }],
+        plaintext: '',
+      },
+    },
+    blocks_layout: {
+      ...data.blocks_layout,
+      items: [
+        ...data.blocks_layout.items.slice(0, index),
+        id,
+        ...data.blocks_layout.items.slice(
+          index,
+          data.blocks_layout.items.length,
+        ),
+      ],
+    },
   };
 };
 
