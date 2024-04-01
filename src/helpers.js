@@ -2,7 +2,6 @@ import { serializeNodes } from '@plone/volto-slate/editor/render';
 import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
-import { v4 as uuid } from 'uuid';
 import { isInternalURL, flattenToAppURL } from '@plone/volto/helpers';
 
 export const getFieldURL = (data) => {
