@@ -27,38 +27,6 @@ const createEmptyHeader = () => {
   };
 };
 
-export const addEmptyHeaderSlateBlockToData = (
-  data,
-  index,
-  setSelectedBlock,
-) => {
-  console.log(index);
-  const id = uuid();
-  setSelectedBlock(id);
-  return {
-    ...data,
-    blocks: {
-      ...data.blocks,
-      [id]: {
-        '@type': 'slate',
-        value: [{ type: 'h2', children: [{ text: '' }] }],
-        plaintext: '',
-      },
-    },
-    blocks_layout: {
-      ...data.blocks_layout,
-      items: [
-        ...data.blocks_layout.items.slice(0, index),
-        id,
-        ...data.blocks_layout.items.slice(
-          index,
-          data.blocks_layout.items.length,
-        ),
-      ],
-    },
-  };
-};
-
 export const createSlateHeader = (text) => {
   return isArray(text) ? text : [createEmptyHeader()];
 };
