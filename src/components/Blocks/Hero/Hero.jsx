@@ -38,6 +38,7 @@ function Hero({
   const onScreen = useFirstVisited(bgImgRef);
 
   return (
+    //clicking outside should cause the slate blocks to lose focus.
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <div
       className={cx(
