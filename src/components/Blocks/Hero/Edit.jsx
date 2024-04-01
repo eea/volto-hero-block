@@ -48,6 +48,7 @@ export default function Edit(props) {
     onChangeField,
     pathname,
     metadata = null,
+    setSidebarTab,
   } = props;
   const { copyright, copyrightIcon, copyrightPosition } = data;
 
@@ -99,7 +100,10 @@ export default function Edit(props) {
       <Hero
         {...data}
         onClick={(e) => {
-          if (e.target.className.includes('hero')) setSelectedBlock(null);
+          if (e.target.className.includes('hero')) {
+            setSelectedBlock(id);
+            setSidebarTab(1);
+          }
         }}
       >
         <Hero.Text {...data}>
@@ -167,6 +171,7 @@ export default function Edit(props) {
           block={block}
           schema={schema}
           title={schema.title}
+          onChangeBlock={props.onChangeBlock}
           onChangeField={(id, value) => {
             onChangeBlock(block, {
               ...data,
