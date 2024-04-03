@@ -100,7 +100,7 @@ export default function Edit(props) {
         className="hero-edit-wrapper"
         role="presentation"
         onClick={(e) => {
-          if (e.target.className.includes('hero')) {
+          if (e.target?.className?.includes('hero')) {
             setSelectedBlock(id);
             setSidebarTab(1);
           }
