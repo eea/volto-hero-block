@@ -74,7 +74,7 @@ export default function Edit(props) {
             blocks: {
               [id]: {
                 '@type': 'slate',
-                value: { ...data.text },
+                value: data.text,
                 plaintext: data.text?.[0].children?.[0].text,
               },
             },
