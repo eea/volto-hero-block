@@ -1,23 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cx from 'classnames';
 import isFunction from 'lodash/isFunction';
 import { Icon } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
+import { BlocksForm } from '@plone/volto/components';
+import EditBlockWrapper from './EditBlockWrapper';
+import { v4 as uuid } from 'uuid';
+
+import { isEmpty } from 'lodash';
 import {
   BlockDataForm,
   SidebarPortal,
   UniversalLink,
 } from '@plone/volto/components';
 import { BodyClass } from '@plone/volto/helpers';
-import SlateEditor from '@plone/volto-slate/editor/SlateEditor';
-import {
-  handleKey,
-  handleKeyDetached,
-} from '@plone/volto-slate/blocks/Text/keyboard';
-import {
-  createSlateHeader,
-  getFieldURL,
-} from '@eeacms/volto-hero-block/helpers';
+
+import { getFieldURL } from '@eeacms/volto-hero-block/helpers';
 import { HeroBlockSchema } from './schema';
 import Copyright from './Copyright';
 import Hero from './Hero';
@@ -39,23 +37,21 @@ const Metadata = ({ buttonLabel, inverted, styles, ...props }) => {
 };
 
 export default function Edit(props) {
-  const { slate } = config.settings;
+  const id = uuid();
+  const [selectedBlock, setSelectedBlock] = useState(id);
   const {
     data = {},
     block = null,
-    selected = false,
-    index,
+    selected,
     properties,
     onChangeBlock,
-    onSelectBlock,
+    onChangeField,
+    pathname,
+    metadata = null,
+    setSidebarTab,
   } = props;
-  const {
-    text,
-    copyright,
-    copyrightIcon,
-    copyrightPosition,
-    isMultiline,
-  } = data;
+  const { copyright, copyrightIcon, copyrightPosition } = data;
+
   const copyrightPrefix = config.blocks.blocksConfig.hero.copyrightPrefix || '';
   const schema = React.useMemo(() => {
     if (isFunction(HeroBlockSchema)) {
@@ -64,80 +60,119 @@ export default function Edit(props) {
     return HeroBlockSchema;
   }, [props]);
 
-  const withBlockProperties = React.useCallback(
-    (editor) => {
-      editor.getBlockProps = () => props;
-      return editor;
-    },
-    [props],
-  );
+  const blockState = {};
+  const data_blocks = data?.data?.blocks;
 
-  const handleFocus = React.useCallback(() => {
-    if (!selected) {
-      onSelectBlock(block);
-    }
-  }, [onSelectBlock, selected, block]);
+  if (data?.text || isEmpty(data_blocks)) {
+    let dataWithoutText = { ...data };
+    if (dataWithoutText) delete dataWithoutText.text;
 
-  const extensions = React.useMemo(() => {
-    if (isMultiline) {
-      return slate.textblockExtensions.filter(
-        (f) => f.name !== 'withSplitBlocksOnBreak',
-      );
-    } else {
-      return slate.textblockExtensions;
-    }
-  }, [slate.textblockExtensions, isMultiline]);
-
-  const value = createSlateHeader(text);
+    onChangeBlock(block, {
+      ...dataWithoutText,
+      data: data?.text
+        ? {
+            blocks: {
+              [id]: {
+                '@type': 'slate',
+                value: data.text,
+                plaintext: data.text?.[0].children?.[0].text,
+              },
+            },
+            blocks_layout: { items: [id] },
+          }
+        : {
+            blocks: {
+              [id]: {
+                '@type': 'slate',
+                value: [{ type: 'h2', children: [{ text: '' }] }],
+                plaintext: '',
+              },
+            },
+            blocks_layout: { items: [id] },
+          },
+    });
+  }
 
   return (
     <>
       <BodyClass className="with-hero-block" />
-      <Hero {...data}>
-        <Hero.Text {...data}>
-          <SlateEditor
-            key={isMultiline}
-            detached={!isMultiline}
-            index={index}
-            properties={properties}
-            extensions={extensions}
-            renderExtensions={[withBlockProperties]}
-            value={value}
-            onChange={(text) => {
-              onChangeBlock(block, {
-                ...data,
-                text,
-              });
-            }}
-            block={block}
-            onFocus={handleFocus}
-            onKeyDown={isMultiline ? handleKeyDetached : handleKey}
-            selected={selected}
-            placeholder="Add text..."
-            slateSettings={slate}
-          />
-        </Hero.Text>
-        <Hero.Meta {...data}>
-          <Metadata {...data} />
-        </Hero.Meta>
-        {copyright ? (
-          <Copyright copyrightPosition={copyrightPosition}>
-            <Copyright.Prefix>{copyrightPrefix}</Copyright.Prefix>
-            <Copyright.Icon>
-              <Icon className={copyrightIcon} />
-            </Copyright.Icon>
-            <Copyright.Text>{copyright}</Copyright.Text>
-          </Copyright>
-        ) : (
-          ''
-        )}
-      </Hero>
-
+      <div
+        className="hero-edit-wrapper"
+        role="presentation"
+        onClick={(e) => {
+          if (e.target?.className?.includes('hero')) {
+            setSelectedBlock(id);
+            setSidebarTab(1);
+          }
+        }}
+      >
+        <Hero {...data}>
+          <Hero.Text {...data}>
+            <BlocksForm
+              metadata={properties || metadata}
+              properties={data.data || {}}
+              manage={false}
+              allowedBlocks={'slate'}
+              selectedBlock={selectedBlock}
+              title={data.placeholder}
+              onSelectBlock={(s, e) => {
+                setSelectedBlock(s);
+              }}
+              onChangeFormData={(newFormData) => {
+                onChangeBlock(block, {
+                  ...data,
+                  data: newFormData,
+                });
+              }}
+              onChangeField={(id, value) => {
+                if (['blocks', 'blocks_layout'].indexOf(id) > -1) {
+                  blockState[id] = value;
+                  onChangeBlock(block, {
+                    ...data,
+                    data: {
+                      ...data.data,
+                      ...blockState,
+                    },
+                  });
+                } else {
+                  onChangeField(id, value);
+                }
+              }}
+              pathname={pathname}
+            >
+              {({ draginfo }, editBlock, blockProps) => (
+                <EditBlockWrapper
+                  draginfo={draginfo}
+                  blockProps={blockProps}
+                  disabled={data.disableInnerButtons}
+                >
+                  {editBlock}
+                </EditBlockWrapper>
+              )}
+            </BlocksForm>
+          </Hero.Text>
+          <Hero.Meta {...data}>
+            <Metadata {...data} />
+          </Hero.Meta>
+          {copyright ? (
+            <Copyright copyrightPosition={copyrightPosition}>
+              <Copyright.Prefix>{copyrightPrefix}</Copyright.Prefix>
+              <Copyright.Icon>
+                <Icon className={copyrightIcon} />
+              </Copyright.Icon>
+              <Copyright.Text>{copyright}</Copyright.Text>
+            </Copyright>
+          ) : (
+            ''
+          )}
+        </Hero>
+      </div>
       <SidebarPortal selected={selected}>
         <BlockDataForm
           block={block}
           schema={schema}
           title={schema.title}
+          onChangeBlock={props.onChangeBlock}
           onChangeField={(id, value) => {
             onChangeBlock(block, {
               ...data,
