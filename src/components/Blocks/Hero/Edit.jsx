@@ -4,8 +4,9 @@ import isFunction from 'lodash/isFunction';
 import { Icon } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
 import { BlocksForm } from '@plone/volto/components';
-import EditBlockWrapper from './EditBlockWrapper';
+import EditBlockWrapper from '@plone/volto/components/manage/Blocks/Block/EditBlockWrapper';
 import { v4 as uuid } from 'uuid';
+import '@eeacms/volto-hero-block/components/Blocks/Hero/edit.css';
 
 import { isEmpty } from 'lodash';
 import {

@@ -26,6 +26,16 @@ Enhanced Hero Block [Volto](https://github.com/plone/volto) add-on
 
 This version requires: `@plone/volto >= 16.0.0.alpha.46` (schemaEnhancer / addStyling).
 
+### Upgrading to 6.x
+
+Starting with version `6.0.0` we have the following breaking changes from version `5.x.x`:
+
+1. Removed inner `div` that was used to add `quoted-wrapper` class.
+   This `class` is now added on the main `div` alongside the other `block` options.
+2. Block is using `BlocksForm` to add more than one `Slate` blocks. 
+This is useful in case you have to add some sub titles or extra paragraphs inside the `Hero block`. The default `Slate` tag is still `h2` but you can change it using the rich text options toolbar.
+
+
 ## Getting started
 
 ### Try volto-hero-block with Docker
