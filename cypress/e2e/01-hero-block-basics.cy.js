@@ -19,9 +19,6 @@ describe('Blocks Tests', () => {
       'hero',
     );
     cy.get('.button.hero').click({ force: true });
-    cy.get('.hero-block-text div[role="textbox"]')
-      .click()
-      .type('My Hero Block');
 
     cy.get(
       '.inline.field.textarea.field-wrapper-buttonLabel textarea#field-buttonLabel',
@@ -36,6 +33,10 @@ describe('Blocks Tests', () => {
     )
       .eq(0)
       .click();
+
+    cy.get('.hero-block-text div[role="textbox"]')
+      .click()
+      .type('My Hero Block');
 
     // Save
     cy.get('#toolbar-save').click();

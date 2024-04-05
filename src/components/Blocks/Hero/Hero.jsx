@@ -35,6 +35,7 @@ function Hero({
 
   const bgImgRef = React.useRef();
   const onScreen = useFirstVisited(bgImgRef);
+
   return (
     <div
       className={cx(
@@ -101,9 +102,10 @@ Hero.Text = ({ children, quoted, styles }) => {
         'hero-block-text',
         `color-fg-${textVariant}`,
         `text-${textAlign}`,
+        quoted ? 'quoted-wrapper' : '',
       )}
     >
-      <div className={quoted ? 'quoted-wrapper' : ''}>{children}</div>
+      {children}
     </div>
   );
 };

@@ -22,11 +22,7 @@ exports[`Hero block renders a hero component 1`] = `
       <div
         className="hero-block-text color-fg-white text-left"
       >
-        <div
-          className=""
-        >
-          Text test
-        </div>
+        Text test
       </div>
       <div
         className="hero-block-meta text-left"
@@ -60,11 +56,7 @@ exports[`Hero block renders a hero component 2`] = `
       <div
         className="hero-block-text color-fg-white text-left"
       >
-        <div
-          className=""
-        >
-          Text test
-        </div>
+        Text test
       </div>
       <div
         className="hero-block-meta text-left"
@@ -104,11 +96,7 @@ exports[`Hero block renders a hero component 3`] = `
       <div
         className="hero-block-text color-fg-white text-left"
       >
-        <div
-          className=""
-        >
-          Text test
-        </div>
+        Text test
       </div>
       <div
         className="hero-block-meta text-left"
@@ -148,11 +136,7 @@ exports[`Hero block renders a hero component 4`] = `
       <div
         className="hero-block-text color-fg-white text-left"
       >
-        <div
-          className=""
-        >
-          Text test
-        </div>
+        Text test
       </div>
       <div
         className="hero-block-meta text-left"
@@ -190,13 +174,9 @@ exports[`Hero block renders a hero component 5`] = `
       className="hero-block-body"
     >
       <div
-        className="hero-block-text color-fg-white text-left"
+        className="hero-block-text color-fg-white text-left quoted-wrapper"
       >
-        <div
-          className="quoted-wrapper"
-        >
-          Text test
-        </div>
+        Text test
       </div>
       <div
         className="hero-block-meta text-left"
@@ -234,13 +214,9 @@ exports[`Hero block renders a hero component 6`] = `
       className="hero-block-body"
     >
       <div
-        className="hero-block-text color-fg-white text-left"
+        className="hero-block-text color-fg-white text-left quoted-wrapper"
       >
-        <div
-          className="quoted-wrapper"
-        >
-          Text test
-        </div>
+        Text test
       </div>
       <div
         className="hero-block-meta text-left"
@@ -278,13 +254,9 @@ exports[`Hero block renders a hero component 7`] = `
       className="hero-block-body"
     >
       <div
-        className="hero-block-text color-fg-white text-left"
+        className="hero-block-text color-fg-white text-left quoted-wrapper"
       >
-        <div
-          className="quoted-wrapper"
-        >
-          Text test
-        </div>
+        Text test
       </div>
       <div
         className="hero-block-meta text-left"
