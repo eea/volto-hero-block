@@ -31,6 +31,7 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     cy.get('.blocks-chooser .title').contains('Common').click();
     cy.get('.content.active.common .button.hero')
       .contains('Hero')
+
       .click({ force: true });
 
     cy.get('#toolbar-save').click();
@@ -44,14 +45,11 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     cy.get('button[class="add"]').click();
     cy.get('#toolbar-add-book').click();
     cy.get('.block.title').contains('Book title');
-    cy.get('.block.hero div[role="presentation"]').click();
 
     // Add text and button
-    cy.get('.hero-block-text div[role="textbox"]')
-      .click()
-      .type('My hero block');
-    cy.get('label[for="field-fullWidth"]').click();
-    cy.get('label[for="field-fullHeight"]').click();
+    cy.get('.block.hero div[role="presentation"]').first().click();
+    cy.get('.formtabs.menu').children().first().next().click();
+
     cy.get('label[for="field-quoted"]').click();
     cy.get('label[for="field-spaced"]').click();
     cy.get('.field-wrapper-buttonLabel #field-buttonLabel')
@@ -64,6 +62,10 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     cy.get(
       '.inline.field.field-attached-image .ui.buttons .primary.button',
     ).click();
+
+    cy.get('.hero-block-text div[role="textbox"]')
+      .click()
+      .type('My hero block');
 
     // Change book title
     cy.clearSlateTitle();
