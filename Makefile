@@ -46,7 +46,7 @@ endif
 DIR=$(shell basename $$(pwd))
 NODE_MODULES?="../../../node_modules"
 PLONE_VERSION?=6
-VOLTO_VERSION?=16
+VOLTO_VERSION?=17
 ADDON_PATH="${DIR}"
 ADDON_NAME="@eeacms/${ADDON_PATH}"
 DOCKER_COMPOSE=PLONE_VERSION=${PLONE_VERSION} VOLTO_VERSION=${VOLTO_VERSION} ADDON_NAME=${ADDON_NAME} ADDON_PATH=${ADDON_PATH} docker compose
@@ -119,11 +119,11 @@ prettier-fix:	## Fix prettier
 
 .PHONY: lint
 lint:			## ES Lint
-	$(NODE_MODULES)/eslint/bin/eslint.js --max-warnings=0 'src/**/*.{js,jsx}'
+	$(NODE_MODULES)/.bin/eslint --max-warnings=0 'src/**/*.{js,jsx}'
 
 .PHONY: lint-fix
 lint-fix:		## Fix ES Lint
-	$(NODE_MODULES)/eslint/bin/eslint.js --fix 'src/**/*.{js,jsx}'
+	$(NODE_MODULES)/.bin/eslint --fix 'src/**/*.{js,jsx}'
 
 .PHONY: i18n
 i18n:			## i18n
