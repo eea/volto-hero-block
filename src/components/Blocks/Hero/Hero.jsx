@@ -28,7 +28,7 @@ function Hero({
   styles,
   ...props
 }) {
-  const image = getFieldURL(props.image);
+  const image = getFieldURL(props.url || props.image);
   const isExternal = !isInternalURL(image);
   const { alignContent = 'center', backgroundVariant = 'primary' } =
     styles || {};

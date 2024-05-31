@@ -29,7 +29,7 @@ export const HeroBlockSchema = () => {
           'buttonLabel',
           'buttonLink',
           'overlay',
-          'image',
+          'url',
         ],
       },
       {
@@ -77,7 +77,8 @@ export const HeroBlockSchema = () => {
         type: 'boolean',
         defaultValue: true,
       },
-      image: {
+
+      url: {
         title: 'Image',
         widget: 'attachedimage',
       },
