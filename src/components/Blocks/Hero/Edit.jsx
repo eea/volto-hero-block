@@ -64,18 +64,6 @@ export default function Edit(props) {
   const blockState = {};
   const data_blocks = data?.data?.blocks;
 
-  React.useEffect(() => {
-    if (data.image) {
-      let image = data.image;
-      let copyData = { ...data };
-      delete copyData.image;
-      onChangeBlock(block, {
-        ...copyData,
-        url: image,
-      });
-    }
-  }, [block, data, onChangeBlock]);
-
   if (data?.text || isEmpty(data_blocks)) {
     let dataWithoutText = { ...data };
     if (dataWithoutText) delete dataWithoutText.text;
