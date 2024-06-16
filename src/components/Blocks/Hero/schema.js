@@ -81,6 +81,7 @@ export const HeroBlockSchema = () => {
       image: {
         '@type': 'URL',
         title: 'Image',
+        selectedItemAttrs: ['image_field', 'image_scales', '@type'],
         widget: 'attachedimage',
       },
       copyright: {
