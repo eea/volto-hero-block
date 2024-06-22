@@ -14,7 +14,6 @@ pipeline {
     BACKEND_PROFILES = "eea.kitkat:testing"
     BACKEND_ADDONS = ""
     VOLTO = "17"
-    VOLTO16_BREAKING_CHANGES = "yes"
     IMAGE_NAME = BUILD_TAG.toLowerCase()
   }
 
