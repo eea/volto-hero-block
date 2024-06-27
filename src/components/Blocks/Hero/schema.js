@@ -101,7 +101,7 @@ export const HeroBlockSchema = ({ data }) => {
         title: 'Align',
         widget: 'align',
         actions: ['left', 'right'],
-        defaultValue: 'left',
+        default: 'left',
       },
       height: {
         title: 'Height',
@@ -140,7 +140,7 @@ export const stylingSchema = (props) => {
         widget: 'align',
         actions: Object.keys(ALIGN_INFO_MAP),
         actionsInfoMap: ALIGN_INFO_MAP,
-        defaultValue: 'has--bg--center',
+        default: 'has--bg--center',
       },
       backgroundVariant: {
         title: 'Background theme',
@@ -162,12 +162,13 @@ export const stylingSchema = (props) => {
           ['center', 'Center'],
           ['end', 'Bottom'],
         ],
+        default: 'center',
       },
       textAlign: {
         title: 'Text align',
         widget: 'align',
         actions: ['left', 'center', 'right'],
-        defaultValue: 'left',
+        default: 'left',
       },
       textVariant: {
         title: 'Text theme',
@@ -199,7 +200,7 @@ export const stylingSchema = (props) => {
         title: 'Button align',
         widget: 'align',
         actions: ['left', 'center', 'right'],
-        defaultValue: 'left',
+        default: 'left',
       },
     },
     required: [],
