@@ -26,6 +26,7 @@ function Hero({
   spaced = false,
   inverted = true,
   styles,
+  height,
   ...props
 }) {
   const image = getFieldURL(props.image);
@@ -35,6 +36,7 @@ function Hero({
 
   const bgImgRef = React.useRef();
   const onScreen = useFirstVisited(bgImgRef);
+  const containerCssStyles = { ...(height && !fullHeight ? { height } : {}) };
 
   return (
     <div
@@ -62,6 +64,7 @@ function Hero({
             'full-width': fullWidth,
           },
         )}
+        style={containerCssStyles}
       >
         <div
           className={cx('hero-block-image', styles?.bg)}
@@ -87,6 +90,7 @@ function Hero({
           'hero-block-inner-wrapper d-flex',
           `flex-items-${alignContent}`,
         )}
+        style={containerCssStyles}
       >
         <div className="hero-block-body">{children}</div>
       </div>

@@ -13,7 +13,7 @@ const ALIGN_INFO_MAP = {
   '': [clearSVG, 'None'],
 };
 
-export const HeroBlockSchema = () => {
+export const HeroBlockSchema = ({ data }) => {
   return {
     title: 'Hero',
     fieldsets: [
@@ -23,6 +23,7 @@ export const HeroBlockSchema = () => {
         fields: [
           'fullWidth',
           'fullHeight',
+          ...(!data?.fullHeight ? ['height'] : []),
           'quoted',
           'spaced',
           'inverted',
@@ -101,6 +102,12 @@ export const HeroBlockSchema = () => {
         widget: 'align',
         actions: ['left', 'right'],
         defaultValue: 'left',
+      },
+      height: {
+        title: 'Height',
+        description:
+          'Use CSS numeric dimmension (ex: 100px or 20vh). ' +
+          'Images cannnot be made smaller than min-height.',
       },
     },
     required: [],
