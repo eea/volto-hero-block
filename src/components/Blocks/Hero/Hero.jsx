@@ -67,7 +67,6 @@ function Hero({
           'full-height': fullHeight,
         },
       )}
-      style={containerCssStyles}
     >
       <div
         className={cx(
@@ -80,6 +79,7 @@ function Hero({
             'full-width': fullWidth,
           },
         )}
+        style={containerCssStyles}
       >
         <div
           className={cx('hero-block-image', styles?.bg)}
@@ -95,6 +95,7 @@ function Hero({
           'hero-block-inner-wrapper d-flex',
           `flex-items-${alignContent}`,
         )}
+        style={containerCssStyles}
       >
         <div className="hero-block-body">{children}</div>
       </div>
