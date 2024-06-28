@@ -26,15 +26,32 @@ function Hero({
   spaced = false,
   inverted = true,
   styles,
+  height,
   ...props
 }) {
   const image = getFieldURL(props.image);
   const isExternal = !isInternalURL(image);
   const { alignContent = 'center', backgroundVariant = 'primary' } =
     styles || {};
-
   const bgImgRef = React.useRef();
   const onScreen = useFirstVisited(bgImgRef);
+  const containerCssStyles = React.useMemo(
+    () => ({
+      ...(height && !fullHeight ? { height } : {}),
+    }),
+    [height, fullHeight],
+  );
+
+  const backgroundImageStyle =
+    onScreen && image
+      ? {
+          backgroundImage: isExternal
+            ? `url(${image})`
+            : isImageGif(image)
+            ? `url(${image}/@@images/image)`
+            : `url(${image}/@@images/image/huge)`,
+        }
+      : {};
 
   return (
     <div
@@ -62,21 +79,12 @@ function Hero({
             'full-width': fullWidth,
           },
         )}
+        style={containerCssStyles}
       >
         <div
           className={cx('hero-block-image', styles?.bg)}
           ref={bgImgRef}
-          style={
-            image && onScreen
-              ? {
-                  backgroundImage: isExternal
-                    ? `url(${image})`
-                    : isImageGif(image)
-                    ? `url(${image}/@@images/image)`
-                    : `url(${image}/@@images/image/huge)`,
-                }
-              : {}
-          }
+          style={backgroundImageStyle}
         />
         {image && overlay && (
           <div className="hero-block-image-overlay dark-overlay-4"></div>
@@ -87,6 +95,7 @@ function Hero({
           'hero-block-inner-wrapper d-flex',
           `flex-items-${alignContent}`,
         )}
+        style={containerCssStyles}
       >
         <div className="hero-block-body">{children}</div>
       </div>

@@ -13,7 +13,7 @@ const ALIGN_INFO_MAP = {
   '': [clearSVG, 'None'],
 };
 
-export const HeroBlockSchema = () => {
+export const HeroBlockSchema = ({ data }) => {
   return {
     title: 'Hero',
     fieldsets: [
@@ -23,6 +23,7 @@ export const HeroBlockSchema = () => {
         fields: [
           'fullWidth',
           'fullHeight',
+          ...(!data?.fullHeight ? ['height'] : []),
           'quoted',
           'spaced',
           'inverted',
@@ -100,7 +101,13 @@ export const HeroBlockSchema = () => {
         title: 'Align',
         widget: 'align',
         actions: ['left', 'right'],
-        defaultValue: 'left',
+        default: 'left',
+      },
+      height: {
+        title: 'Height',
+        description:
+          'Use CSS numeric dimmension (ex: 100px or 20vh). ' +
+          'Images cannnot be made smaller than min-height.',
       },
     },
     required: [],
@@ -133,7 +140,7 @@ export const stylingSchema = (props) => {
         widget: 'align',
         actions: Object.keys(ALIGN_INFO_MAP),
         actionsInfoMap: ALIGN_INFO_MAP,
-        defaultValue: 'has--bg--center',
+        default: 'has--bg--center',
       },
       backgroundVariant: {
         title: 'Background theme',
@@ -155,12 +162,13 @@ export const stylingSchema = (props) => {
           ['center', 'Center'],
           ['end', 'Bottom'],
         ],
+        default: 'center',
       },
       textAlign: {
         title: 'Text align',
         widget: 'align',
         actions: ['left', 'center', 'right'],
-        defaultValue: 'left',
+        default: 'left',
       },
       textVariant: {
         title: 'Text theme',
@@ -192,7 +200,7 @@ export const stylingSchema = (props) => {
         title: 'Button align',
         widget: 'align',
         actions: ['left', 'center', 'right'],
-        defaultValue: 'left',
+        default: 'left',
       },
     },
     required: [],
