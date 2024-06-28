@@ -78,8 +78,10 @@ export const HeroBlockSchema = ({ data }) => {
         type: 'boolean',
         defaultValue: true,
       },
+
       image: {
         title: 'Image',
+        selectedItemAttrs: ['image_field', 'image_scales', '@type'],
         widget: 'attachedimage',
       },
       copyright: {
