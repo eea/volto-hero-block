@@ -4,14 +4,16 @@ import config from '@plone/volto/registry';
 import alignTopSVG from '@plone/volto/icons/move-up.svg';
 import alignCenterSVG from '@plone/volto/icons/row.svg';
 import alignBottomSVG from '@plone/volto/icons/move-down.svg';
+import clearSVG from '@plone/volto/icons/clear.svg';
 
 const ALIGN_INFO_MAP = {
   'has--bg--top': [alignTopSVG, 'Top'],
   'has--bg--center': [alignCenterSVG, 'Center'],
   'has--bg--bottom': [alignBottomSVG, 'Bottom'],
+  '': [clearSVG, 'None'],
 };
 
-export const HeroBlockSchema = () => {
+export const HeroBlockSchema = ({ data }) => {
   return {
     title: 'Hero',
     fieldsets: [
@@ -21,6 +23,7 @@ export const HeroBlockSchema = () => {
         fields: [
           'fullWidth',
           'fullHeight',
+          ...(!data?.fullHeight ? ['height'] : []),
           'quoted',
           'spaced',
           'inverted',
@@ -88,11 +91,7 @@ export const HeroBlockSchema = () => {
         description: (
           <>
             Ex. ri-copyright-line. See{' '}
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://remixicon.com/"
-            >
+            <a target="_blank" rel="noopener" href="https://remixicon.com/">
               Remix Icon set
             </a>
           </>
@@ -103,7 +102,13 @@ export const HeroBlockSchema = () => {
         title: 'Align',
         widget: 'align',
         actions: ['left', 'right'],
-        defaultValue: 'left',
+        default: 'left',
+      },
+      height: {
+        title: 'Height',
+        description:
+          'Use CSS numeric dimmension (ex: 100px or 20vh). ' +
+          'Images cannnot be made smaller than min-height.',
       },
     },
     required: [],
@@ -132,11 +137,11 @@ export const stylingSchema = (props) => {
     ],
     properties: {
       bg: {
-        title: 'Background image position',
+        title: 'Image position',
         widget: 'align',
         actions: Object.keys(ALIGN_INFO_MAP),
         actionsInfoMap: ALIGN_INFO_MAP,
-        defaultValue: 'has--bg--center',
+        default: 'has--bg--center',
       },
       backgroundVariant: {
         title: 'Background theme',
@@ -158,12 +163,13 @@ export const stylingSchema = (props) => {
           ['center', 'Center'],
           ['end', 'Bottom'],
         ],
+        default: 'center',
       },
       textAlign: {
         title: 'Text align',
         widget: 'align',
         actions: ['left', 'center', 'right'],
-        defaultValue: 'left',
+        default: 'left',
       },
       textVariant: {
         title: 'Text theme',
@@ -195,7 +201,7 @@ export const stylingSchema = (props) => {
         title: 'Button align',
         widget: 'align',
         actions: ['left', 'center', 'right'],
-        defaultValue: 'left',
+        default: 'left',
       },
     },
     required: [],

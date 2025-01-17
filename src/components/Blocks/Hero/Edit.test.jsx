@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import Edit from './Edit';
@@ -7,25 +7,33 @@ import config from '@plone/volto/registry';
 import '@testing-library/jest-dom/extend-expect';
 
 const mockStore = configureStore([]);
-
-jest.mock('@plone/volto-slate/editor/SlateEditor', () => {
+const observe = jest.fn();
+const unobserve = jest.fn();
+jest.mock('@plone/volto/components', () => {
   return {
     __esModule: true,
-    default: ({ placeholder, children, onChange, onFocus }) => (
-      <div
-        onChange={(target) => onChange(target)}
-        onFocus={() => onFocus()}
-        id="test"
-      >
+    BlocksForm: ({ placeholder, children, onChange, onFocus }) => (
+      <div id="test">
         <div>{placeholder}</div>
         {children}
       </div>
     ),
+    SidebarPortal: ({ children }) => <div>{children}</div>,
+    BlockDataForm: () => <div></div>,
+    UniversalLink: () => <div></div>,
+    RenderBlocks: () => <div></div>,
   };
 });
+jest.mock('react-router-dom', () => ({
+  useLocation: jest.fn().mockReturnValue({
+    pathname: '/test-jest',
+    search: '',
+    hash: '',
+    state: null,
+    key: 'test-jest',
+  }),
+}));
 
-const observe = jest.fn();
-const unobserve = jest.fn();
 window.IntersectionObserver = jest.fn((callback) => ({
   observe,
   unobserve,
@@ -60,7 +68,7 @@ describe('Edit component', () => {
   it('renders without crashing', () => {
     const { container } = render(
       <Provider store={store}>
-        <Edit />
+        <Edit onChangeBlock={() => {}} onSelectBlock={() => {}} />
       </Provider>,
     );
     expect(container).toBeTruthy();
@@ -82,33 +90,11 @@ describe('Edit component', () => {
 
     const { container } = render(
       <Provider store={store}>
-        <Edit data={data} />
+        <Edit data={data} onChangeBlock={() => {}} />
       </Provider>,
     );
 
     expect(container.querySelector('#test')).toBeInTheDocument();
-  });
-
-  it('calls onFocus when SlateEditor is focused', () => {
-    config.blocks = {
-      blocksConfig: {
-        hero: {
-          copyrightPrefix: 'Test Prefix',
-          schema: () => ({
-            title: 'Hero',
-          }),
-        },
-      },
-    };
-    const onSelectBlock = jest.fn();
-    const { getByText } = render(
-      <Provider store={store}>
-        <Edit onSelectBlock={onSelectBlock} />
-      </Provider>,
-    );
-
-    fireEvent.focus(getByText('Add text...'));
-    expect(onSelectBlock).toHaveBeenCalled();
   });
 
   it('renders without copyrightPrefix', () => {
@@ -124,7 +110,7 @@ describe('Edit component', () => {
     const onSelectBlock = jest.fn();
     render(
       <Provider store={store}>
-        <Edit onSelectBlock={onSelectBlock} />
+        <Edit onSelectBlock={onSelectBlock} onChangeBlock={() => {}} />
       </Provider>,
     );
   });

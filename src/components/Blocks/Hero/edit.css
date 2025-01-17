@@ -1,0 +1,5 @@
+.hero-block .block-add-button,
+.hero-block .drag.handle.wrapper,
+.hero-block .block-editor-slate:first-of-type .delete-button {
+  display: none !important;
+}

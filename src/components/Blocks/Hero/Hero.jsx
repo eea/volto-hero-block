@@ -1,7 +1,11 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { getImageScaleParams } from '@eeacms/volto-hero-block/helpers';
+import {
+  getImageScaleParams,
+  isImageGif,
+} from '@eeacms/volto-hero-block/helpers';
+import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 import { useFirstVisited } from '@eeacms/volto-hero-block/hooks';
 
 Hero.propTypes = {
@@ -26,14 +30,33 @@ function Hero({
   inverted = true,
   styles,
   image,
+  height,
   ...props
 }) {
   const scaledImage = getImageScaleParams(image, 'huge');
   const { alignContent = 'center', backgroundVariant = 'primary' } =
     styles || {};
-
+  const isExternal = image && !isInternalURL(image.value);
   const bgImgRef = React.useRef();
   const onScreen = useFirstVisited(bgImgRef);
+  const containerCssStyles = React.useMemo(
+    () => ({
+      ...(height && !fullHeight ? { height } : {}),
+    }),
+    [height, fullHeight],
+  );
+
+  const backgroundImageStyle =
+    onScreen && image
+      ? {
+          backgroundImage: isExternal
+            ? `url(${image})`
+            : isImageGif(image)
+            ? `url(${image}/@@images/image)`
+            : `url(${image}/@@images/image/huge)`,
+        }
+      : {};
+
   return (
     <div
       className={cx(
@@ -60,19 +83,12 @@ function Hero({
             'full-width': fullWidth,
           },
         )}
+        style={containerCssStyles}
       >
         <div
           className={cx('hero-block-image', styles?.bg)}
           ref={bgImgRef}
-          style={
-            scaledImage && onScreen
-              ? {
-                  backgroundImage: `url(${
-                    scaledImage?.download ?? scaledImage
-                  })`,
-                }
-              : {}
-          }
+          style={backgroundImageStyle}
         />
         {scaledImage && overlay && (
           <div className="hero-block-image-overlay dark-overlay-4"></div>
@@ -83,6 +99,7 @@ function Hero({
           'hero-block-inner-wrapper d-flex',
           `flex-items-${alignContent}`,
         )}
+        style={containerCssStyles}
       >
         <div className="hero-block-body">{children}</div>
       </div>
@@ -98,9 +115,10 @@ Hero.Text = ({ children, quoted, styles }) => {
         'hero-block-text',
         `color-fg-${textVariant}`,
         `text-${textAlign}`,
+        quoted ? 'quoted-wrapper' : '',
       )}
     >
-      <div className={quoted ? 'quoted-wrapper' : ''}>{children}</div>
+      {children}
     </div>
   );
 };
