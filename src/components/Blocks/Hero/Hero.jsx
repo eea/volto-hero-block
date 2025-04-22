@@ -36,7 +36,9 @@ function Hero({
   const scaledImage = getImageScaleParams(image, 'huge');
   const { alignContent = 'center', backgroundVariant = 'primary' } =
     styles || {};
-  const isExternal = image && !isInternalURL(image.value);
+
+  const isExternal =
+    scaledImage?.download && !isInternalURL(scaledImage.download);
   const bgImgRef = React.useRef();
   const onScreen = useFirstVisited(bgImgRef);
   const containerCssStyles = React.useMemo(
@@ -50,10 +52,10 @@ function Hero({
     onScreen && image
       ? {
           backgroundImage: isExternal
-            ? `url(${image})`
+            ? `url(${scaledImage.download})`
             : isImageGif(image)
-            ? `url(${image}/@@images/image)`
-            : `url(${image}/@@images/image/huge)`,
+            ? `url(${image.value})`
+            : `url(${scaledImage.download})`,
         }
       : {};
 
