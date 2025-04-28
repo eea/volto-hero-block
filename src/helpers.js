@@ -12,7 +12,7 @@ export const getFieldURL = (data) => {
     url = data['@id'] ?? data['url'] ?? data['href'] ?? data;
   }
   if (Array.isArray(data) && data.length > 0) {
-    url = getFieldURL(data[0]);
+    url = data.map((item) => getFieldURL(item));
   }
   if (isString(url) && isInternalURL(url)) return flattenToAppURL(url);
   return url;
@@ -39,7 +39,7 @@ export const isImageGif = (image) => {
 };
 
 export function getImageScaleParams(image, size) {
-  if (!image) return null;
+  if (!image) return;
   const imageScale = size || 'preview'; // listings use preview scale
 
   if (Array.isArray(image)) {

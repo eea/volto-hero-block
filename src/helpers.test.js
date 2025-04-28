@@ -15,7 +15,7 @@ jest.mock('@plone/volto-slate/editor/render', () => ({
 
 jest.mock('@plone/volto/helpers', () => ({
   flattenToAppURL: jest.fn((url) => url),
-  isInternalURL: jest.fn((url) => true),
+  isInternalURL: jest.fn((url) => !url?.startsWith('http://external')),
 }));
 
 describe('getImageScaleParams', () => {
@@ -100,7 +100,10 @@ describe('getImageScaleParams', () => {
     const url = 'http://localhost:3000/image';
     const size = 'large';
     getImageScaleParams(url, size);
-    expect(flattenToAppURL).toHaveBeenCalledWith('http://localhost:3000/image');
+    // Expect flattenToAppURL to be called with the *constructed* scale URL
+    expect(flattenToAppURL).toHaveBeenCalledWith(
+      'http://localhost:3000/image/@@images/image/large',
+    );
   });
 
   it('returns expected image scale URL string when image url (string) is passed', () => {
@@ -111,15 +114,13 @@ describe('getImageScaleParams', () => {
   });
 
   it('returns image URL string when external image url (string) is passed', () => {
-    isInternalURL.mockReturnValue(false);
     const image = 'http://external-url.com';
     expect(getImageScaleParams(image)).toEqual({
       download: image,
     });
   });
 
-  it('returns image URL string when image url (object) with no scales is passed', () => {
-    isInternalURL.mockReturnValue(true);
+  it('returns image URL string when image url (object) with no scales is passed, requesting preview', () => {
     const image = {
       '@id': 'http://localhost:3000/image',
       image: {
@@ -128,13 +129,12 @@ describe('getImageScaleParams', () => {
         height: 400,
       },
     };
-    expect(getImageScaleParams(image)).toEqual({
+    expect(getImageScaleParams(image, 'preview')).toEqual({
       download: `${image['@id']}/@@images/image/preview`,
     });
   });
 
   it('returns image URL string when external image url (object) is passed', () => {
-    isInternalURL.mockReturnValue(false);
     const image = {
       '@id': 'http://external-url.com',
       image: {
@@ -153,6 +153,134 @@ describe('getImageScaleParams', () => {
     expect(getImageScaleParams(image)).toEqual({
       download: image['@id'],
     });
+  });
+
+  it('returns undefined when image is null', () => {
+    expect(getImageScaleParams(null, 'preview')).toBeUndefined();
+  });
+
+  it('returns undefined when image is undefined', () => {
+    expect(getImageScaleParams(undefined, 'preview')).toBeUndefined();
+  });
+
+  it('returns the base scale when the requested scale does not exist (image_scales structure)', () => {
+    const image = {
+      '@id': 'http://localhost:3000/image',
+      image_field: 'image',
+      image_scales: {
+        image: [
+          {
+            download: '@@images/image.png',
+            width: 400,
+            height: 400,
+            scales: {
+              preview: {
+                download: '@@images/image-400.png',
+                width: 400,
+                height: 400,
+              },
+            },
+          },
+        ],
+      },
+    };
+    const expectedUrlObj = {
+      download: 'http://localhost:3000/image/@@images/image.png',
+      width: 400,
+      height: 400,
+    };
+    expect(getImageScaleParams(image, 'nonexistent_scale')).toEqual(
+      expectedUrlObj,
+    );
+  });
+
+  it('returns the base image object when the requested scale does not exist (image.scales structure)', () => {
+    const image = {
+      '@id': 'http://localhost:3000/image',
+      image: {
+        download: 'http://localhost:3000/image/@@images/image.png',
+        width: 400,
+        height: 400,
+        scales: {
+          preview: {
+            download: 'http://localhost:3000/image/@@images/image-400.png',
+            width: 400,
+            height: 400,
+          },
+        },
+      },
+    };
+    const expectedUrlObj = {
+      download: 'http://localhost:3000/image/@@images/image.png',
+      width: 400,
+      height: 400,
+    };
+    expect(getImageScaleParams(image, 'nonexistent_scale')).toEqual(
+      expectedUrlObj,
+    );
+  });
+
+  it('returns fallback URL when image object has no scale information', () => {
+    const image = {
+      '@id': 'http://localhost:3000/some-image',
+      image_field: 'my_image_field',
+    };
+    const expectedUrlObj = {
+      download:
+        'http://localhost:3000/some-image/@@images/my_image_field/preview',
+    };
+    expect(getImageScaleParams(image, 'preview')).toEqual(expectedUrlObj);
+  });
+
+  it('returns fallback URL using default field "image" when image object has no scale or field info', () => {
+    const image = {
+      '@id': 'http://localhost:3000/another-image',
+    };
+    const expectedUrlObj = {
+      download: 'http://localhost:3000/another-image/@@images/image/large',
+    };
+    expect(getImageScaleParams(image, 'large')).toEqual(expectedUrlObj);
+  });
+
+  it('defaults to "preview" scale when size argument is not provided (string URL)', () => {
+    const image = 'http://localhost:3000/image/some-image.png';
+    const scaleToUse = undefined; // Simulate calling without size
+    const expectedScale = 'preview'; // The actual default fallback
+    // Expect the constructed URL with default scale 'preview'
+    expect(getImageScaleParams(image, scaleToUse)).toEqual({
+      download: `${image}/@@images/image/${expectedScale}`,
+    });
+  });
+
+  it('defaults to "preview" scale when size argument is not provided (object URL with scales)', () => {
+    const image = {
+      '@id': 'http://localhost:3000/image',
+      image: {
+        download: 'http://localhost:3000/image/@@images/image.png',
+        width: 1200,
+        height: 800,
+        scales: {
+          huge: {
+            download: 'http://localhost:3000/image/@@images/image-1200.png',
+            width: 1200,
+            height: 800,
+          },
+          preview: {
+            download: 'http://localhost:3000/image/@@images/image-400.png',
+            width: 400,
+            height: 400,
+          },
+        },
+      },
+    };
+    const scaleToUse = undefined; // Simulate calling without size
+    // Expect the details of the existing 'preview' scale
+    const expectedUrlObj = {
+      download: 'http://localhost:3000/image/@@images/image-400.png',
+      width: 400,
+      height: 400,
+    };
+    expect(getImageScaleParams(image, scaleToUse)).toEqual(expectedUrlObj);
   });
 });
 
