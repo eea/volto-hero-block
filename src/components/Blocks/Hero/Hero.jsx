@@ -1,11 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import {
-  getImageScaleParams,
-  isImageGif,
-} from '@eeacms/volto-hero-block/helpers';
-import { isInternalURL } from '@plone/volto/helpers/Url/Url';
+import { getImageScaleParams } from '@eeacms/volto-hero-block/helpers';
 import { useFirstVisited } from '@eeacms/volto-hero-block/hooks';
 
 Hero.propTypes = {
@@ -33,12 +29,10 @@ function Hero({
   height,
   ...props
 }) {
-  const scaledImage = getImageScaleParams(image, 'huge');
+  const scaledImage = image ? getImageScaleParams(image, 'huge') : null;
   const { alignContent = 'center', backgroundVariant = 'primary' } =
     styles || {};
 
-  const isExternal =
-    scaledImage?.download && !isInternalURL(scaledImage.download);
   const bgImgRef = React.useRef();
   const onScreen = useFirstVisited(bgImgRef);
   const containerCssStyles = React.useMemo(
@@ -47,15 +41,10 @@ function Hero({
     }),
     [height, fullHeight],
   );
-
   const backgroundImageStyle =
-    onScreen && image
+    onScreen && scaledImage
       ? {
-          backgroundImage: isExternal
-            ? `url(${scaledImage.download})`
-            : isImageGif(image)
-            ? `url(${image.value})`
-            : `url(${scaledImage.download})`,
+          backgroundImage: `url(${scaledImage.download})`,
         }
       : {};
 
