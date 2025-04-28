@@ -7,7 +7,7 @@ import {
 } from './helpers';
 import { isArray } from 'lodash';
 import { serializeNodes } from '@plone/volto-slate/editor/render';
-import { flattenToAppURL, isInternalURL } from '@plone/volto/helpers';
+import { flattenToAppURL } from '@plone/volto/helpers';
 
 jest.mock('@plone/volto-slate/editor/render', () => ({
   serializeNodes: jest.fn(),
