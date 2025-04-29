@@ -13,7 +13,7 @@ const ALIGN_INFO_MAP = {
   '': [clearSVG, 'None'],
 };
 
-export const HeroBlockSchema = ({ data }) => {
+export const HeroBlockSchema = ({ data = {} }) => {
   return {
     title: 'Hero',
     fieldsets: [

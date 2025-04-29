@@ -5,7 +5,7 @@ import { getImageScaleParams } from '@eeacms/volto-hero-block/helpers';
 import { useFirstVisited } from '@eeacms/volto-hero-block/hooks';
 
 Hero.propTypes = {
-  image: PropTypes.string,
+  image: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   fullWidth: PropTypes.bool,
   fullHeight: PropTypes.bool,
   alignContent: PropTypes.string,

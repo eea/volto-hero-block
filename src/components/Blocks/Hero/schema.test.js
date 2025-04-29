@@ -60,7 +60,7 @@ describe('stylingSchema', () => {
 
 describe('HeroBlockSchema', () => {
   it('checks if the hero block schema is valid', () => {
-    const schema = HeroBlockSchema();
+    const schema = HeroBlockSchema({ data: {} });
     expect(schema.fieldsets).toHaveLength(2);
   });
 });

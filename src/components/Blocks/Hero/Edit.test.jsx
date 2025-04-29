@@ -6,6 +6,11 @@ import Edit from './Edit';
 import config from '@plone/volto/registry';
 import '@testing-library/jest-dom/extend-expect';
 
+// Mock uuid to avoid node:crypto import issues
+jest.mock('uuid', () => ({
+  v4: () => 'mock-uuid',
+}));
+
 const mockStore = configureStore([]);
 const observe = jest.fn();
 const unobserve = jest.fn();
