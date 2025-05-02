@@ -6,7 +6,8 @@ import { BodyClass } from '@plone/volto/helpers';
 import { useLocation } from 'react-router-dom';
 import Hero from './Hero';
 import Copyright from './Copyright';
-import { serializeText, getFieldURL } from '@eeacms/volto-hero-block/helpers';
+import { serializeText } from '@eeacms/volto-hero-block/helpers';
+import { getFieldURL } from '@plone/volto/helpers/Url/Url';
 import config from '@plone/volto/registry';
 
 const Metadata = ({ buttonLabel, inverted, styles, ...props }) => {

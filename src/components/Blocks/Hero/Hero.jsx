@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { getImageScaleParams } from '@eeacms/volto-hero-block/helpers';
+import { getImageScaleParams } from '@eeacms/volto-object-widget/helpers';
 import { useFirstVisited } from '@eeacms/volto-hero-block/hooks';
 
 Hero.propTypes = {
