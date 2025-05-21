@@ -1,4 +1,4 @@
-import React, {useMemo, useRef} from 'react';
+import React, { useMemo, useRef } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
@@ -42,15 +42,19 @@ function Hero({
     [height, fullHeight],
   );
 
-  const backgroundImageStyle = useMemo(() => onScreen && image
-      ? {
-          backgroundImage: isExternal
-            ? `url(${image})`
-            : isImageGif(image)
-            ? `url(${image}/@@images/image)`
-            : `url(${image}/@@images/image/huge)`,
-        }
-      : {}, [isExternal, onScreen, image]);
+  const backgroundImageStyle = useMemo(
+    () =>
+      onScreen && image
+        ? {
+            backgroundImage: isExternal
+              ? `url(${image})`
+              : isImageGif(image)
+              ? `url(${image}/@@images/image)`
+              : `url(${image}/@@images/image/huge)`,
+          }
+        : {},
+    [isExternal, onScreen, image],
+  );
 
   return (
     <div
