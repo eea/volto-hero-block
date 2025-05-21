@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, { useMemo } from 'react';
 import cx from 'classnames';
 import { Icon } from 'semantic-ui-react';
 import { UniversalLink, RenderBlocks } from '@plone/volto/components';
@@ -44,7 +44,9 @@ const View = (props) => {
               metadata={metadata}
               content={data?.data || {}}
             />
-          ) : serializedText}
+          ) : (
+            serializedText
+          )}
         </Hero.Text>
         <Hero.Meta {...data}>
           <Metadata {...data} />
