@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useRef } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { getImageScaleParams } from '@eeacms/volto-object-widget/helpers';
@@ -17,36 +17,42 @@ Hero.propTypes = {
   textVariant: PropTypes.string,
 };
 
-function Hero({
-  overlay = true,
-  fullWidth = true,
-  fullHeight = true,
-  children,
-  spaced = false,
-  inverted = true,
-  styles,
-  image,
-  height,
-  ...props
-}) {
-  const scaledImage = image ? getImageScaleParams(image, 'huge') : null;
+function Hero(props) {
+  const {
+    image,
+    fullWidth = false,
+    fullHeight = false,
+    height,
+    styles,
+    overlay = true,
+    children,
+    spaced = false,
+    inverted = false,
+  } = props;
+
+  const scaledImage = useMemo(
+    () => (image ? getImageScaleParams(image, 'huge') : null),
+    [image],
+  );
   const { alignContent = 'center', backgroundVariant = 'primary' } =
     styles || {};
-
-  const bgImgRef = React.useRef();
+  const bgImgRef = useRef();
   const onScreen = useFirstVisited(bgImgRef);
-  const containerCssStyles = React.useMemo(
+  const containerCssStyles = useMemo(
     () => ({
       ...(height && !fullHeight ? { height } : {}),
     }),
     [height, fullHeight],
   );
-  const backgroundImageStyle =
-    onScreen && scaledImage
-      ? {
-          backgroundImage: `url(${scaledImage.download})`,
-        }
-      : {};
+  const backgroundImageStyle = useMemo(
+    () =>
+      onScreen && scaledImage
+        ? {
+            backgroundImage: `url(${scaledImage.download})`,
+          }
+        : {},
+    [onScreen, scaledImage],
+  );
 
   return (
     <div

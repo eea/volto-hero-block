@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import cx from 'classnames';
 import { Icon } from 'semantic-ui-react';
 import { UniversalLink, RenderBlocks } from '@plone/volto/components';
@@ -30,6 +30,7 @@ const View = (props) => {
   const location = useLocation();
   const { data = {} } = props;
   const { text, copyright, copyrightIcon, copyrightPosition } = data;
+  const serializedText = useMemo(() => serializeText(text), [text]);
 
   const metadata = props.metadata || props.properties;
   const copyrightPrefix = config.blocks.blocksConfig.hero.copyrightPrefix || '';
@@ -45,7 +46,7 @@ const View = (props) => {
               content={data?.data || {}}
             />
           ) : (
-            serializeText(text)
+            serializedText
           )}
         </Hero.Text>
         <Hero.Meta {...data}>
