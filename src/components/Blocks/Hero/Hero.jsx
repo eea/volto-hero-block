@@ -1,20 +1,20 @@
 import React from 'react';
-import cx from 'classnames';
 import PropTypes from 'prop-types';
+
+import { Icon } from 'semantic-ui-react';
+import Copyright from './Copyright';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 import { isImageGif, getFieldURL } from '@eeacms/volto-hero-block/helpers';
 import { useFirstVisited } from '@eeacms/volto-hero-block/hooks';
-
 Hero.propTypes = {
-  image: PropTypes.string,
+  image: PropTypes.bool,
   fullWidth: PropTypes.bool,
   fullHeight: PropTypes.bool,
   alignContent: PropTypes.string,
   textAlign: PropTypes.string,
+  metaAlign: PropTypes.string,
   backgroundVariant: PropTypes.string,
   quoted: PropTypes.bool,
-  spaced: PropTypes.bool,
-  inverted: PropTypes.bool,
   textVariant: PropTypes.string,
 };
 
@@ -52,80 +52,40 @@ function Hero({
             : `url(${image}/@@images/image/huge)`,
         }
       : {};
-
+console.log(backgroundImageStyle)
   return (
+    // full width prop
     <div
-      className={cx(
-        'eea hero-block',
-        !image &&
-          backgroundVariant &&
-          !fullWidth &&
-          `color-bg-${backgroundVariant}`,
-        {
-          spaced,
-          inverted,
-          'full-height': fullHeight,
-        },
-      )}
+      className={`${
+        fullWidth ? 'eea hero-block full-width' : 'eea hero-block'
+      } ${fullHeight ? 'full-height' : ''} color-bg-${backgroundVariant}`}
     >
       <div
-        className={cx(
-          'hero-block-image-wrapper',
-          !image &&
-            backgroundVariant &&
-            fullWidth &&
-            `color-bg-${backgroundVariant}`,
-          {
-            'full-width': fullWidth,
-          },
-        )}
-        style={containerCssStyles}
+        ref={bgImgRef}
+        className="hero-block-image"
+        style={backgroundImageStyle}
       >
         <div
-          className={cx('hero-block-image', styles?.bg)}
-          ref={bgImgRef}
-          style={backgroundImageStyle}
-        />
-        {image && overlay && (
-          <div className="hero-block-image-overlay dark-overlay-4"></div>
-        )}
-      </div>
-      <div
-        className={cx(
-          'hero-block-inner-wrapper d-flex',
-          `flex-items-${alignContent}`,
-        )}
-        style={containerCssStyles}
-      >
-        <div className="hero-block-body">{children}</div>
+          className={`hero-block-inner-wrapper d-flex ui container flex-items-${alignContent}`}
+        >
+          <div className="hero-block-body">
+            {children}
+
+
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-Hero.Text = ({ children, quoted, styles }) => {
-  const { textVariant = 'white', textAlign = 'left' } = styles || {};
-  return (
-    <div
-      className={cx(
-        'hero-block-text',
-        `color-fg-${textVariant}`,
-        `text-${textAlign}`,
-        quoted ? 'quoted-wrapper' : '',
-      )}
-    >
-      {children}
-    </div>
-  );
-};
-
-Hero.Meta = ({ children, styles }) => {
-  const { buttonAlign = 'left' } = styles || {};
-  return (
-    <div className={cx('hero-block-meta', `text-${buttonAlign}`)}>
-      {children}
-    </div>
-  );
-};
+Hero.Text = ({ quoted, textVariant, textAlign, children }) => (
+  <div className={`hero-block-text color-fg-${textVariant} text-${textAlign}`}>
+    <h2 className={`${quoted ? 'quoted' : ''}`}>{children}</h2>
+  </div>
+);
+Hero.Meta = ({ metaAlign, children }) => (
+  <div className={`hero-block-meta text-${metaAlign}`}>{children}</div>
+);
 
 export default Hero;

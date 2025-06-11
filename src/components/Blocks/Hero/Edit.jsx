@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 import isFunction from 'lodash/isFunction';
 import { Icon } from 'semantic-ui-react';
@@ -64,35 +64,37 @@ export default function Edit(props) {
   const blockState = {};
   const data_blocks = data?.data?.blocks;
 
-  if (data?.text || isEmpty(data_blocks)) {
-    let dataWithoutText = { ...data };
-    if (dataWithoutText) delete dataWithoutText.text;
-
-    onChangeBlock(block, {
-      ...dataWithoutText,
-      data: data?.text
-        ? {
-            blocks: {
-              [id]: {
-                '@type': 'slate',
-                value: data.text,
-                plaintext: data.text?.[0].children?.[0].text,
+  useEffect(() => {
+    if (data?.text || isEmpty(data_blocks)) {
+      let dataWithoutText = { ...data };
+      if (dataWithoutText) delete dataWithoutText.text;
+  
+      onChangeBlock(block, {
+        ...dataWithoutText,
+        data: data?.text
+          ? {
+              blocks: {
+                [id]: {
+                  '@type': 'slate',
+                  value: data.text,
+                  plaintext: data.text?.[0]?.children?.[0]?.text || '',
+                },
               },
-            },
-            blocks_layout: { items: [id] },
-          }
-        : {
-            blocks: {
-              [id]: {
-                '@type': 'slate',
-                value: [{ type: 'h2', children: [{ text: '' }] }],
-                plaintext: '',
+              blocks_layout: { items: [id] },
+            }
+          : {
+              blocks: {
+                [id]: {
+                  '@type': 'slate',
+                  value: [{ type: 'h2', children: [{ text: '' }] }],
+                  plaintext: '',
+                },
               },
+              blocks_layout: { items: [id] },
             },
-            blocks_layout: { items: [id] },
-          },
-    });
-  }
+      });
+    }
+  }, [data?.text, data_blocks, block, id, onChangeBlock]);
 
   return (
     <>
@@ -146,7 +148,7 @@ export default function Edit(props) {
                 <EditBlockWrapper
                   draginfo={draginfo}
                   blockProps={blockProps}
-                  disabled={data.disableInnerButtons}
+                  disabled={data?.disableInnerButtons}
                 >
                   {editBlock}
                 </EditBlockWrapper>

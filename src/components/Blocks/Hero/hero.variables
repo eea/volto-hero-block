@@ -1,0 +1,51 @@
+/* Hero block */
+@mobileHeroBlockMinHeight : 412px;
+@tabletHeroBlockMinHeight : 446px;
+@desktopHeroBlockMinHeight: 664px;
+@heroDeleteButtonColor: white;
+
+
+
+@emSize: 14px;
+@rem-space-5: unit( (20 / @emSize), rem);
+@rem-space-4: unit( (16 / @emSize), rem);
+@rem-space-6: unit( (24 / @emSize), rem);
+@rem-space-8: unit( (32 / @emSize), rem);
+@rem-space-10: unit( (40 / @emSize), rem);
+@rem-space-7-50: unit( (30 / @emSize), rem);
+@rem-space-20: unit( (80 / @emSize), rem);
+@rem-space-12: unit( (48 / @emSize), rem);
+@tabletBreakpoint: 768px;
+@computerBreakpoint: 992px;
+
+
+
+@heroBlockPosition: relative;
+@heroBlockHomePagePadding: 0 @rem-space-5;
+@heroBlockHomePageBodyMargin: @rem-space-20 0 0 0;
+
+/* Hero block spaced */
+@heroBlockSpacedMargin: @rem-space-12 0;
+
+/* Image Wrapper */
+@heroBlockImageWrapperMinHeight: 290px; // 5rem gap plus one line text
+
+/* Background Image */
+@heroBlockImageBackgroundRepeat   : no-repeat;
+@heroBlockImageBackgroundSize     : cover;
+@heroBlockImageBackgroundPosition : center;
+
+/* Wrapper */
+@heroBlockWrapperPadding : 5rem;
+@tableHeroBlockWrapperPadding: 6rem;
+@desktopHeroBlockWrapperPadding: 194px 96px;
+@heroBlockPrintPadding: 20px;
+
+/* Body */
+@mobileHeroBlockBodyGap  : @rem-space-6;
+@tabletHeroBlockBodyGap  : @rem-space-8;
+@desktopHeroBlockBodyGap : @rem-space-10;
+
+/* Copyright */
+@mobileCopyrightBottom: @rem-space-4;
+@desktopCopyrightBottom: @rem-space-7-50;
