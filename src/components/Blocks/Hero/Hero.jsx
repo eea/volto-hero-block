@@ -1,10 +1,9 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 import { Helmet } from '@plone/volto/helpers'
 import { isImageGif, getFieldURL } from '@eeacms/volto-hero-block/helpers';
-import { useFirstVisited } from '@eeacms/volto-hero-block/hooks';
 
 Hero.propTypes = {
   image: PropTypes.string,
@@ -19,6 +18,7 @@ Hero.propTypes = {
   textVariant: PropTypes.string,
 };
 
+ 
 function Hero({
   overlay = true,
   fullWidth = true,
@@ -34,27 +34,25 @@ function Hero({
   const isExternal = !isInternalURL(image);
   const { alignContent = 'center', backgroundVariant = 'primary' } =
     styles || {};
-  const bgImgRef = React.useRef();
-  const onScreen = useFirstVisited(bgImgRef);
   const containerCssStyles = React.useMemo(
     () => ({
       ...(height && !fullHeight ? { height } : {}),
+      position: 'relative'
     }),
     [height, fullHeight],
   );
 
-  const imageUrl = isExternal
-            ? image
-            : isImageGif(image)
-            ? `${image}/@@images/image`
-            : `${image}/@@images/image/huge`  
+  const imageUrl = useMemo(() => {
+    if (isExternal) {
+      return image
+    }
 
-  const backgroundImageStyle =
-    onScreen && image
-      ? {
-          backgroundImage: `url(${imageUrl})`,
-        }
-      : {};
+    if (isImageGif(image)) {
+      `${image}/@@images/image`
+    }
+
+    return `${image}/@@images/image/huge`
+  }, [image])          
 
   return (
     <>
@@ -92,10 +90,20 @@ function Hero({
           )}
           style={containerCssStyles}
         >
-          <div
-            className={cx('hero-block-image', styles?.bg)}
-            ref={bgImgRef}
-            style={backgroundImageStyle}
+          <img
+            src={imageUrl}
+            alt="Banner"
+            loading="lazy"
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center',
+              zIndex: -1,
+            }}
           />
           {image && overlay && (
             <div className="hero-block-image-overlay dark-overlay-4"></div>
