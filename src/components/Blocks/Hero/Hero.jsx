@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, { useMemo } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
@@ -18,7 +18,6 @@ Hero.propTypes = {
   textVariant: PropTypes.string,
 };
 
- 
 function Hero({
   overlay = true,
   fullWidth = true,
@@ -37,22 +36,22 @@ function Hero({
   const containerCssStyles = React.useMemo(
     () => ({
       ...(height && !fullHeight ? { height } : {}),
-      position: 'relative'
+      position: 'relative',
     }),
     [height, fullHeight],
   );
 
   const imageUrl = useMemo(() => {
     if (isExternal) {
-      return image
+      return image;
     }
 
     if (isImageGif(image)) {
-      `${image}/@@images/image`
+      `${image}/@@images/image`;
     }
 
-    return `${image}/@@images/image/huge`
-  }, [image])          
+    return `${image}/@@images/image/huge`;
+  }, [image]);
 
   return (
     <>
