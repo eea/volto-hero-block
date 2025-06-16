@@ -2,6 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
+import { Helmet } from '@plone/volto/helpers'
 import { isImageGif, getFieldURL } from '@eeacms/volto-hero-block/helpers';
 import { useFirstVisited } from '@eeacms/volto-hero-block/hooks';
 
@@ -42,64 +43,75 @@ function Hero({
     [height, fullHeight],
   );
 
+  const imageUrl = isExternal
+            ? image
+            : isImageGif(image)
+            ? `${image}/@@images/image`
+            : `${image}/@@images/image/huge`  
+
   const backgroundImageStyle =
     onScreen && image
       ? {
-          backgroundImage: isExternal
-            ? `url(${image})`
-            : isImageGif(image)
-            ? `url(${image}/@@images/image)`
-            : `url(${image}/@@images/image/huge)`,
+          backgroundImage: `url(${imageUrl})`,
         }
       : {};
 
   return (
-    <div
-      className={cx(
-        'eea hero-block',
-        !image &&
-          backgroundVariant &&
-          !fullWidth &&
-          `color-bg-${backgroundVariant}`,
-        {
-          spaced,
-          inverted,
-          'full-height': fullHeight,
-        },
-      )}
-    >
+    <>
+      <Helmet>
+        <link rel="preload"
+            href={imageUrl}
+            as="image"
+            fetchPriority="high"/>
+      </Helmet>
+      
       <div
         className={cx(
-          'hero-block-image-wrapper',
+          'eea hero-block',
           !image &&
             backgroundVariant &&
-            fullWidth &&
+            !fullWidth &&
             `color-bg-${backgroundVariant}`,
           {
-            'full-width': fullWidth,
+            spaced,
+            inverted,
+            'full-height': fullHeight,
           },
         )}
-        style={containerCssStyles}
       >
         <div
-          className={cx('hero-block-image', styles?.bg)}
-          ref={bgImgRef}
-          style={backgroundImageStyle}
-        />
-        {image && overlay && (
-          <div className="hero-block-image-overlay dark-overlay-4"></div>
-        )}
+          className={cx(
+            'hero-block-image-wrapper',
+            !image &&
+              backgroundVariant &&
+              fullWidth &&
+              `color-bg-${backgroundVariant}`,
+            {
+              'full-width': fullWidth,
+            },
+          )}
+          style={containerCssStyles}
+        >
+          <div
+            className={cx('hero-block-image', styles?.bg)}
+            ref={bgImgRef}
+            style={backgroundImageStyle}
+          />
+          {image && overlay && (
+            <div className="hero-block-image-overlay dark-overlay-4"></div>
+          )}
+        </div>
+        <div
+          className={cx(
+            'hero-block-inner-wrapper d-flex',
+            `flex-items-${alignContent}`,
+          )}
+          style={containerCssStyles}
+        >
+          <div className="hero-block-body">{children}</div>
+        </div>
       </div>
-      <div
-        className={cx(
-          'hero-block-inner-wrapper d-flex',
-          `flex-items-${alignContent}`,
-        )}
-        style={containerCssStyles}
-      >
-        <div className="hero-block-body">{children}</div>
-      </div>
-    </div>
+    </>
   );
 }
 
