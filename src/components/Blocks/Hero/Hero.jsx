@@ -2,7 +2,7 @@ import React, {useMemo} from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
-import { Helmet } from '@plone/volto/helpers'
+import { Helmet } from '@plone/volto/helpers';
 import { isImageGif, getFieldURL } from '@eeacms/volto-hero-block/helpers';
 
 Hero.propTypes = {
@@ -57,12 +57,9 @@ function Hero({
   return (
     <>
       <Helmet>
-        <link rel="preload"
-            href={imageUrl}
-            as="image"
-            fetchPriority="high"/>
+        <link rel="preload" href={imageUrl} as="image" fetchPriority="high" />
       </Helmet>
-      
+
       <div
         className={cx(
           'eea hero-block',
