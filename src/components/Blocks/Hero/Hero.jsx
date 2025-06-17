@@ -36,7 +36,6 @@ function Hero({
   const containerCssStyles = React.useMemo(
     () => ({
       ...(height && !fullHeight ? { height } : {}),
-      position: 'relative',
     }),
     [height, fullHeight],
   );
@@ -47,11 +46,11 @@ function Hero({
     }
 
     if (isImageGif(image)) {
-      `${image}/@@images/image`;
+      return `${image}/@@images/image`;
     }
 
     return `${image}/@@images/image/huge`;
-  }, [image]);
+  }, [image, isExternal]);
 
   return (
     <>
