@@ -155,7 +155,7 @@ export default function Edit(props) {
               )}
             </BlocksForm>
           </Hero.Text>
-          <Hero.Meta {...data}>
+          <Hero.Meta metaAlign={data?.styles?.buttonAlign}>
             <Metadata {...data} />
           </Hero.Meta>
           {copyright ? (

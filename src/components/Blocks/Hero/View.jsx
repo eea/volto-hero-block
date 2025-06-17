@@ -36,7 +36,7 @@ const View = (props) => {
     <React.Fragment>
       <BodyClass className="with-hero-block" />
       <Hero {...data}>
-        <Hero.Text {...data}>
+        <Hero.Text {...data.styles}>
           {data?.data ? (
             <RenderBlocks
               location={location}
@@ -47,7 +47,7 @@ const View = (props) => {
             serializeText(text)
           )}
         </Hero.Text>
-        <Hero.Meta {...data}>
+        <Hero.Meta metaAlign={data.styles.buttonAlign}>
           <Metadata {...data} />
         </Hero.Meta>
         {copyright ? (
@@ -62,6 +62,7 @@ const View = (props) => {
           ''
         )}
       </Hero>
+    
     </React.Fragment>
   );
 };

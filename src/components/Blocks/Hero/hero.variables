@@ -49,3 +49,6 @@
 /* Copyright */
 @mobileCopyrightBottom: @rem-space-4;
 @desktopCopyrightBottom: @rem-space-7-50;
+
+@scrollbarWidth: 15px;
+@copyrightWidth: 100%;

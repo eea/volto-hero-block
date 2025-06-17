@@ -2,7 +2,10 @@
 @element: 'hero';
 
 @import (multiple) './hero.variables';
-
+@import (multiple) '@plone/volto/theme/themes/default/globals/site.variables';
+& {
+  @import (less) 'remixicon/fonts/remixicon.css';
+}
 /*-------------------
       Hero
 --------------------*/
@@ -139,4 +142,105 @@
 
 #page-document > .styled-hero {
   margin-top: 0;
+}
+
+.full-width1 {
+  --sidebar-width: 0px;
+  --toolbar-width: 80px;
+  @toolbarWidthCSS: var(--toolbar-width, 0px);
+  @sidebarWidthCSS: var(--sidebar-width, 0px);
+  @scrollbarWidthCSS: var(--scrollbar-width, @scrollbarWidth);
+  position: relative;
+  right: 50%;
+  left: 50%;
+  width: calc(
+    100vw - @toolbarWidthCSS - @sidebarWidthCSS - @scrollbarWidthCSS
+  ) !important;
+  max-width: initial !important;
+  margin-right: calc(
+    -50vw + (@toolbarWidthCSS + @sidebarWidthCSS + @scrollbarWidthCSS) / 2
+  ) !important;
+  margin-left: calc(
+    -50vw + (@toolbarWidthCSS + @sidebarWidthCSS + @scrollbarWidthCSS) / 2
+  ) !important;
+}
+.color-bg-primary { background-color: @primaryColor !important; }
+.color-bg-secondary { background-color: @brown !important; }
+// .color-bg-tertiary { background-color: @hoverBackgroundColor !important; }
+.dark-overlay-4 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.4;
+  z-index: 0;
+}
+.text-left {
+  text-align: left;
+}
+.text-center{
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+.d-flex { display: flex !important; }
+.flex-row { flex-direction: row !important; }
+.flex-items-start { align-items: flex-start !important; }
+.flex-items-end { align-items: flex-end !important; }
+.flex-items-center { align-items: center !important; }
+
+.has--bg--top {
+  background-position: top !important;
+}
+
+.has--bg--center {
+  background-position: center !important;
+}
+
+.has--bg--bottom {
+  background-position: bottom !important;
+}
+
+.eea.copyright {
+  width: @copyrightWidth;
+
+  .wrapper {
+      display: flex;
+      // color: @copyrightContentColor;
+      // font-size: @copyrightContentFontSize;
+      // align-items: @copyrightAlignItems;
+      // line-height: @copyrightLineHeight;
+      // gap: @copyrightContentPaddingRight;
+      justify-content: var(--justify-content, flex-start);
+  }
+&.left .wrapper {
+  --justify-content: flex-start;
+}
+&.center .wrapper {
+  --justify-content: center;
+}
+&.right .wrapper {
+  --justify-content: flex-end;
+}
+.icon {
+  margin: 0; // override default
+}
+}
+
+.quoted-wrapper h2::before,
+.quoted-wrapper h3::before,
+.quoted::before {
+  content: '\EC51';
+  font-family: 'remixicon' !important;
+
+}
+
+.quoted-wrapper  h2::after,
+.quoted-wrapper  h3::after,
+.quoted::after {
+  content: "\ec52";
+  font-family: 'remixicon' !important;
 }

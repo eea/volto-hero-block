@@ -6,6 +6,8 @@ import Copyright from './Copyright';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 import { isImageGif, getFieldURL } from '@eeacms/volto-hero-block/helpers';
 import { useFirstVisited } from '@eeacms/volto-hero-block/hooks';
+import cx from 'classnames';
+
 Hero.propTypes = {
   image: PropTypes.bool,
   fullWidth: PropTypes.bool,
@@ -35,13 +37,6 @@ function Hero({
     styles || {};
   const bgImgRef = React.useRef();
   const onScreen = useFirstVisited(bgImgRef);
-  const containerCssStyles = React.useMemo(
-    () => ({
-      ...(height && !fullHeight ? { height } : {}),
-    }),
-    [height, fullHeight],
-  );
-
   const backgroundImageStyle =
     onScreen && image
       ? {
@@ -52,26 +47,25 @@ function Hero({
             : `url(${image}/@@images/image/huge)`,
         }
       : {};
-console.log(backgroundImageStyle)
   return (
-    // full width prop
     <div
       className={`${
         fullWidth ? 'eea hero-block full-width' : 'eea hero-block'
-      } ${fullHeight ? 'full-height' : ''} color-bg-${backgroundVariant}`}
+      } ${fullHeight ? 'full-height' : ''} color-bg-${backgroundVariant} ${spaced ? 'spaced' : ''}`}
     >
       <div
         ref={bgImgRef}
-        className="hero-block-image"
+        className={`hero-block-image ${styles?.bg}`}
         style={backgroundImageStyle}
       >
+        {image && overlay && (
+          <div className="hero-block-image-overlay dark-overlay-4"></div>
+        )}
         <div
           className={`hero-block-inner-wrapper d-flex ui container flex-items-${alignContent}`}
         >
           <div className="hero-block-body">
             {children}
-
-
           </div>
         </div>
       </div>
@@ -79,11 +73,21 @@ console.log(backgroundImageStyle)
   );
 }
 
-Hero.Text = ({ quoted, textVariant, textAlign, children }) => (
-  <div className={`hero-block-text color-fg-${textVariant} text-${textAlign}`}>
-    <h2 className={`${quoted ? 'quoted' : ''}`}>{children}</h2>
-  </div>
-);
+Hero.Text = ({quoted, styles, children}) => {
+  const { textVariant = 'white', textAlign = 'left' } = styles || {};
+  return (
+    <div
+      className={cx(
+        'hero-block-text',
+        `color-fg-${textVariant}`,
+        `text-${textAlign}`,
+        quoted ? 'quoted-wrapper' : '',
+      )}
+    >
+      {children}
+    </div>
+  );
+};
 Hero.Meta = ({ metaAlign, children }) => (
   <div className={`hero-block-meta text-${metaAlign}`}>{children}</div>
 );
