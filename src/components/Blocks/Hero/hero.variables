@@ -1,54 +1,88 @@
-/* Hero block */
-@mobileHeroBlockMinHeight : 412px;
-@tabletHeroBlockMinHeight : 446px;
-@desktopHeroBlockMinHeight: 664px;
-@heroDeleteButtonColor: white;
+/* ==========================================================================
+   Breakpoints
+   ========================================================================== */
+@tabletBreakpoint : 768px;
+@computerBreakpoint : 992px;
 
+/* ==========================================================================
+   Base Sizes and Units
+   ========================================================================== */
+@emSize : 14px;
 
+/* Rem Spacing Scale (based on 14px em size) */
+@rem-space-1     : @4px; // 4px
+@rem-space-3     : @12px; // 12px
+@rem-space-4     : unit((16 / @emSize), rem); // 16px
+@rem-space-5     : unit((20 / @emSize), rem); // 20px
+@rem-space-6     : unit((24 / @emSize), rem); // 24px
+@rem-space-7-50  : unit((30 / @emSize), rem); // 30px
+@rem-space-8     : unit((32 / @emSize), rem); // 32px
+@rem-space-10    : unit((40 / @emSize), rem); // 40px
+@rem-space-12    : unit((48 / @emSize), rem); // 48px
+@rem-space-20    : unit((80 / @emSize), rem); // 80px
 
-@emSize: 14px;
-@rem-space-5: unit( (20 / @emSize), rem);
-@rem-space-4: unit( (16 / @emSize), rem);
-@rem-space-6: unit( (24 / @emSize), rem);
-@rem-space-8: unit( (32 / @emSize), rem);
-@rem-space-10: unit( (40 / @emSize), rem);
-@rem-space-7-50: unit( (30 / @emSize), rem);
-@rem-space-20: unit( (80 / @emSize), rem);
-@rem-space-12: unit( (48 / @emSize), rem);
-@tabletBreakpoint: 768px;
-@computerBreakpoint: 992px;
+/* ==========================================================================
+   Hero Block - General
+   ========================================================================== */
+@heroBlockPosition : relative;
+@heroDeleteButtonColor : white;
+@scrollbarWidth : 15px;
 
+/* ==========================================================================
+   Hero Block - Min Heights
+   ========================================================================== */
+@mobileHeroBlockMinHeight  : 412px;
+@tabletHeroBlockMinHeight  : 446px;
+@desktopHeroBlockMinHeight : 664px;
 
+/* ==========================================================================
+   Hero Block - Padding and Margins
+   ========================================================================== */
+/* Homepage Specific */
+@heroBlockHomePagePadding    : 0 @rem-space-5;
+@heroBlockHomePageBodyMargin : @rem-space-20 0 0 0;
 
-@heroBlockPosition: relative;
-@heroBlockHomePagePadding: 0 @rem-space-5;
-@heroBlockHomePageBodyMargin: @rem-space-20 0 0 0;
+/* Spaced Version */
+@heroBlockSpacedMargin : @rem-space-12 0;
 
-/* Hero block spaced */
-@heroBlockSpacedMargin: @rem-space-12 0;
+/* Wrapper Padding */
+@heroBlockWrapperPadding         : 5rem;
+@tableHeroBlockWrapperPadding    : 6rem;
+@desktopHeroBlockWrapperPadding  : 194px 96px;
+@heroBlockPrintPadding           : 20px;
 
-/* Image Wrapper */
-@heroBlockImageWrapperMinHeight: 290px; // 5rem gap plus one line text
-
-/* Background Image */
-@heroBlockImageBackgroundRepeat   : no-repeat;
-@heroBlockImageBackgroundSize     : cover;
-@heroBlockImageBackgroundPosition : center;
-
-/* Wrapper */
-@heroBlockWrapperPadding : 5rem;
-@tableHeroBlockWrapperPadding: 6rem;
-@desktopHeroBlockWrapperPadding: 194px 96px;
-@heroBlockPrintPadding: 20px;
-
-/* Body */
+/* ==========================================================================
+   Hero Block - Body Gap
+   ========================================================================== */
 @mobileHeroBlockBodyGap  : @rem-space-6;
 @tabletHeroBlockBodyGap  : @rem-space-8;
 @desktopHeroBlockBodyGap : @rem-space-10;
 
-/* Copyright */
-@mobileCopyrightBottom: @rem-space-4;
-@desktopCopyrightBottom: @rem-space-7-50;
+/* ==========================================================================
+   Hero Block - Image
+   ========================================================================== */
+/* Image Wrapper */
+@heroBlockImageWrapperMinHeight : 290px; // 5rem gap plus one line text
 
-@scrollbarWidth: 15px;
-@copyrightWidth: 100%;
+/* Background Image Styling */
+@heroBlockImageBackgroundRepeat   : no-repeat;
+@heroBlockImageBackgroundSize     : cover;
+@heroBlockImageBackgroundPosition : center;
+
+/* ==========================================================================
+   Copyright Section
+   ========================================================================== */
+@copyrightWidth : 100%;
+
+@mobileCopyrightBottom  : @rem-space-4;
+@desktopCopyrightBottom : @rem-space-7-50;
+
+@copyrightContentColor        : var(--text-color, #F9F9F9;);
+@copyrightContentFontSize     : .75rem;
+@copyrightLineHeight          : 1.2;
+@copyrightContentPaddingRight : @rem-space-1;
+
+@copyrightWrapperPaddingLeft  : @rem-space-3;
+@copyrightWrapperPaddingRight : @rem-space-3;
+@copyrightWrapperBottom       : @rem-space-4;
+@copyrightAlignItems          : start;

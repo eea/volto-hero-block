@@ -63,12 +63,12 @@ export default function Edit(props) {
 
   const blockState = {};
   const data_blocks = data?.data?.blocks;
-
+  console.log(data);
   useEffect(() => {
     if (data?.text || isEmpty(data_blocks)) {
       let dataWithoutText = { ...data };
       if (dataWithoutText) delete dataWithoutText.text;
-  
+
       onChangeBlock(block, {
         ...dataWithoutText,
         // default values are not loaded from schema
@@ -77,9 +77,11 @@ export default function Edit(props) {
         inverted: data?.inverted ?? true,
         overlay: data?.overlay ?? true,
         copyrightIcon: data?.copyrightIcon ?? 'ri-copyright-line',
-        ...{styles: {
-          alignContent: data?.styles?.alignContent ?? 'center',
-        }},
+        ...{
+          styles: {
+            alignContent: data?.styles?.alignContent ?? 'center',
+          },
+        },
         data: data?.text
           ? {
               blocks: {

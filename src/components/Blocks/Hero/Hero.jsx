@@ -43,37 +43,35 @@ function Hero({
           backgroundImage: isExternal
             ? `url(${image})`
             : isImageGif(image)
-            ? `url(${image}/@@images/image)`
-            : `url(${image}/@@images/image/huge)`,
+              ? `url(${image}/@@images/image)`
+              : `url(${image}/@@images/image/huge)`,
         }
       : {};
   return (
-    <div
-      className={`${
-        fullWidth ? 'eea hero-block full-width' : 'eea hero-block'
-      } ${fullHeight ? 'full-height' : ''} color-bg-${backgroundVariant} ${spaced ? 'spaced' : ''}`}
-    >
+    <div className={` eea hero-block ${fullHeight ? 'full-height' : ''}  ${spaced ? 'spaced' : ''}`}>
       <div
-        ref={bgImgRef}
-        className={`hero-block-image ${styles?.bg}`}
-        style={backgroundImageStyle}
+        className={`hero-block-image-wrapper ${fullWidth ? 'full-width' : ''} color-bg-${backgroundVariant}`}
       >
-        {image && overlay && (
-          <div className="hero-block-image-overlay dark-overlay-4"></div>
-        )}
         <div
-          className={`hero-block-inner-wrapper d-flex ui container flex-items-${alignContent}`}
+          ref={bgImgRef}
+          className={`hero-block-image ${styles?.bg}`}
+          style={backgroundImageStyle}
         >
-          <div className="hero-block-body">
-            {children}
-          </div>
+          {image && overlay && (
+            <div className="hero-block-image-overlay dark-overlay-4"></div>
+          )}
         </div>
+      </div>
+      <div
+        className={`hero-block-inner-wrapper d-flex ui container flex-items-${alignContent}`}
+      >
+        <div className="hero-block-body">{children}</div>
       </div>
     </div>
   );
 }
 
-Hero.Text = ({quoted, styles, children}) => {
+Hero.Text = ({ quoted, styles, children }) => {
   const { textVariant = 'white', textAlign = 'left' } = styles || {};
   return (
     <div
