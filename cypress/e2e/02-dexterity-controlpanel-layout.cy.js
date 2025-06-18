@@ -66,18 +66,20 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     cy.get('.hero-block-text div[role="textbox"]')
       .click()
       .type('My hero block');
+    cy.get('#field-buttonLabel').type('my button');
+    cy.get('#field-fullHeight + label').click();
+    cy.get('#field-spaced + label').click();
 
     // Change book title
     cy.clearSlateTitle();
     cy.getSlateTitle().type('My First Book');
     cy.get('.documentFirstHeading').contains('My First Book');
-
     cy.get('#toolbar-save').click();
     cy.get('.documentFirstHeading').contains('My First Book');
     // Check if the button exist
     cy.get('.hero-block-meta .button').contains('my button');
     cy.get('.hero-block-image-wrapper');
-    cy.get('.eea.hero-block.spaced.inverted.full-height');
-    cy.get('.hero-block-meta.text-left .button').contains('Label');
+    cy.get('.eea.hero-block.spaced.full-height');
+    cy.get('.hero-block-meta.text-left .button').contains('my button');
   });
 });
