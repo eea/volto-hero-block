@@ -71,6 +71,15 @@ export default function Edit(props) {
   
       onChangeBlock(block, {
         ...dataWithoutText,
+        // default values are not loaded from schema
+        fullWidth: data?.fullWidth ?? true,
+        fullHeight: data?.fullHeight ?? true,
+        inverted: data?.inverted ?? true,
+        overlay: data?.overlay ?? true,
+        copyrightIcon: data?.copyrightIcon ?? 'ri-copyright-line',
+        ...{styles: {
+          alignContent: data?.styles?.alignContent ?? 'center',
+        }},
         data: data?.text
           ? {
               blocks: {
@@ -95,7 +104,6 @@ export default function Edit(props) {
       });
     }
   }, [data?.text, data_blocks, block, id, onChangeBlock]);
-
   return (
     <>
       <BodyClass className="with-hero-block" />
