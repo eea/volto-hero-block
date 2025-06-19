@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
-import { Helmet } from '@plone/volto/helpers';
 import { isImageGif, getFieldURL } from '@eeacms/volto-hero-block/helpers';
+import Image from '@plone/volto/components/theme/Image/Image';
 
 Hero.propTypes = {
   image: PropTypes.string,
@@ -53,68 +53,61 @@ function Hero({
   }, [image, isExternal]);
 
   return (
-    <>
-      <Helmet>
-        <link rel="preload" href={imageUrl} as="image" fetchPriority="high" />
-      </Helmet>
-
+    <div
+      className={cx(
+        'eea hero-block',
+        !image &&
+          backgroundVariant &&
+          !fullWidth &&
+          `color-bg-${backgroundVariant}`,
+        {
+          spaced,
+          inverted,
+          'full-height': fullHeight,
+        },
+      )}
+    >
       <div
         className={cx(
-          'eea hero-block',
+          'hero-block-image-wrapper',
           !image &&
             backgroundVariant &&
-            !fullWidth &&
+            fullWidth &&
             `color-bg-${backgroundVariant}`,
           {
-            spaced,
-            inverted,
-            'full-height': fullHeight,
+            'full-width': fullWidth,
           },
         )}
+        style={containerCssStyles}
       >
-        <div
-          className={cx(
-            'hero-block-image-wrapper',
-            !image &&
-              backgroundVariant &&
-              fullWidth &&
-              `color-bg-${backgroundVariant}`,
-            {
-              'full-width': fullWidth,
-            },
-          )}
-          style={containerCssStyles}
-        >
-          <img
-            src={imageUrl}
-            alt="Banner"
-            loading="lazy"
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'center',
-              zIndex: -1,
-            }}
-          />
-          {image && overlay && (
-            <div className="hero-block-image-overlay dark-overlay-4"></div>
-          )}
-        </div>
-        <div
-          className={cx(
-            'hero-block-inner-wrapper d-flex',
-            `flex-items-${alignContent}`,
-          )}
-          style={containerCssStyles}
-        >
-          <div className="hero-block-body">{children}</div>
-        </div>
+        <Image
+          src={imageUrl}
+          alt="Banner"
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            zIndex: -1,
+          }}
+        />
+        {image && overlay && (
+          <div className="hero-block-image-overlay dark-overlay-4"></div>
+        )}
       </div>
-    </>
+      <div
+        className={cx(
+          'hero-block-inner-wrapper d-flex',
+          `flex-items-${alignContent}`,
+        )}
+        style={containerCssStyles}
+      >
+        <div className="hero-block-body">{children}</div>
+      </div>
+    </div>
   );
 }
 
