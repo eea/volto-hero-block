@@ -8,7 +8,6 @@ import Hero from './Hero';
 import Copyright from './Copyright';
 import { serializeText, getFieldURL } from '@eeacms/volto-hero-block/helpers';
 import config from '@plone/volto/registry';
-import { Image } from '@plone/volto/components';
 
 const Metadata = ({ buttonLabel, inverted, styles, ...props }) => {
   const buttonLink = getFieldURL(props.buttonLink);
