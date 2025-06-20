@@ -3,7 +3,6 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 import { isImageGif, getFieldURL } from '@eeacms/volto-hero-block/helpers';
-import Image from '@plone/volto/components/theme/Image/Image';
 
 Hero.propTypes = {
   image: PropTypes.string,
@@ -80,7 +79,8 @@ function Hero({
         )}
         style={containerCssStyles}
       >
-        <Image
+        <img
+          loading="eager"
           src={imageUrl}
           alt="Banner"
           style={{
