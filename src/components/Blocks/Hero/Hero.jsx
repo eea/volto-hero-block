@@ -3,6 +3,7 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 import { isImageGif, getFieldURL } from '@eeacms/volto-hero-block/helpers';
+import { Image } from '@plone/volto/components';
 
 Hero.propTypes = {
   image: PropTypes.string,
@@ -79,21 +80,22 @@ function Hero({
         )}
         style={containerCssStyles}
       >
-        <img
-          loading="eager"
-          src={imageUrl}
-          alt="Banner"
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: 'center',
-            zIndex: -1,
-          }}
-        />
+        {imageUrl && (
+          <Image
+            src={imageUrl}
+            alt="Banner"
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center',
+              zIndex: -1,
+            }}
+          />
+        )}
         {image && overlay && (
           <div className="hero-block-image-overlay dark-overlay-4"></div>
         )}
