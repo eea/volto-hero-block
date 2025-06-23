@@ -29,6 +29,7 @@ function Hero({
   height,
   ...props
 }) {
+  console.log({ Image });
   const image = getFieldURL(props.image);
   const isExternal = !isInternalURL(image);
   const { alignContent = 'center', backgroundVariant = 'primary' } =
@@ -83,7 +84,7 @@ function Hero({
         {imageUrl && (
           <Image
             src={imageUrl}
-            alt="Banner"
+            alt=""
             style={{
               position: 'absolute',
               top: 0,
