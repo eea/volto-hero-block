@@ -29,7 +29,6 @@ function Hero({
   height,
   ...props
 }) {
-  console.log({ Image });
   const image = getFieldURL(props.image);
   const isExternal = !isInternalURL(image);
   const { alignContent = 'center', backgroundVariant = 'primary' } =
