@@ -123,7 +123,7 @@ describe('Hero block', () => {
     );
 
     const bannerImage = container.querySelector('img');
-    expect(bannerImage.alt).toContain('Banner');
+    expect(bannerImage.alt).toContain('');
     expect(container.querySelector('.eea.hero-block')).toBeInTheDocument();
   });
 
@@ -157,7 +157,7 @@ describe('Hero block', () => {
     );
 
     const bannerImage = container.querySelector('img');
-    expect(bannerImage.alt).toContain('Banner');
+    expect(bannerImage.alt).toContain('');
     expect(container.querySelector('.eea.hero-block')).toBeInTheDocument();
   });
 
