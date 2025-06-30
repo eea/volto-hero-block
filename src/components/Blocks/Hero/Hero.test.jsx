@@ -122,8 +122,9 @@ describe('Hero block', () => {
       </Provider>,
     );
 
-    const bannerImage = container.querySelector('img');
-    expect(bannerImage.alt).toContain('');
+    expect(container.querySelector('.hero-block-image')).toHaveStyle({
+      backgroundImage: 'url(url_url)',
+    });
     expect(container.querySelector('.eea.hero-block')).toBeInTheDocument();
   });
 
@@ -156,8 +157,9 @@ describe('Hero block', () => {
       </Provider>,
     );
 
-    const bannerImage = container.querySelector('img');
-    expect(bannerImage.alt).toContain('');
+    expect(container.querySelector('.hero-block-image')).toHaveStyle({
+      backgroundImage: 'url(/foo/bar/@@images/image/huge)',
+    });
     expect(container.querySelector('.eea.hero-block')).toBeInTheDocument();
   });
 
