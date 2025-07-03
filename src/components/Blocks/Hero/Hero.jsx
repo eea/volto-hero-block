@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 import { isImageGif, getFieldURL } from '@eeacms/volto-hero-block/helpers';
-import { Image } from '@plone/volto/components';
+import { useFirstVisited } from '@eeacms/volto-hero-block/hooks';
 
 Hero.propTypes = {
   image: PropTypes.string,
@@ -33,6 +33,8 @@ function Hero({
   const isExternal = !isInternalURL(image);
   const { alignContent = 'center', backgroundVariant = 'primary' } =
     styles || {};
+  const bgImgRef = React.useRef();
+  const onScreen = useFirstVisited(bgImgRef);
   const containerCssStyles = React.useMemo(
     () => ({
       ...(height && !fullHeight ? { height } : {}),
@@ -40,17 +42,16 @@ function Hero({
     [height, fullHeight],
   );
 
-  const imageUrl = useMemo(() => {
-    if (isExternal) {
-      return image;
-    }
-
-    if (isImageGif(image)) {
-      return `${image}/@@images/image`;
-    }
-
-    return `${image}/@@images/image/huge`;
-  }, [image, isExternal]);
+  const backgroundImageStyle =
+    onScreen && image
+      ? {
+          backgroundImage: isExternal
+            ? `url(${image})`
+            : isImageGif(image)
+            ? `url(${image}/@@images/image)`
+            : `url(${image}/@@images/image/huge)`,
+        }
+      : {};
 
   return (
     <div
@@ -80,22 +81,11 @@ function Hero({
         )}
         style={containerCssStyles}
       >
-        {imageUrl && (
-          <Image
-            src={imageUrl}
-            alt=""
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'center',
-              zIndex: -1,
-            }}
-          />
-        )}
+        <div
+          className={cx('hero-block-image', styles?.bg)}
+          ref={bgImgRef}
+          style={backgroundImageStyle}
+        />
         {image && overlay && (
           <div className="hero-block-image-overlay dark-overlay-4"></div>
         )}
