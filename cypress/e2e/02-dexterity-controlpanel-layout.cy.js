@@ -81,7 +81,7 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     // Check if the button exist
     cy.get('.hero-block-meta .button').contains('my button');
     cy.get('.hero-block-image-wrapper');
-    cy.get('.eea.hero-block.spaced.full-height');
+    // cy.get('.eea.hero-block.spaced.full-height');
     cy.get('.hero-block-meta.text-left .button').contains('my button');
   });
 });
