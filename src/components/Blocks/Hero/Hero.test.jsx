@@ -122,10 +122,10 @@ describe('Hero block', () => {
       </Provider>,
     );
 
-    expect(container.querySelector('.eea.hero-block')).toBeInTheDocument();
     expect(container.querySelector('.hero-block-image')).toHaveStyle({
       backgroundImage: 'url(url_url)',
     });
+    expect(container.querySelector('.eea.hero-block')).toBeInTheDocument();
   });
 
   it('renders a hero component', () => {
@@ -157,10 +157,10 @@ describe('Hero block', () => {
       </Provider>,
     );
 
-    expect(container.querySelector('.eea.hero-block')).toBeInTheDocument();
     expect(container.querySelector('.hero-block-image')).toHaveStyle({
       backgroundImage: 'url(/foo/bar/@@images/image/huge)',
     });
+    expect(container.querySelector('.eea.hero-block')).toBeInTheDocument();
   });
 
   it('renders a hero component', () => {
