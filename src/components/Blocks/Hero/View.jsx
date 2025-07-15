@@ -47,7 +47,7 @@ const View = (props) => {
             serializeText(text)
           )}
         </Hero.Text>
-        <Hero.Meta metaAlign={data.styles.buttonAlign}>
+        <Hero.Meta metaAlign={data?.styles?.buttonAlign}>
           <Metadata {...data} />
         </Hero.Meta>
         {copyright ? (
