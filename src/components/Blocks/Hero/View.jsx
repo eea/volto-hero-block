@@ -8,7 +8,7 @@ import Hero from './Hero';
 import Copyright from './Copyright';
 import { serializeText, getFieldURL } from '@eeacms/volto-hero-block/helpers';
 import config from '@plone/volto/registry';
-import './hero.less'
+import './hero.less';
 const Metadata = ({ buttonLabel, inverted, styles, ...props }) => {
   const buttonLink = getFieldURL(props.buttonLink);
   const { buttonVariant = 'white' } = styles || {};
@@ -62,7 +62,6 @@ const View = (props) => {
           ''
         )}
       </Hero>
-    
     </React.Fragment>
   );
 };
