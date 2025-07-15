@@ -43,14 +43,20 @@ function Hero({
           backgroundImage: isExternal
             ? `url(${image})`
             : isImageGif(image)
-              ? `url(${image}/@@images/image)`
-              : `url(${image}/@@images/image/huge)`,
+            ? `url(${image}/@@images/image)`
+            : `url(${image}/@@images/image/huge)`,
         }
       : {};
   return (
-    <div className={` eea hero-block ${fullHeight ? 'full-height' : ''}  ${spaced ? 'spaced' : ''}`}>
+    <div
+      className={` eea hero-block ${fullHeight ? 'full-height' : ''}  ${
+        spaced ? 'spaced' : ''
+      }`}
+    >
       <div
-        className={`hero-block-image-wrapper ${fullWidth ? 'full-width' : ''} color-bg-${backgroundVariant}`}
+        className={`hero-block-image-wrapper ${
+          fullWidth ? 'full-width' : ''
+        } color-bg-${backgroundVariant}`}
       >
         <div
           ref={bgImgRef}
@@ -71,8 +77,9 @@ function Hero({
   );
 }
 
-Hero.Text = ({ quoted, styles, children }) => {
-  const { textVariant = 'white', textAlign = 'left' } = styles || {};
+Hero.Text = ({ quoted, styles, children, ...props }) => {
+  const { textVariant = 'white', textAlign = 'left' } =
+    { ...(props || {}), ...(styles || {}) } || {};
   return (
     <div
       className={cx(
