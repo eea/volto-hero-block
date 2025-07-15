@@ -10,7 +10,9 @@
 & {
   @import (less) 'remixicon/fonts/remixicon.css';
 }
-
+@primaryColor: red ;
+@secondaryColor: green ;
+@tertiaryColor: blue ;
 /*-------------------------------------
   Hero Block - Base Styles
 --------------------------------------*/
@@ -229,10 +231,10 @@
 }
 
 .color-bg-secondary {
-  background-color: @brown !important;
+  background-color: @secondaryColor !important;
 }
 
-// .color-bg-tertiary { background-color: @hoverBackgroundColor !important; }
+.color-bg-tertiary { background-color: @tertiaryColor !important; }
 
 .color-fg-white {
   color: #fff;
