@@ -75,6 +75,8 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     cy.getSlateTitle().type('My First Book');
     cy.get('.documentFirstHeading').contains('My First Book');
     cy.get('#toolbar-save').click();
+
+    cy.wait(1000);
     cy.get('.documentFirstHeading').contains('My First Book');
     // Check if the button exist
     cy.get('.hero-block-meta .button').contains('my button');
