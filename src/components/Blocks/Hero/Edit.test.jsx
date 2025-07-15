@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
+import { IntlProvider } from 'react-intl';
 import configureStore from 'redux-mock-store';
 import Edit from './Edit';
 import config from '@plone/volto/registry';
@@ -14,13 +15,16 @@ jest.mock('uuid', () => ({
 const mockStore = configureStore([]);
 const observe = jest.fn();
 const unobserve = jest.fn();
+const disconnect = jest.fn();
 jest.mock('@plone/volto/components', () => {
   return {
     __esModule: true,
     BlocksForm: ({ placeholder, children, onChange, onFocus }) => (
       <div id="test">
         <div>{placeholder}</div>
-        {children}
+        {typeof children === 'function'
+          ? children({}, <div>Mock Edit Block</div>, {})
+          : children}
       </div>
     ),
     SidebarPortal: ({ children }) => <div>{children}</div>,
@@ -29,6 +33,15 @@ jest.mock('@plone/volto/components', () => {
     RenderBlocks: () => <div></div>,
   };
 });
+
+jest.mock(
+  '@plone/volto/components/manage/Blocks/Block/EditBlockWrapper',
+  () => {
+    return ({ children }) => (
+      <div className="edit-block-wrapper">{children}</div>
+    );
+  },
+);
 jest.mock('react-router-dom', () => ({
   useLocation: jest.fn().mockReturnValue({
     pathname: '/test-jest',
@@ -39,9 +52,10 @@ jest.mock('react-router-dom', () => ({
   }),
 }));
 
-window.IntersectionObserver = jest.fn((callback) => ({
+window.IntersectionObserver = jest.fn(() => ({
   observe,
   unobserve,
+  disconnect,
 }));
 
 config.blocks = {
@@ -50,6 +64,7 @@ config.blocks = {
       copyrightPrefix: 'Test Prefix',
       schema: {
         title: 'Hero',
+        required: [],
       },
     },
   },
@@ -58,6 +73,7 @@ config.settings = {
   slate: {
     textblockExtensions: [],
   },
+  themeColors: [],
 };
 
 describe('Edit component', () => {
@@ -72,9 +88,11 @@ describe('Edit component', () => {
 
   it('renders without crashing', () => {
     const { container } = render(
-      <Provider store={store}>
-        <Edit onChangeBlock={() => {}} onSelectBlock={() => {}} />
-      </Provider>,
+      <IntlProvider locale="en" messages={{}}>
+        <Provider store={store}>
+          <Edit onChangeBlock={() => {}} onSelectBlock={() => {}} />
+        </Provider>
+      </IntlProvider>,
     );
     expect(container).toBeTruthy();
   });
@@ -94,9 +112,11 @@ describe('Edit component', () => {
     };
 
     const { container } = render(
-      <Provider store={store}>
-        <Edit data={data} onChangeBlock={() => {}} />
-      </Provider>,
+      <IntlProvider locale="en" messages={{}}>
+        <Provider store={store}>
+          <Edit data={data} onChangeBlock={() => {}} />
+        </Provider>
+      </IntlProvider>,
     );
 
     expect(container.querySelector('#test')).toBeInTheDocument();
@@ -108,15 +128,18 @@ describe('Edit component', () => {
         hero: {
           schema: () => ({
             title: 'Hero',
+            required: [],
           }),
         },
       },
     };
     const onSelectBlock = jest.fn();
     render(
-      <Provider store={store}>
-        <Edit onSelectBlock={onSelectBlock} onChangeBlock={() => {}} />
-      </Provider>,
+      <IntlProvider locale="en" messages={{}}>
+        <Provider store={store}>
+          <Edit onSelectBlock={onSelectBlock} onChangeBlock={() => {}} />
+        </Provider>
+      </IntlProvider>,
     );
   });
 });

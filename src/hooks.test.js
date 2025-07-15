@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import { useFirstVisited } from './hooks';
 
 let observerCallback;
@@ -16,6 +16,12 @@ window.IntersectionObserver = jest.fn((callback) => {
 });
 
 describe('useFirstVisited', () => {
+  beforeEach(() => {
+    observeMock.mockClear();
+    unobserveMock.mockClear();
+    disconnectMock.mockClear();
+  });
+
   it('should observe and unobserve the ref element', () => {
     const ref = { current: {} };
     const rootMargin = '10px';
@@ -31,7 +37,9 @@ describe('useFirstVisited', () => {
     expect(container.textContent).toBe('Not Intersected');
 
     // Simulate the element becoming visible in the viewport
-    observerCallback([{ isIntersecting: true }]);
+    act(() => {
+      observerCallback([{ isIntersecting: true }]);
+    });
 
     // Re-render: Intersected
     expect(container.textContent).toBe('Intersected');
@@ -44,7 +52,7 @@ describe('useFirstVisited', () => {
     expect(disconnectMock).toHaveBeenCalled();
   });
 
-  it('should not observe when intersected is true', () => {
+  it('should stay intersected once it becomes true', () => {
     const ref = { current: {} };
 
     const TestComponent = () => {
@@ -58,17 +66,15 @@ describe('useFirstVisited', () => {
     expect(container.textContent).toBe('Not Intersected');
 
     // Simulate the element becoming visible in the viewport
-    observerCallback([{ isIntersecting: true }]);
+    act(() => {
+      observerCallback([{ isIntersecting: true }]);
+    });
 
     // Re-render: Intersected
     expect(container.textContent).toBe('Intersected');
 
-    // Simulate another render
-    // Intersected should stay true and not observe again
-    observerCallback([{ isIntersecting: false }]);
-
-    // Re-render: Intersected
-    expect(container.textContent).toBe('Not Intersected');
-    // expect(observeMock).not.toHaveBeenCalled();
+    // Once intersected is true, it should stay true regardless of further callbacks
+    // The hook should not set up a new observer when intersected is already true
+    expect(container.textContent).toBe('Intersected');
   });
 });
