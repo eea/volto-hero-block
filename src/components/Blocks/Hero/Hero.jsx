@@ -7,7 +7,11 @@ import { useFirstVisited } from '@eeacms/volto-hero-block/hooks';
 import cx from 'classnames';
 
 Hero.propTypes = {
-  image: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+  image: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.string,
+    PropTypes.object,
+  ]),
   fullWidth: PropTypes.bool,
   fullHeight: PropTypes.bool,
   alignContent: PropTypes.string,
@@ -32,7 +36,9 @@ function Hero({
   const image =
     typeof props.image == 'string'
       ? getFieldURL(props.image)
-      : getFieldURL(props.image?.[0]);
+      : Array.isArray(props.image)
+      ? getFieldURL(props.image?.[0])
+      : getFieldURL(props.image);
   const isExternal = !isInternalURL(image);
   const { alignContent = 'center', backgroundVariant = 'primary' } =
     styles || {};
