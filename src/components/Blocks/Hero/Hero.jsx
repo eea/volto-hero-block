@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Icon } from 'semantic-ui-react';
-import Copyright from './Copyright';
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 import { isImageGif, getFieldURL } from '@eeacms/volto-hero-block/helpers';
 import { useFirstVisited } from '@eeacms/volto-hero-block/hooks';

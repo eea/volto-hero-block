@@ -63,7 +63,6 @@ export default function Edit(props) {
 
   const blockState = {};
   const data_blocks = data?.data?.blocks;
-  console.log(data);
   useEffect(() => {
     if (data?.text || isEmpty(data_blocks)) {
       let dataWithoutText = { ...data };
@@ -105,6 +104,7 @@ export default function Edit(props) {
             },
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.text, data_blocks, block, id, onChangeBlock]);
   return (
     <>
