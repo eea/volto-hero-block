@@ -41,13 +41,21 @@ const applyConfig = (config) => {
       view: [],
     },
     schema: LayoutSchema(intl),
+    defaultData: {
+      fullWidth: true,
+    },
   };
 
   config.settings.blocksWithFootnotesSupport = {
     ...(config.settings.blocksWithFootnotesSupport || {}),
     hero: ['text'],
   };
-
+  config.settings.themeColors = [
+    { value: undefined, title: 'No theme' },
+    { value: 'primary', title: 'Primary' },
+    { value: 'secondary', title: 'Secondary' },
+    { value: 'tertiary', title: 'Tertiary' },
+  ];
   return config;
 };
 

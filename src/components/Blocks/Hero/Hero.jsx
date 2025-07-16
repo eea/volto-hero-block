@@ -1,20 +1,24 @@
 import React from 'react';
-import cx from 'classnames';
 import PropTypes from 'prop-types';
+
 import { isInternalURL } from '@plone/volto/helpers/Url/Url';
 import { isImageGif, getFieldURL } from '@eeacms/volto-hero-block/helpers';
 import { useFirstVisited } from '@eeacms/volto-hero-block/hooks';
+import cx from 'classnames';
 
 Hero.propTypes = {
-  image: PropTypes.string,
+  image: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.string,
+    PropTypes.object,
+  ]),
   fullWidth: PropTypes.bool,
   fullHeight: PropTypes.bool,
   alignContent: PropTypes.string,
   textAlign: PropTypes.string,
+  metaAlign: PropTypes.string,
   backgroundVariant: PropTypes.string,
   quoted: PropTypes.bool,
-  spaced: PropTypes.bool,
-  inverted: PropTypes.bool,
   textVariant: PropTypes.string,
 };
 
@@ -29,19 +33,17 @@ function Hero({
   height,
   ...props
 }) {
-  const image = getFieldURL(props.image);
+  const image =
+    typeof props.image == 'string'
+      ? getFieldURL(props.image)
+      : Array.isArray(props.image)
+      ? getFieldURL(props.image?.[0])
+      : getFieldURL(props.image);
   const isExternal = !isInternalURL(image);
   const { alignContent = 'center', backgroundVariant = 'primary' } =
     styles || {};
   const bgImgRef = React.useRef();
   const onScreen = useFirstVisited(bgImgRef);
-  const containerCssStyles = React.useMemo(
-    () => ({
-      ...(height && !fullHeight ? { height } : {}),
-    }),
-    [height, fullHeight],
-  );
-
   const backgroundImageStyle =
     onScreen && image
       ? {
@@ -52,50 +54,29 @@ function Hero({
             : `url(${image}/@@images/image/huge)`,
         }
       : {};
-
   return (
     <div
-      className={cx(
-        'eea hero-block',
-        !image &&
-          backgroundVariant &&
-          !fullWidth &&
-          `color-bg-${backgroundVariant}`,
-        {
-          spaced,
-          inverted,
-          'full-height': fullHeight,
-        },
-      )}
+      className={`eea hero-block${fullHeight ? ' full-height' : ''}${
+        spaced ? ' spaced' : ''
+      }${inverted ? ' inverted' : ''}`}
     >
       <div
-        className={cx(
-          'hero-block-image-wrapper',
-          !image &&
-            backgroundVariant &&
-            fullWidth &&
-            `color-bg-${backgroundVariant}`,
-          {
-            'full-width': fullWidth,
-          },
-        )}
-        style={containerCssStyles}
+        className={`hero-block-image-wrapper ${
+          fullWidth ? 'full-width' : ''
+        } color-bg-${backgroundVariant}`}
       >
         <div
-          className={cx('hero-block-image', styles?.bg)}
           ref={bgImgRef}
+          className={`hero-block-image ${styles?.bg}`}
           style={backgroundImageStyle}
-        />
-        {image && overlay && (
-          <div className="hero-block-image-overlay dark-overlay-4"></div>
-        )}
+        >
+          {image && overlay && (
+            <div className="hero-block-image-overlay dark-overlay-4"></div>
+          )}
+        </div>
       </div>
       <div
-        className={cx(
-          'hero-block-inner-wrapper d-flex',
-          `flex-items-${alignContent}`,
-        )}
-        style={containerCssStyles}
+        className={`hero-block-inner-wrapper d-flex ui container flex-items-${alignContent}`}
       >
         <div className="hero-block-body">{children}</div>
       </div>
@@ -103,8 +84,9 @@ function Hero({
   );
 }
 
-Hero.Text = ({ children, quoted, styles }) => {
-  const { textVariant = 'white', textAlign = 'left' } = styles || {};
+Hero.Text = ({ quoted, styles, children, ...props }) => {
+  const { textVariant = 'white', textAlign = 'left' } =
+    { ...(props || {}), ...(styles || {}) } || {};
   return (
     <div
       className={cx(
@@ -118,14 +100,8 @@ Hero.Text = ({ children, quoted, styles }) => {
     </div>
   );
 };
-
-Hero.Meta = ({ children, styles }) => {
-  const { buttonAlign = 'left' } = styles || {};
-  return (
-    <div className={cx('hero-block-meta', `text-${buttonAlign}`)}>
-      {children}
-    </div>
-  );
-};
+Hero.Meta = ({ metaAlign, children }) => (
+  <div className={`hero-block-meta text-${metaAlign}`}>{children}</div>
+);
 
 export default Hero;

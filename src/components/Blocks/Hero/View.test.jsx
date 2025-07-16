@@ -46,7 +46,7 @@ describe('View Component', () => {
       text: 'Hello, World!',
       copyright: 'Copyright 2023',
       copyrightIcon: 'copyright-icon-class',
-      copyrightPosition: 'bottom',
+      copyrightPosition: 'left',
     };
     render(<View data={data} />);
   });

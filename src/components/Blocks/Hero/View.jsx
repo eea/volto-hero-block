@@ -8,7 +8,7 @@ import Hero from './Hero';
 import Copyright from './Copyright';
 import { serializeText, getFieldURL } from '@eeacms/volto-hero-block/helpers';
 import config from '@plone/volto/registry';
-
+import './hero.less';
 const Metadata = ({ buttonLabel, inverted, styles, ...props }) => {
   const buttonLink = getFieldURL(props.buttonLink);
   const { buttonVariant = 'white' } = styles || {};
@@ -36,7 +36,7 @@ const View = (props) => {
     <React.Fragment>
       <BodyClass className="with-hero-block" />
       <Hero {...data}>
-        <Hero.Text {...data}>
+        <Hero.Text {...data.styles}>
           {data?.data ? (
             <RenderBlocks
               location={location}
@@ -47,7 +47,7 @@ const View = (props) => {
             serializeText(text)
           )}
         </Hero.Text>
-        <Hero.Meta {...data}>
+        <Hero.Meta metaAlign={data?.styles?.buttonAlign}>
           <Metadata {...data} />
         </Hero.Meta>
         {copyright ? (
