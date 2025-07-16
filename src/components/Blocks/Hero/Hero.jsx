@@ -56,9 +56,9 @@ function Hero({
       : {};
   return (
     <div
-      className={` eea hero-block ${fullHeight ? 'full-height' : ''}  ${
-        spaced ? 'spaced' : ''
-      }`}
+      className={`eea hero-block${fullHeight ? ' full-height' : ''}${
+        spaced ? ' spaced' : ''
+      }${inverted ? ' inverted' : ''}`}
     >
       <div
         className={`hero-block-image-wrapper ${
