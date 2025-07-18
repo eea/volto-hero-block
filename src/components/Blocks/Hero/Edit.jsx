@@ -63,35 +63,39 @@ export default function Edit(props) {
   const blockState = {};
   const data_blocks = data?.data?.blocks;
 
-  if (data?.text || isEmpty(data_blocks)) {
-    let dataWithoutText = { ...data };
-    if (dataWithoutText) delete dataWithoutText.text;
+  // Move the data migration logic to useEffect to avoid setState during render
+  // this happens when the component is first rendered such as on block creation
+  React.useEffect(() => {
+    if (data?.text || isEmpty(data_blocks)) {
+      let dataWithoutText = { ...data };
+      if (dataWithoutText) delete dataWithoutText.text;
 
-    onChangeBlock(block, {
-      ...dataWithoutText,
-      data: data?.text
-        ? {
-            blocks: {
-              [id]: {
-                '@type': 'slate',
-                value: data.text,
-                plaintext: data.text?.[0].children?.[0].text,
+      onChangeBlock(block, {
+        ...dataWithoutText,
+        data: data?.text
+          ? {
+              blocks: {
+                [id]: {
+                  '@type': 'slate',
+                  value: data.text,
+                  plaintext: data.text?.[0].children?.[0].text,
+                },
               },
-            },
-            blocks_layout: { items: [id] },
-          }
-        : {
-            blocks: {
-              [id]: {
-                '@type': 'slate',
-                value: [{ type: 'h2', children: [{ text: '' }] }],
-                plaintext: '',
+              blocks_layout: { items: [id] },
+            }
+          : {
+              blocks: {
+                [id]: {
+                  '@type': 'slate',
+                  value: [{ type: 'h2', children: [{ text: '' }] }],
+                  plaintext: '',
+                },
               },
+              blocks_layout: { items: [id] },
             },
-            blocks_layout: { items: [id] },
-          },
-    });
-  }
+      });
+    }
+  }, [data?.text, data_blocks, id, onChangeBlock, block, data]);
 
   return (
     <>
@@ -116,7 +120,7 @@ export default function Edit(props) {
               allowedBlocks={'slate'}
               selectedBlock={selectedBlock}
               title={data.placeholder}
-              onSelectBlock={(s, e) => {
+              onSelectBlock={(s) => {
                 setSelectedBlock(s);
               }}
               onChangeFormData={(newFormData) => {
