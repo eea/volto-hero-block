@@ -5,9 +5,11 @@ import View from './View';
 
 const observe = jest.fn();
 const unobserve = jest.fn();
-window.IntersectionObserver = jest.fn((callback) => ({
+const disconnect = jest.fn();
+window.IntersectionObserver = jest.fn(() => ({
   observe,
   unobserve,
+  disconnect,
 }));
 jest.mock('@plone/volto/components', () => {
   return {
@@ -46,7 +48,7 @@ describe('View Component', () => {
       text: 'Hello, World!',
       copyright: 'Copyright 2023',
       copyrightIcon: 'copyright-icon-class',
-      copyrightPosition: 'bottom',
+      copyrightPosition: 'left',
     };
     render(<View data={data} />);
   });

@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useMemo, useRef } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { isInternalURL } from '@plone/volto/helpers/Url/Url';
-import { isImageGif, getFieldURL } from '@eeacms/volto-hero-block/helpers';
+import { getImageScaleParams } from '@eeacms/volto-object-widget/helpers';
 import { useFirstVisited } from '@eeacms/volto-hero-block/hooks';
 
 Hero.propTypes = {
-  image: PropTypes.string,
+  image: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   fullWidth: PropTypes.bool,
   fullHeight: PropTypes.bool,
   alignContent: PropTypes.string,
@@ -18,46 +17,48 @@ Hero.propTypes = {
   textVariant: PropTypes.string,
 };
 
-function Hero({
-  overlay = true,
-  fullWidth = true,
-  fullHeight = true,
-  children,
-  spaced = false,
-  inverted = true,
-  styles,
-  height,
-  ...props
-}) {
-  const image = getFieldURL(props.image);
-  const isExternal = !isInternalURL(image);
+function Hero(props) {
+  const {
+    image,
+    fullWidth = false,
+    fullHeight = false,
+    height,
+    styles,
+    overlay = true,
+    children,
+    spaced = false,
+    inverted = false,
+  } = props;
+
+  const scaledImage = useMemo(
+    () => (image ? getImageScaleParams(image, 'huge') : null),
+    [image],
+  );
   const { alignContent = 'center', backgroundVariant = 'primary' } =
     styles || {};
-  const bgImgRef = React.useRef();
+  const bgImgRef = useRef();
   const onScreen = useFirstVisited(bgImgRef);
-  const containerCssStyles = React.useMemo(
+  const containerCssStyles = useMemo(
     () => ({
       ...(height && !fullHeight ? { height } : {}),
     }),
     [height, fullHeight],
   );
-
-  const backgroundImageStyle =
-    onScreen && image
-      ? {
-          backgroundImage: isExternal
-            ? `url(${image})`
-            : isImageGif(image)
-            ? `url(${image}/@@images/image)`
-            : `url(${image}/@@images/image/huge)`,
-        }
-      : {};
+  const backgroundImageStyle = useMemo(
+    () =>
+      onScreen && scaledImage
+        ? {
+            backgroundImage: `url(${scaledImage.download})`,
+          }
+        : {},
+    [onScreen, scaledImage],
+  );
 
   return (
     <div
       className={cx(
         'eea hero-block',
-        !image &&
+        !scaledImage &&
           backgroundVariant &&
           !fullWidth &&
           `color-bg-${backgroundVariant}`,
@@ -71,7 +72,7 @@ function Hero({
       <div
         className={cx(
           'hero-block-image-wrapper',
-          !image &&
+          !scaledImage &&
             backgroundVariant &&
             fullWidth &&
             `color-bg-${backgroundVariant}`,
@@ -86,7 +87,7 @@ function Hero({
           ref={bgImgRef}
           style={backgroundImageStyle}
         />
-        {image && overlay && (
+        {scaledImage && overlay && (
           <div className="hero-block-image-overlay dark-overlay-4"></div>
         )}
       </div>

@@ -103,7 +103,7 @@ describe('Hero block', () => {
     const { container } = render(
       <Provider store={store}>
         <Hero
-          image={{ '@type': 'URL', url: 'url_url', href: 'href_url' }}
+          image={[{ '@type': 'URL', url: 'url_url', href: 'href_url' }]}
           overlay={true}
           fullWidth={false}
           fullHeight={true}
