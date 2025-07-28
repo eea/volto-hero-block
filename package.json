@@ -20,7 +20,7 @@
     "@eeacms/volto-object-widget"
   ],
   "dependencies": {
-    "@eeacms/volto-object-widget": "eea/volto-object-widget#develop",
+    "@eeacms/volto-object-widget": "*",
     "@eeacms/volto-widget-theme-picker": "*"
   },
   "devDependencies": {
