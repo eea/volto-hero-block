@@ -13,7 +13,7 @@ const ALIGN_INFO_MAP = {
   '': [clearSVG, 'None'],
 };
 
-export const HeroBlockSchema = ({ data }) => {
+export const HeroBlockSchema = ({ data = {} }) => {
   return {
     title: 'Hero',
     fieldsets: [
@@ -43,27 +43,27 @@ export const HeroBlockSchema = ({ data }) => {
       fullWidth: {
         title: 'Full width',
         type: 'boolean',
-        defaultValue: true,
+        default: true,
       },
       fullHeight: {
         title: 'Full height',
         type: 'boolean',
-        defaultValue: true,
+        default: true,
       },
       quoted: {
         title: 'Quoted',
         type: 'boolean',
-        defaultValue: false,
+        default: false,
       },
       spaced: {
         title: 'Spaced',
         type: 'boolean',
-        defaultValue: false,
+        default: false,
       },
       inverted: {
         title: 'Inverted',
         type: 'boolean',
-        defaultValue: true,
+        default: true,
       },
       buttonLabel: {
         title: 'Button label',
@@ -76,11 +76,12 @@ export const HeroBlockSchema = ({ data }) => {
       overlay: {
         title: 'Image darken overlay',
         type: 'boolean',
-        defaultValue: true,
+        default: true,
       },
       image: {
         title: 'Image',
         widget: 'attachedimage',
+        selectedItemAttrs: ['image_field', 'image_scales'],
       },
       copyright: {
         title: 'Text',

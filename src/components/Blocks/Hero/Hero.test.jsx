@@ -103,7 +103,7 @@ describe('Hero block', () => {
     const { container } = render(
       <Provider store={store}>
         <Hero
-          image={{ '@type': 'URL', url: 'url_url', href: 'href_url' }}
+          image={[{ '@type': 'URL', url: 'url_url', href: 'href_url' }]}
           overlay={true}
           fullWidth={false}
           fullHeight={true}
@@ -122,10 +122,10 @@ describe('Hero block', () => {
       </Provider>,
     );
 
-    expect(container.querySelector('.eea.hero-block')).toBeInTheDocument();
     expect(container.querySelector('.hero-block-image')).toHaveStyle({
       backgroundImage: 'url(url_url)',
     });
+    expect(container.querySelector('.eea.hero-block')).toBeInTheDocument();
   });
 
   it('renders a hero component', () => {
@@ -157,10 +157,10 @@ describe('Hero block', () => {
       </Provider>,
     );
 
-    expect(container.querySelector('.eea.hero-block')).toBeInTheDocument();
     expect(container.querySelector('.hero-block-image')).toHaveStyle({
       backgroundImage: 'url(/foo/bar/@@images/image/huge)',
     });
+    expect(container.querySelector('.eea.hero-block')).toBeInTheDocument();
   });
 
   it('renders a hero component', () => {
