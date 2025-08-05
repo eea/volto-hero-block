@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 import isFunction from 'lodash/isFunction';
 import { Icon } from 'semantic-ui-react';
@@ -62,37 +62,49 @@ export default function Edit(props) {
 
   const blockState = {};
   const data_blocks = data?.data?.blocks;
+  useEffect(() => {
+    if (data?.text || isEmpty(data_blocks)) {
+      let dataWithoutText = { ...data };
+      if (dataWithoutText) delete dataWithoutText.text;
 
-  if (data?.text || isEmpty(data_blocks)) {
-    let dataWithoutText = { ...data };
-    if (dataWithoutText) delete dataWithoutText.text;
-
-    onChangeBlock(block, {
-      ...dataWithoutText,
-      data: data?.text
-        ? {
-            blocks: {
-              [id]: {
-                '@type': 'slate',
-                value: data.text,
-                plaintext: data.text?.[0].children?.[0].text,
-              },
-            },
-            blocks_layout: { items: [id] },
-          }
-        : {
-            blocks: {
-              [id]: {
-                '@type': 'slate',
-                value: [{ type: 'h2', children: [{ text: '' }] }],
-                plaintext: '',
-              },
-            },
-            blocks_layout: { items: [id] },
+      onChangeBlock(block, {
+        ...dataWithoutText,
+        // default values are not loaded from schema
+        fullWidth: data?.fullWidth ?? true,
+        fullHeight: data?.fullHeight ?? true,
+        inverted: data?.inverted ?? true,
+        overlay: data?.overlay ?? true,
+        copyrightIcon: data?.copyrightIcon ?? 'ri-copyright-line',
+        ...{
+          styles: {
+            alignContent: data?.styles?.alignContent ?? 'center',
           },
-    });
-  }
-
+        },
+        data: data?.text
+          ? {
+              blocks: {
+                [id]: {
+                  '@type': 'slate',
+                  value: data.text,
+                  plaintext: data.text?.[0]?.children?.[0]?.text || '',
+                },
+              },
+              blocks_layout: { items: [id] },
+            }
+          : {
+              blocks: {
+                [id]: {
+                  '@type': 'slate',
+                  value: [{ type: 'h2', children: [{ text: '' }] }],
+                  plaintext: '',
+                },
+              },
+              blocks_layout: { items: [id] },
+            },
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data?.text, data_blocks, block, id, onChangeBlock]);
   return (
     <>
       <BodyClass className="with-hero-block" />
@@ -145,14 +157,14 @@ export default function Edit(props) {
                 <EditBlockWrapper
                   draginfo={draginfo}
                   blockProps={blockProps}
-                  disabled={data.disableInnerButtons}
+                  disabled={data?.disableInnerButtons}
                 >
                   {editBlock}
                 </EditBlockWrapper>
               )}
             </BlocksForm>
           </Hero.Text>
-          <Hero.Meta {...data}>
+          <Hero.Meta metaAlign={data?.styles?.buttonAlign}>
             <Metadata {...data} />
           </Hero.Meta>
           {copyright ? (

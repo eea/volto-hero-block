@@ -19,7 +19,7 @@ describe('Blocks Tests', () => {
       'hero',
     );
     cy.get('.button.hero').click({ force: true });
-
+    cy.get('.hero-edit-wrapper').click({ force: true });
     cy.get(
       '.inline.field.textarea.field-wrapper-buttonLabel textarea#field-buttonLabel',
     )

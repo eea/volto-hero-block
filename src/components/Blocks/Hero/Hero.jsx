@@ -10,10 +10,9 @@ Hero.propTypes = {
   fullHeight: PropTypes.bool,
   alignContent: PropTypes.string,
   textAlign: PropTypes.string,
+  metaAlign: PropTypes.string,
   backgroundVariant: PropTypes.string,
   quoted: PropTypes.bool,
-  spaced: PropTypes.bool,
-  inverted: PropTypes.bool,
   textVariant: PropTypes.string,
 };
 
@@ -83,8 +82,8 @@ function Hero(props) {
         style={containerCssStyles}
       >
         <div
-          className={cx('hero-block-image', styles?.bg)}
           ref={bgImgRef}
+          className={`hero-block-image ${styles?.bg}`}
           style={backgroundImageStyle}
         />
         {scaledImage && overlay && (
@@ -92,11 +91,7 @@ function Hero(props) {
         )}
       </div>
       <div
-        className={cx(
-          'hero-block-inner-wrapper d-flex',
-          `flex-items-${alignContent}`,
-        )}
-        style={containerCssStyles}
+        className={`hero-block-inner-wrapper d-flex ui container flex-items-${alignContent}`}
       >
         <div className="hero-block-body">{children}</div>
       </div>
@@ -104,8 +99,11 @@ function Hero(props) {
   );
 }
 
-Hero.Text = ({ children, quoted, styles }) => {
-  const { textVariant = 'white', textAlign = 'left' } = styles || {};
+Hero.Text = ({ quoted, styles, children, ...props }) => {
+  const { textVariant = 'white', textAlign = 'left' } = {
+    ...(props || {}),
+    ...(styles || {}),
+  };
   return (
     <div
       className={cx(
@@ -119,14 +117,8 @@ Hero.Text = ({ children, quoted, styles }) => {
     </div>
   );
 };
-
-Hero.Meta = ({ children, styles }) => {
-  const { buttonAlign = 'left' } = styles || {};
-  return (
-    <div className={cx('hero-block-meta', `text-${buttonAlign}`)}>
-      {children}
-    </div>
-  );
-};
+Hero.Meta = ({ metaAlign, children }) => (
+  <div className={`hero-block-meta text-${metaAlign}`}>{children}</div>
+);
 
 export default Hero;

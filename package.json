@@ -21,7 +21,8 @@
   ],
   "dependencies": {
     "@eeacms/volto-object-widget": "*",
-    "@eeacms/volto-widget-theme-picker": "*"
+    "@eeacms/volto-widget-theme-picker": "*",
+    "remixicon": "4.6.0"
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.10.0",
