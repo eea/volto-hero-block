@@ -100,8 +100,10 @@ function Hero(props) {
 }
 
 Hero.Text = ({ quoted, styles, children, ...props }) => {
-  const { textVariant = 'white', textAlign = 'left' } =
-    { ...(props || {}), ...(styles || {}) } || {};
+  const { textVariant = 'white', textAlign = 'left' } = {
+    ...(props || {}),
+    ...(styles || {}),
+  };
   return (
     <div
       className={cx(
