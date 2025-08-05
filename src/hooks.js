@@ -7,7 +7,7 @@ function useFirstVisited(ref, rootMargin = '0px') {
     if (intersected) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIntersected(intersected === false ? entry.isIntersecting : true);
+        setIntersected(prev => (prev === false ? entry.isIntersecting : true));
       },
       {
         rootMargin,
