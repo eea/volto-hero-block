@@ -21,6 +21,15 @@ import './commands';
 //Generate code-coverage
 import '@cypress/code-coverage/support';
 
+Cypress.on('uncaught:exception', (err) => {
+  // From core. We are getting this error in Cypress tests but we don't use ResizeObserver ourselves
+  if (/ResizeObserver loop/.test(err.message)) {
+    // returning false here prevents Cypress from
+    // failing the test
+    return false;
+  }
+});
+
 export const slateBeforeEach = (contentType = 'Document') => {
   cy.autologin();
   cy.createContent({
