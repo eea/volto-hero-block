@@ -5,9 +5,11 @@ import View from './View';
 
 const observe = jest.fn();
 const unobserve = jest.fn();
-window.IntersectionObserver = jest.fn((callback) => ({
+const disconnect = jest.fn();
+window.IntersectionObserver = jest.fn(() => ({
   observe,
   unobserve,
+  disconnect,
 }));
 jest.mock('@plone/volto/components', () => {
   return {

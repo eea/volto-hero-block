@@ -15,8 +15,7 @@ import {
   UniversalLink,
 } from '@plone/volto/components';
 import { BodyClass } from '@plone/volto/helpers';
-
-import { getFieldURL } from '@eeacms/volto-hero-block/helpers';
+import { getFieldURL } from '@plone/volto/helpers/Url/Url';
 import { HeroBlockSchema } from './schema';
 import Copyright from './Copyright';
 import Hero from './Hero';
@@ -129,7 +128,7 @@ export default function Edit(props) {
               allowedBlocks={'slate'}
               selectedBlock={selectedBlock}
               title={data.placeholder}
-              onSelectBlock={(s, e) => {
+              onSelectBlock={(s) => {
                 setSelectedBlock(s);
               }}
               onChangeFormData={(newFormData) => {

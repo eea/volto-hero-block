@@ -1,17 +1,12 @@
-import React from 'react';
+import React, { useMemo, useRef } from 'react';
+import cx from 'classnames';
 import PropTypes from 'prop-types';
-
-import { isInternalURL } from '@plone/volto/helpers/Url/Url';
-import { isImageGif, getFieldURL } from '@eeacms/volto-hero-block/helpers';
+import { getImageScaleParams } from '@eeacms/volto-object-widget/helpers';
 import { useFirstVisited } from '@eeacms/volto-hero-block/hooks';
 import cx from 'classnames';
 
 Hero.propTypes = {
-  image: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.string,
-    PropTypes.object,
-  ]),
+  image: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   fullWidth: PropTypes.bool,
   fullHeight: PropTypes.bool,
   alignContent: PropTypes.string,
@@ -22,58 +17,79 @@ Hero.propTypes = {
   textVariant: PropTypes.string,
 };
 
-function Hero({
-  overlay = true,
-  fullWidth = true,
-  fullHeight = true,
-  children,
-  spaced = false,
-  inverted = true,
-  styles,
-  height,
-  ...props
-}) {
-  const image =
-    typeof props.image == 'string'
-      ? getFieldURL(props.image)
-      : Array.isArray(props.image)
-      ? getFieldURL(props.image?.[0])
-      : getFieldURL(props.image);
-  const isExternal = !isInternalURL(image);
+function Hero(props) {
+  const {
+    image,
+    fullWidth = false,
+    fullHeight = false,
+    height,
+    styles,
+    overlay = true,
+    children,
+    spaced = false,
+    inverted = false,
+  } = props;
+
+  const scaledImage = useMemo(
+    () => (image ? getImageScaleParams(image, 'huge') : null),
+    [image],
+  );
   const { alignContent = 'center', backgroundVariant = 'primary' } =
     styles || {};
-  const bgImgRef = React.useRef();
+  const bgImgRef = useRef();
   const onScreen = useFirstVisited(bgImgRef);
-  const backgroundImageStyle =
-    onScreen && image
-      ? {
-          backgroundImage: isExternal
-            ? `url(${image})`
-            : isImageGif(image)
-            ? `url(${image}/@@images/image)`
-            : `url(${image}/@@images/image/huge)`,
-        }
-      : {};
+  const containerCssStyles = useMemo(
+    () => ({
+      ...(height && !fullHeight ? { height } : {}),
+    }),
+    [height, fullHeight],
+  );
+  const backgroundImageStyle = useMemo(
+    () =>
+      onScreen && scaledImage
+        ? {
+            backgroundImage: `url(${scaledImage.download})`,
+          }
+        : {},
+    [onScreen, scaledImage],
+  );
+
   return (
     <div
-      className={`eea hero-block${fullHeight ? ' full-height' : ''}${
-        spaced ? ' spaced' : ''
-      }${inverted ? ' inverted' : ''}`}
+      className={cx(
+        'eea hero-block',
+        !scaledImage &&
+          backgroundVariant &&
+          !fullWidth &&
+          `color-bg-${backgroundVariant}`,
+        {
+          spaced,
+          inverted,
+          'full-height': fullHeight,
+        },
+      )}
     >
       <div
-        className={`hero-block-image-wrapper ${
-          fullWidth ? 'full-width' : ''
-        } color-bg-${backgroundVariant}`}
+        className={cx(
+          'hero-block-image-wrapper',
+          !scaledImage &&
+            backgroundVariant &&
+            fullWidth &&
+            `color-bg-${backgroundVariant}`,
+          {
+            'full-width': fullWidth,
+          },
+        )}
+        style={containerCssStyles}
       >
         <div
           ref={bgImgRef}
           className={`hero-block-image ${styles?.bg}`}
           style={backgroundImageStyle}
-        >
-          {image && overlay && (
-            <div className="hero-block-image-overlay dark-overlay-4"></div>
-          )}
-        </div>
+        />
+        {scaledImage && overlay && (
+          <div className="hero-block-image-overlay dark-overlay-4"></div>
+        )}
       </div>
       <div
         className={`hero-block-inner-wrapper d-flex ui container flex-items-${alignContent}`}
