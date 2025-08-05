@@ -3,7 +3,6 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { getImageScaleParams } from '@eeacms/volto-object-widget/helpers';
 import { useFirstVisited } from '@eeacms/volto-hero-block/hooks';
-import cx from 'classnames';
 
 Hero.propTypes = {
   image: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
