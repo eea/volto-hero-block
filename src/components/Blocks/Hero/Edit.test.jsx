@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl';
 import configureStore from 'redux-mock-store';
 import Edit from './Edit';
 import config from '@plone/volto/registry';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 
 // Mock uuid to avoid node:crypto import issues
 jest.mock('uuid', () => ({
