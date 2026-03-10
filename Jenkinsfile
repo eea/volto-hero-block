@@ -11,7 +11,7 @@ pipeline {
     BACKEND_PROFILES = "eea.kitkat:testing"
     BACKEND_ADDONS = ""
     VOLTO = "17"
-    VOLTO16_BREAKING_CHANGES = "yes"
+    VOLTO18_BREAKING_CHANGES = "no"
     IMAGE_NAME = BUILD_TAG.toLowerCase()
   }
 
@@ -261,7 +261,7 @@ pipeline {
       post {
         always {
             sh script: "docker rmi $IMAGE_NAME-frontend", returnStatus: true
-            sh script: "docker rmi $IMAGE_NAME-frontend16", returnStatus: true
+            sh script: "docker rmi $IMAGE_NAME-frontend18", returnStatus: true
         }
       }
     }
