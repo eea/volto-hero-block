@@ -76,7 +76,7 @@ pipeline {
       stage('Volto 17') {
         agent { node { label 'docker-1.13'} }
         stages {
-      	  stage('Build test image') {
+            stage('Build test image') {
             steps {
               sh '''docker build --pull --build-arg="VOLTO_VERSION=$VOLTO" --build-arg="ADDON_NAME=$NAMESPACE/$GIT_NAME"  --build-arg="ADDON_PATH=$GIT_NAME" . -t $IMAGE_NAME-frontend'''
             }
@@ -157,7 +157,7 @@ pipeline {
                 }
               }
           }
-            
+
           stage('Integration tests') {
               when { environment name: 'SKIP_TESTS', value: '' }
               steps {
@@ -258,6 +258,84 @@ pipeline {
           }
         }
       }
+
+      stage('Volto 18') {
+        agent { node { label 'integration'} }
+        when {
+          environment name: 'SKIP_TESTS', value: ''
+          not { environment name: 'VOLTO18_BREAKING_CHANGES', value: 'yes' }
+        }
+        stages {
+            stage('Build test image') {
+            steps {
+              sh '''docker build --pull --build-arg="VOLTO_VERSION=18-yarn" --build-arg="ADDON_NAME=$NAMESPACE/$GIT_NAME"  --build-arg="ADDON_PATH=$GIT_NAME" . -t $IMAGE_NAME-frontend18'''
+            }
+          }
+
+             stage('Unit tests Volto 18') {
+              steps {
+                script {
+                  try {
+                    sh '''docker run --name="$IMAGE_NAME-volto18" --entrypoint=make --workdir=/app/src/addons/$GIT_NAME $IMAGE_NAME-frontend18 test-ci'''
+                    sh '''rm -rf xunit-reports18'''
+                    sh '''mkdir -p xunit-reports18'''
+                    sh '''docker cp $IMAGE_NAME-volto18:/app/junit.xml xunit-reports18/'''
+                } finally {
+                    catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
+                        junit testResults: 'xunit-reports18/junit.xml', allowEmptyResults: true
+                    }
+                    sh script: '''docker rm -v $IMAGE_NAME-volto18''', returnStatus: true
+                  }
+                }
+              }
+            }
+
+           stage('Integration tests Volto 18') {
+              steps {
+                script {
+                  try {
+                    sh '''docker run --pull always --rm -d --name="$IMAGE_NAME-plone18" -e SITE="Plone" -e PROFILES="$BACKEND_PROFILES" -e ADDONS="$BACKEND_ADDONS" eeacms/plone-backend'''
+                    sh '''docker run -d --shm-size=4g --link $IMAGE_NAME-plone18:plone --name="$IMAGE_NAME-cypress18" -e "RAZZLE_INTERNAL_API_PATH=http://plone:8080/Plone" --entrypoint=make --workdir=/app/src/addons/$GIT_NAME $IMAGE_NAME-frontend18 start-ci'''
+                    frontend = sh script:'''docker exec --workdir=/app/src/addons/${GIT_NAME} $IMAGE_NAME-cypress18 make check-ci''', returnStatus: true
+                    if ( frontend != 0 ) {
+                      sh '''docker logs $IMAGE_NAME-cypress18; exit 1'''
+                    }
+                    sh '''timeout -s 9 1800 docker exec --workdir=/app/src/addons/${GIT_NAME} $IMAGE_NAME-cypress18 make cypress-ci'''
+                  } finally {
+                    try {
+                      if ( frontend == 0 ) {
+                      sh '''rm -rf cypress-videos18 cypress-results18 cypress-coverage18 cypress-screenshots18'''
+                      sh '''mkdir -p cypress-videos18 cypress-results18 cypress-coverage18 cypress-screenshots18'''
+                      videos = sh script: '''docker cp $IMAGE_NAME-cypress18:/app/src/addons/$GIT_NAME/cypress/videos cypress-videos18/''', returnStatus: true
+                      sh '''docker cp $IMAGE_NAME-cypress18:/app/src/addons/$GIT_NAME/cypress/reports cypress-results18/'''
+                      screenshots = sh script: '''docker cp $IMAGE_NAME-cypress18:/app/src/addons/$GIT_NAME/cypress/screenshots cypress-screenshots18''', returnStatus: true
+
+                      archiveArtifacts artifacts: 'cypress-screenshots18/**', fingerprint: true, allowEmptyArchive: true
+
+                      if ( videos == 0 ) {
+                        sh '''for file in $(find cypress-results18 -name *.xml); do if [ $(grep -E 'failures="[1-9].*"' $file | wc -l) -eq 0 ]; then testname=$(grep -E 'file=.*failures="0"' $file | sed 's#.* file=".*\\/\\(.*\\.[jsxt]\\+\\)" time.*#\\1#' );  rm -f cypress-videos18/videos/$testname.mp4; fi; done'''
+                        archiveArtifacts artifacts: 'cypress-videos18/**/*.mp4', fingerprint: true, allowEmptyArchive: true
+                      }
+                      }
+                    } finally {
+                      catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
+                        junit testResults: 'cypress-results18/**/*.xml', allowEmptyResults: true
+                      }
+                      catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
+                        sh '''docker logs $IMAGE_NAME-cypress18'''
+                      }
+                      sh script: "docker stop $IMAGE_NAME-cypress18", returnStatus: true
+                      sh script: "docker stop $IMAGE_NAME-plone18", returnStatus: true
+                      sh script: "docker rm -v $IMAGE_NAME-plone18", returnStatus: true
+                      sh script: "docker rm -v $IMAGE_NAME-cypress18", returnStatus: true
+                    }
+                  }
+                }
+              }
+            }
+
+        }
+      }
       post {
         always {
             sh script: "docker rmi $IMAGE_NAME-frontend", returnStatus: true
@@ -273,10 +351,10 @@ pipeline {
           allOf {
             not { environment name: 'CHANGE_ID', value: '' }
             environment name: 'CHANGE_TARGET', value: 'develop'
-            environment name: 'SKIP_TESTS', value: '' 
+            environment name: 'SKIP_TESTS', value: ''
           }
           allOf {
-            environment name: 'SKIP_TESTS', value: '' 
+            environment name: 'SKIP_TESTS', value: ''
             environment name: 'CHANGE_ID', value: ''
             branch 'develop'
             not { changelog '.*^Automated release [0-9\\.]+$' }
@@ -337,4 +415,3 @@ pipeline {
     }
   }
 }
-
