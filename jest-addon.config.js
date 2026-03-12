@@ -29,6 +29,8 @@ module.exports = {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
     '@plone/volto/cypress': '<rootDir>/node_modules/@plone/volto/cypress',
     '@plone/volto/babel': '<rootDir>/node_modules/@plone/volto/babel',
+    '@plone/volto/helpers/FormValidation/validators':
+      '<rootDir>/src/addons/volto-hero-block/test-mocks/voltoFormValidationValidators.js',
     '@plone/volto/(.*)$': '<rootDir>/node_modules/@plone/volto/src/$1',
     '@package/(.*)$': '<rootDir>/node_modules/@plone/volto/src/$1',
     '@root/(.*)$': '<rootDir>/node_modules/@plone/volto/src/$1',
