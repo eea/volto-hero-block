@@ -28,11 +28,10 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     cy.getSlate().click();
 
     cy.get('.ui.basic.icon.button.block-add-button:visible').click();
-    cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.content.active.common .button.hero')
-      .contains('Hero')
-
-      .click({ force: true });
+    cy.get(".blocks-chooser .ui.form .field.searchbox input[type='text']").type(
+      'hero',
+    );
+    cy.get('.button.hero').click({ force: true });
 
     cy.get('#toolbar-save').click();
 
