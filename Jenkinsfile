@@ -335,6 +335,7 @@ pipeline {
 
         }
       }
+      }
       post {
         always {
             sh script: "docker rmi $IMAGE_NAME-frontend", returnStatus: true
