@@ -24,6 +24,8 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     cy.get('label[for="field-required"]').click();
     cy.get('label[for="field-fixed"]').click();
 
+    cy.getSlate().click();
+
     cy.get('.ui.basic.icon.button.block-add-button:visible').click();
     cy.get(".blocks-chooser .ui.form .field.searchbox input[type='text']").type(
       'hero',
@@ -39,9 +41,8 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     cy.get('.block.title').contains('Book title');
 
     // Change book title
-    const titleSelector = '.block.inner.title [contenteditable="true"]';
-    cy.get(titleSelector).clear();
-    cy.get(titleSelector).type('My First Book');
+    cy.clearSlateTitle();
+    cy.getSlateTitle().type('My First Book');
     cy.get('.documentFirstHeading').contains('My First Book');
     cy.get('#toolbar-save').click();
 

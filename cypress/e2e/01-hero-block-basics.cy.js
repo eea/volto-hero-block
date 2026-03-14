@@ -5,15 +5,13 @@ describe('Blocks Tests', () => {
   afterEach(slateAfterEach);
 
   it('Add Block: Hero', () => {
-    const titleSelector = '.block.inner.title [contenteditable="true"]';
-
     // Change page title
-    cy.get(titleSelector).clear();
-    cy.get(titleSelector).type('Hero Block Test');
+    cy.clearSlateTitle();
+    cy.getSlateTitle().type('Hero Block Test');
 
     cy.get('.documentFirstHeading').contains('Hero Block Test');
 
-    cy.get(titleSelector).type('{enter}');
+    cy.getSlate().click();
 
     // Add block
     cy.get('.ui.basic.icon.button.block-add-button').first().click();
