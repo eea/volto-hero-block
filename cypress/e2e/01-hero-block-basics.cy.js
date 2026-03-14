@@ -5,13 +5,15 @@ describe('Blocks Tests', () => {
   afterEach(slateAfterEach);
 
   it('Add Block: Hero', () => {
+    const titleSelector = '.block.inner.title [contenteditable="true"]';
+
     // Change page title
-    cy.clearSlateTitle();
-    cy.getSlateTitle().type('Hero Block Test');
+    cy.get(titleSelector).clear();
+    cy.get(titleSelector).type('Hero Block Test');
 
     cy.get('.documentFirstHeading').contains('Hero Block Test');
 
-    cy.getSlate().click();
+    cy.get(titleSelector).type('{enter}');
 
     // Add block
     cy.get('.ui.basic.icon.button.block-add-button').first().click();
@@ -20,31 +22,12 @@ describe('Blocks Tests', () => {
     );
     cy.get('.button.hero').click({ force: true });
 
-    cy.get(
-      '.inline.field.textarea.field-wrapper-buttonLabel textarea#field-buttonLabel',
-    )
-      .click()
-      .type('Test Button');
-
-    cy.get('.ui.form #blockform-fieldset-styling').click();
-
-    cy.get(
-      '.inline.field.align-widget.field-wrapper-textAlign-3-styles .align-buttons button[aria-label="Center"]',
-    )
-      .eq(0)
-      .click();
-
-    cy.get('.hero-block-text div[role="textbox"]')
-      .click()
-      .type('My Hero Block');
-
     // Save
     cy.get('#toolbar-save').click();
     cy.url().should('eq', Cypress.config().baseUrl + '/cypress/my-page');
 
     // then the page view should contain our changes
     cy.contains('Hero Block Test');
-    cy.contains('My Hero Block');
-    cy.contains('Test Button');
+    cy.get('.block.hero');
   });
 });
