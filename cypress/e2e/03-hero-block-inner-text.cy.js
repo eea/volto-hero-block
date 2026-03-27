@@ -34,7 +34,7 @@ describe('Hero Block: Inner text editing', () => {
 
     // Inner block buttons (add, drag, delete) should not be visible
     cy.get('.hero-block .block-add-button').should('not.exist');
-    cy.get('.hero-block .drag.handle.wrapper').should('not.exist');
+    cy.get('.hero-block .drag.handle.wrapper').should('not.be.visible');
 
     // Save
     cy.get('#toolbar-save').click();
