@@ -22,6 +22,15 @@ Enhanced Hero Block [Volto](https://github.com/plone/volto) add-on
 
 ## Upgrade
 
+### Upgrading to 9.x
+
+> This version requires `Volto >= 17.18` or `Volto 18+`. It removes the custom `EditBlockWrapper` usage in favor of Volto's built-in block chrome provided by `BlocksForm`.
+
+#### Breaking changes
+
+- **Removed `EditBlockWrapper` render prop from `BlocksForm`.** The `BlocksForm` children render prop that wrapped each inner block in `<EditBlockWrapper>` has been removed. `BlocksForm` now handles block chrome internally via Volto core's `EditBlockWrapper`. Any code that relied on the children render prop pattern in the hero block's `Edit` component will need to be updated.
+- **`disableInnerButtons`** continues to work via the existing CSS rules in `edit.css` rather than the previously used `disabled` prop on `EditBlockWrapper`.
+
 ### Upgrading to 2.x
 
 This version requires: `@plone/volto >= 16.0.0.alpha.46` (schemaEnhancer / addStyling).
