@@ -4,7 +4,6 @@ import isFunction from 'lodash/isFunction';
 import { Icon } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
 import { BlocksForm } from '@plone/volto/components';
-import EditBlockWrapper from '@plone/volto/components/manage/Blocks/Block/EditBlockWrapper';
 import { v4 as uuid } from 'uuid';
 import '@eeacms/volto-hero-block/components/Blocks/Hero/edit.css';
 
@@ -140,17 +139,7 @@ export default function Edit(props) {
                 }
               }}
               pathname={pathname}
-            >
-              {({ draginfo }, editBlock, blockProps) => (
-                <EditBlockWrapper
-                  draginfo={draginfo}
-                  blockProps={blockProps}
-                  disabled={data.disableInnerButtons}
-                >
-                  {editBlock}
-                </EditBlockWrapper>
-              )}
-            </BlocksForm>
+            />
           </Hero.Text>
           <Hero.Meta {...data}>
             <Metadata {...data} />

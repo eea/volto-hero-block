@@ -1,16 +1,18 @@
 import { jest } from '@jest/globals';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { blocksConfig } from '@plone/volto/config/Blocks';
-import installSlate from '@plone/volto-slate/index';
 
 var mockSemanticComponents = jest.requireActual('semantic-ui-react');
-var mockComponents = jest.requireActual('@plone/volto/components');
-var config = jest.requireActual('@plone/volto/registry').default;
-
-config.blocks.blocksConfig = {
-  ...blocksConfig,
-  ...config.blocks.blocksConfig,
+var config = {
+  blocks: {
+    blocksConfig: {},
+  },
+  settings: {
+    apiPath: 'http://localhost:3000',
+    slate: {
+      textblockExtensions: [],
+    },
+  },
 };
 
 jest.doMock('semantic-ui-react', () => ({
@@ -29,14 +31,23 @@ jest.doMock('semantic-ui-react', () => ({
 jest.doMock('@plone/volto/components', () => {
   return {
     __esModule: true,
-    ...mockComponents,
     SidebarPortal: ({ children }) => <div id="sidebar">{children}</div>,
+    UniversalLink: ({ children, href = '', ...props }) => (
+      <a href={href} {...props}>
+        {children}
+      </a>
+    ),
+    RenderBlocks: () => <div />,
+    BlocksForm: ({ children }) =>
+      typeof children === 'function' ? children({}, <div />, {}) : children,
+    BlockDataForm: () => <div />,
   };
 });
 
-jest.doMock('@plone/volto/registry', () =>
-  [installSlate].reduce((acc, apply) => apply(acc), config),
-);
+jest.doMock('@plone/volto/registry', () => ({
+  __esModule: true,
+  default: config,
+}));
 
 const mockStore = configureStore([thunk]);
 

@@ -1,6 +1,6 @@
 import { slateBeforeEach, slateAfterEach } from '../support/e2e';
 
-describe('Blocks Tests', () => {
+describe('Hero Block: Add and configure', () => {
   beforeEach(slateBeforeEach);
   afterEach(slateAfterEach);
 
@@ -18,11 +18,18 @@ describe('Blocks Tests', () => {
     cy.get(".blocks-chooser .ui.form .field.searchbox input[type='text']").type(
       'hero',
     );
-    cy.get('.button.hero').click({ force: true });
+    cy.get('.blocks-chooser .button.hero').contains('Hero').click({
+      force: true,
+    });
+    cy.get('.block.hero')
+      .last()
+      .scrollIntoView()
+      .should('exist')
+      .click({ force: true });
+    cy.get('#sidebar .formtabs .item').contains('Block').click({ force: true });
 
-    cy.get(
-      '.inline.field.textarea.field-wrapper-buttonLabel textarea#field-buttonLabel',
-    )
+    cy.get('textarea#field-buttonLabel:visible')
+      .should('be.visible')
       .click()
       .type('Test Button');
 
@@ -44,6 +51,7 @@ describe('Blocks Tests', () => {
 
     // then the page view should contain our changes
     cy.contains('Hero Block Test');
+    cy.get('.eea.hero-block').should('be.visible');
     cy.contains('My Hero Block');
     cy.contains('Test Button');
   });
