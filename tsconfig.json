@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@plone/volto/helpers/FormValidation/validators": [
+        "node_modules/@plone/volto/src/helpers/FormValidation/validators.ts"
+      ]
+    }
+  }
+}

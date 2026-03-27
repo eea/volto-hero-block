@@ -11,4 +11,122 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
+#. Default: "A short hint that describes the expected value within this block"
+#: components/Blocks/Hero/LayoutSchema
+msgid "A short hint that describes the expected value within this block"
+msgstr ""
 
+#. Default: "Allow only the following blocks types"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Allow only the following blocks types"
+msgstr ""
+
+#. Default: "Default"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Default"
+msgstr ""
+
+#. Default: "Detailed expected value within this block"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Detailed expected value within this block"
+msgstr ""
+
+#. Default: "Disable creation of new blocks after this block"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Disable creation of new blocks after this block"
+msgstr ""
+
+#. Default: "Disable drag & drop on this block"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Disable drag & drop on this block"
+msgstr ""
+
+#. Default: "Disable editing on hero block settings"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Disable editing on hero block settings"
+msgstr ""
+
+#. Default: "Disable editing on hero titles"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Disable editing on hero titles"
+msgstr ""
+
+#. Default: "Disable editing on this block"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Disable editing on this block"
+msgstr ""
+
+#. Default: "Disable inner buttons"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Disable inner buttons"
+msgstr ""
+
+#. Default: "Disable new blocks"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Disable new blocks"
+msgstr ""
+
+#. Default: "Don't allow deletion of this block"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Don't allow deletion of this block"
+msgstr ""
+
+#. Default: "Fixed layout"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Fixed layout"
+msgstr ""
+
+#. Default: "Fixed layout, New panes (tabs) created by Editor within this block will be ignored"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Fixed layout, New panes (tabs) created by Editor within this block will be ignored"
+msgstr ""
+
+#. Default: "Fixed position"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Fixed position"
+msgstr ""
+
+#. Default: "Helper text"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Helper text"
+msgstr ""
+
+#. Default: "Hero"
+#: components/Blocks/Hero/index
+msgid "Hero"
+msgstr ""
+
+#. Default: "Hero block settings"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Hero block settings"
+msgstr ""
+
+#. Default: "Hide all block related buttons within this block"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Hide all block related buttons within this block"
+msgstr ""
+
+#. Default: "Instructions"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Instructions"
+msgstr ""
+
+#. Default: "Read-only"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Read-only"
+msgstr ""
+
+#. Default: "Read-only settings"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Read-only settings"
+msgstr ""
+
+#. Default: "Read-only titles"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Read-only titles"
+msgstr ""
+
+#. Default: "Required"
+#: components/Blocks/Hero/LayoutSchema
+msgid "Required"
+msgstr ""

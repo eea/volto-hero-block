@@ -22,6 +22,15 @@ Enhanced Hero Block [Volto](https://github.com/plone/volto) add-on
 
 ## Upgrade
 
+### Upgrading to 9.x
+
+> This version requires `Volto >= 17.18` or `Volto 18+`. It removes the custom `EditBlockWrapper` usage in favor of Volto's built-in block chrome provided by `BlocksForm`.
+
+#### Breaking changes
+
+- **Removed `EditBlockWrapper` render prop from `BlocksForm`.** The `BlocksForm` children render prop that wrapped each inner block in `<EditBlockWrapper>` has been removed. `BlocksForm` now handles block chrome internally via Volto core's `EditBlockWrapper`. Any code that relied on the children render prop pattern in the hero block's `Edit` component will need to be updated.
+- **`disableInnerButtons`** continues to work via the existing CSS rules in `edit.css` rather than the previously used `disabled` prop on `EditBlockWrapper`.
+
 ### Upgrading to 2.x
 
 This version requires: `@plone/volto >= 16.0.0.alpha.46` (schemaEnhancer / addStyling).
@@ -47,6 +56,11 @@ This is useful in case you have to add some sub titles or extra paragraphs insid
 
 Go to http://localhost:3000
 
+`make start` now defaults to Volto 18. To run the same setup against Volto 17, use:
+
+      VOLTO_VERSION=17 make
+      VOLTO_VERSION=17 make start
+
 ### Add volto-hero-block to your Volto project
 
 1. Make sure you have a [Plone backend](https://plone.org/download) up-and-running at http://localhost:8080/Plone
@@ -60,29 +74,38 @@ Go to http://localhost:3000
 - If you already have a volto project, just update `package.json`:
 
   ```JSON
-  "addons": [
-      "@eeacms/volto-hero-block"
-  ],
-
    "dependencies": {
        "@eeacms/volto-hero-block": "*"
    }
    ```
 
-- If not, create one:
+   and `volto.config.js`:
 
-   ```
-   npm install -g yo @plone/generator-volto
-   yo @plone/volto my-volto-project --canary --addon @eeacms/volto-hero-block
-   cd my-volto-project
+   ```JavaScript
+   const addons = ['@eeacms/volto-hero-block'];
    ```
 
-1. Install new add-ons and restart Volto:
+- If not, create one with Cookieplone, as recommended by the official Plone documentation for Volto 18+:
 
    ```
-   yarn
-   yarn start
+   uvx cookieplone project
+   cd project-title
    ```
+
+1. Install or update dependencies, then start the project:
+
+   ```
+   make install
+   ```
+
+   For a Cookieplone project, start the backend and frontend in separate terminals:
+
+   ```
+   make backend-start
+   make frontend-start
+   ```
+
+   For a legacy Volto 17 project, install the package with `yarn` and restart the frontend as usual.
 
 1. Go to http://localhost:3000
 

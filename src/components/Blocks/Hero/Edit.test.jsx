@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl';
 import configureStore from 'redux-mock-store';
 import Edit from './Edit';
 import config from '@plone/volto/registry';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 
 // Mock uuid to avoid node:crypto import issues
 jest.mock('uuid', () => ({
@@ -19,12 +19,9 @@ const disconnect = jest.fn();
 jest.mock('@plone/volto/components', () => {
   return {
     __esModule: true,
-    BlocksForm: ({ placeholder, children, onChange, onFocus }) => (
+    BlocksForm: ({ placeholder }) => (
       <div id="test">
         <div>{placeholder}</div>
-        {typeof children === 'function'
-          ? children({}, <div>Mock Edit Block</div>, {})
-          : children}
       </div>
     ),
     SidebarPortal: ({ children }) => <div>{children}</div>,
@@ -33,15 +30,6 @@ jest.mock('@plone/volto/components', () => {
     RenderBlocks: () => <div></div>,
   };
 });
-
-jest.mock(
-  '@plone/volto/components/manage/Blocks/Block/EditBlockWrapper',
-  () => {
-    return ({ children }) => (
-      <div className="edit-block-wrapper">{children}</div>
-    );
-  },
-);
 jest.mock('react-router-dom', () => ({
   useLocation: jest.fn().mockReturnValue({
     pathname: '/test-jest',
