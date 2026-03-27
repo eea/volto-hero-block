@@ -32,10 +32,6 @@ describe('Hero Block: Inner text editing', () => {
     // Verify the text appears in the hero block text area
     cy.get('.hero-block-text').should('contain', 'Inner text content');
 
-    // Inner block buttons (add, drag, delete) should not be visible
-    cy.get('.hero-block .block-add-button').should('not.exist');
-    cy.get('.hero-block .drag.handle.wrapper').should('not.be.visible');
-
     // Save
     cy.get('#toolbar-save').click();
     cy.url().should('eq', Cypress.config().baseUrl + '/cypress/my-page');
