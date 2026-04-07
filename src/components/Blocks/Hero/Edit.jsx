@@ -3,17 +3,15 @@ import cx from 'classnames';
 import isFunction from 'lodash/isFunction';
 import { Icon } from 'semantic-ui-react';
 import config from '@plone/volto/registry';
-import { BlocksForm } from '@plone/volto/components';
+import { BlocksForm } from '@plone/volto/components/manage/Form';
 import { v4 as uuid } from 'uuid';
 import '@eeacms/volto-hero-block/components/Blocks/Hero/edit.css';
 
-import { isEmpty } from 'lodash';
-import {
-  BlockDataForm,
-  SidebarPortal,
-  UniversalLink,
-} from '@plone/volto/components';
-import { BodyClass } from '@plone/volto/helpers';
+import isEmpty from 'lodash/isEmpty';
+import SidebarPortal from '@plone/volto/components/manage/Sidebar/SidebarPortal';
+import UniversalLink from '@plone/volto/components/manage/UniversalLink/UniversalLink';
+import { BlockDataForm } from '@plone/volto/components/manage/Form';
+import BodyClass from '@plone/volto/helpers/BodyClass/BodyClass';
 import { getFieldURL } from '@plone/volto/helpers/Url/Url';
 import { HeroBlockSchema } from './schema';
 import Copyright from './Copyright';

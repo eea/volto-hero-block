@@ -1,4 +1,4 @@
-import { addStyling } from '@plone/volto/helpers';
+import { addStyling } from '@plone/volto/helpers/Extensions';
 import config from '@plone/volto/registry';
 
 import alignTopSVG from '@plone/volto/icons/move-up.svg';
