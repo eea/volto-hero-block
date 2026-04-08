@@ -1,7 +1,7 @@
 import { stylingSchema, HeroBlockSchema } from './schema';
 import config from '@plone/volto/registry';
 
-jest.mock('@plone/volto/helpers', () => ({
+jest.mock('@plone/volto/helpers/Extensions', () => ({
   addStyling: jest.fn((schema) => schema),
 }));
 
