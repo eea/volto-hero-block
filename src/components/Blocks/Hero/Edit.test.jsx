@@ -16,14 +16,17 @@ const mockStore = configureStore([]);
 const observe = jest.fn();
 const unobserve = jest.fn();
 const disconnect = jest.fn();
-jest.mock('@plone/volto/components/manage/Form', () => ({
-  BlocksForm: ({ placeholder }) => (
+jest.mock('@plone/volto/components/manage/Blocks/Block/BlocksForm', () => {
+  return ({ placeholder }) => (
     <div id="test">
       <div>{placeholder}</div>
     </div>
-  ),
-  BlockDataForm: () => <div></div>,
-}));
+  );
+});
+
+jest.mock('@plone/volto/components/manage/Form/BlockDataForm', () => {
+  return () => <div></div>;
+});
 jest.mock('@plone/volto/components/manage/Sidebar/SidebarPortal', () => ({
   __esModule: true,
   default: ({ children }) => <div>{children}</div>,
