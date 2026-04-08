@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
 import cx from 'classnames';
 import { Icon } from 'semantic-ui-react';
-import { UniversalLink, RenderBlocks } from '@plone/volto/components';
-import { BodyClass } from '@plone/volto/helpers';
+import UniversalLink from '@plone/volto/components/manage/UniversalLink/UniversalLink';
+import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
+import BodyClass from '@plone/volto/helpers/BodyClass/BodyClass';
 import { useLocation } from 'react-router-dom';
 import Hero from './Hero';
 import Copyright from './Copyright';

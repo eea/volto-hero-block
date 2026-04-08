@@ -1,5 +1,5 @@
 import { createSlateHeader, serializeText } from './helpers';
-import { isArray } from 'lodash';
+import isArray from 'lodash/isArray';
 import { serializeNodes } from '@plone/volto-slate/editor/render';
 
 jest.mock('@plone/volto-slate/editor/render', () => ({
