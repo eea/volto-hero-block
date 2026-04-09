@@ -16,20 +16,25 @@ const mockStore = configureStore([]);
 const observe = jest.fn();
 const unobserve = jest.fn();
 const disconnect = jest.fn();
-jest.mock('@plone/volto/components', () => {
-  return {
-    __esModule: true,
-    BlocksForm: ({ placeholder }) => (
-      <div id="test">
-        <div>{placeholder}</div>
-      </div>
-    ),
-    SidebarPortal: ({ children }) => <div>{children}</div>,
-    BlockDataForm: () => <div></div>,
-    UniversalLink: () => <div></div>,
-    RenderBlocks: () => <div></div>,
-  };
+jest.mock('@plone/volto/components/manage/Blocks/Block/BlocksForm', () => {
+  return ({ placeholder }) => (
+    <div id="test">
+      <div>{placeholder}</div>
+    </div>
+  );
 });
+
+jest.mock('@plone/volto/components/manage/Form/BlockDataForm', () => {
+  return () => <div></div>;
+});
+jest.mock('@plone/volto/components/manage/Sidebar/SidebarPortal', () => ({
+  __esModule: true,
+  default: ({ children }) => <div>{children}</div>,
+}));
+jest.mock('@plone/volto/components/manage/UniversalLink/UniversalLink', () => ({
+  __esModule: true,
+  default: () => <div></div>,
+}));
 jest.mock('react-router-dom', () => ({
   useLocation: jest.fn().mockReturnValue({
     pathname: '/test-jest',
