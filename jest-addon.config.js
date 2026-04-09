@@ -49,7 +49,7 @@ module.exports = {
   ],
   transform: {
     '^.+\\.js(x)?$': 'babel-jest',
-    '^.+\\.ts(x)?$': 'ts-jest',
+    '^.+\\.ts(x)?$': 'babel-jest',
     '^.+\\.(png)$': 'jest-file',
     '^.+\\.(jpg)$': 'jest-file',
     '^.+\\.(svg)$': './node_modules/@plone/volto/jest-svgsystem-transform.js',
