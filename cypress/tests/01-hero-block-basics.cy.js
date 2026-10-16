@@ -36,7 +36,8 @@ describe('Hero Block: Add and configure', () => {
     cy.get('.ui.form #blockform-fieldset-styling').click();
 
     cy.get(
-      '.field-wrapper-textAlign-3-styles .buttons-widget input[aria-label="Center"]',
+      '.field-wrapper-textAlign-3-styles .buttons-widget input[aria-label="Center"], ' +
+        '.field-wrapper-textAlign-3-styles .align-buttons button[aria-label="Center"]',
     ).click({ force: true });
 
     cy.get('.hero-block-text div[role="textbox"]')
