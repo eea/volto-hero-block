@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import React from 'react';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
@@ -8,35 +9,37 @@ import config from '@plone/volto/registry';
 import '@testing-library/jest-dom';
 
 // Mock uuid to avoid node:crypto import issues
-jest.mock('uuid', () => ({
+vi.mock('uuid', () => ({
   v4: () => 'mock-uuid-' + Math.random().toString(36).substr(2, 9),
 }));
 
 const mockStore = configureStore([]);
-const observe = jest.fn();
-const unobserve = jest.fn();
-const disconnect = jest.fn();
-jest.mock('@plone/volto/components/manage/Blocks/Block/BlocksForm', () => {
-  return ({ placeholder }) => (
-    <div id="test">
-      <div>{placeholder}</div>
-    </div>
-  );
+const observe = vi.fn();
+const unobserve = vi.fn();
+const disconnect = vi.fn();
+vi.mock('@plone/volto/components/manage/Blocks/Block/BlocksForm', () => {
+  return {
+    default: ({ placeholder }) => (
+      <div id="test">
+        <div>{placeholder}</div>
+      </div>
+    ),
+  };
 });
 
-jest.mock('@plone/volto/components/manage/Form/BlockDataForm', () => {
-  return () => <div></div>;
+vi.mock('@plone/volto/components/manage/Form/BlockDataForm', () => {
+  return { default: () => <div></div> };
 });
-jest.mock('@plone/volto/components/manage/Sidebar/SidebarPortal', () => ({
+vi.mock('@plone/volto/components/manage/Sidebar/SidebarPortal', () => ({
   __esModule: true,
   default: ({ children }) => <div>{children}</div>,
 }));
-jest.mock('@plone/volto/components/manage/UniversalLink/UniversalLink', () => ({
+vi.mock('@plone/volto/components/manage/UniversalLink/UniversalLink', () => ({
   __esModule: true,
   default: () => <div></div>,
 }));
-jest.mock('react-router-dom', () => ({
-  useLocation: jest.fn().mockReturnValue({
+vi.mock('react-router-dom', () => ({
+  useLocation: vi.fn().mockReturnValue({
     pathname: '/test-jest',
     search: '',
     hash: '',
@@ -45,7 +48,7 @@ jest.mock('react-router-dom', () => ({
   }),
 }));
 
-window.IntersectionObserver = jest.fn(() => ({
+window.IntersectionObserver = vi.fn(() => ({
   observe,
   unobserve,
   disconnect,
@@ -126,7 +129,7 @@ describe('Edit component', () => {
         },
       },
     };
-    const onSelectBlock = jest.fn();
+    const onSelectBlock = vi.fn();
     render(
       <IntlProvider locale="en" messages={{}}>
         <Provider store={store}>

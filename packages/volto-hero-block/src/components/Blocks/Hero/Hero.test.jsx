@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import React from 'react';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-intl-redux';
@@ -11,15 +12,15 @@ const { settings } = config;
 
 const mockStore = configureStore();
 
-const observe = jest.fn();
-const unobserve = jest.fn();
-window.IntersectionObserver = jest.fn((callback) => ({
+const observe = vi.fn();
+const unobserve = vi.fn();
+window.IntersectionObserver = vi.fn((callback) => ({
   observe,
   unobserve,
 }));
 
-jest.mock('@eeacms/volto-hero-block/hooks', () => ({
-  useFirstVisited: jest.fn(() => true),
+vi.mock('@eeacms/volto-hero-block/hooks', () => ({
+  useFirstVisited: vi.fn(() => true),
 }));
 
 describe('Hero block', () => {

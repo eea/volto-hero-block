@@ -1,9 +1,10 @@
+import { vi } from 'vitest';
 import { createSlateHeader, serializeText } from './helpers';
 import isArray from 'lodash/isArray';
 import { serializeNodes } from '@plone/volto-slate/editor/render';
 
-jest.mock('@plone/volto-slate/editor/render', () => ({
-  serializeNodes: jest.fn(),
+vi.mock('@plone/volto-slate/editor/render', () => ({
+  serializeNodes: vi.fn(),
 }));
 
 describe('createSlateHeader', () => {

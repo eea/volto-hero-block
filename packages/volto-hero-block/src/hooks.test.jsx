@@ -1,12 +1,13 @@
+import { vi } from 'vitest';
 import React from 'react';
 import { render, act } from '@testing-library/react';
 import { useFirstVisited } from './hooks';
 
 let observerCallback;
-let observeMock = jest.fn();
-let unobserveMock = jest.fn();
-let disconnectMock = jest.fn();
-window.IntersectionObserver = jest.fn((callback) => {
+let observeMock = vi.fn();
+let unobserveMock = vi.fn();
+let disconnectMock = vi.fn();
+window.IntersectionObserver = vi.fn((callback) => {
   observerCallback = callback;
   return {
     observe: observeMock,
