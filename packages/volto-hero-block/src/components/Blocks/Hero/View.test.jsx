@@ -1,17 +1,18 @@
+import { vi } from 'vitest';
 import React from 'react';
 import { render } from '@testing-library/react';
 import config from '@plone/volto/registry';
 import View from './View';
 
-const observe = jest.fn();
-const unobserve = jest.fn();
-const disconnect = jest.fn();
-window.IntersectionObserver = jest.fn(() => ({
+const observe = vi.fn();
+const unobserve = vi.fn();
+const disconnect = vi.fn();
+window.IntersectionObserver = vi.fn(() => ({
   observe,
   unobserve,
   disconnect,
 }));
-jest.mock('@plone/volto/components', () => {
+vi.mock('@plone/volto/components', () => {
   return {
     __esModule: true,
     BlocksForm: ({ placeholder, children, onChange, onFocus }) => (
@@ -26,8 +27,8 @@ jest.mock('@plone/volto/components', () => {
     RenderBlocks: () => <div></div>,
   };
 });
-jest.mock('react-router-dom', () => ({
-  useLocation: jest.fn().mockReturnValue({
+vi.mock('react-router-dom', () => ({
+  useLocation: vi.fn().mockReturnValue({
     pathname: '/test-jest',
     search: '',
     hash: '',
