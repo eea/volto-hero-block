@@ -12,6 +12,20 @@ Enhanced Hero Block [Volto](https://github.com/plone/volto) add-on
 
 ## Upgrade
 
+### Upgrading to 10.x
+
+> This version requires `Volto 18` or `Volto 19` and Node.js 22.
+
+The block, its schema and its `blocksWithFootnotesSupport` configuration keep the same names and defaults, so upgrading from 9.x on Volto 18 needs no content changes. The release adds Volto 19 support and moves the repository to the Volto 19 layout, where the published package lives in `packages/volto-hero-block`.
+
+#### Breaking changes
+
+- **Node.js 22 or newer is required** (`engines.node >= 22`), 9.x declared no engine.
+- **React 18 is required.** The package declares `react` and `react-dom` as `^18.2.0` peers, 9.x declared no peers.
+- **The package no longer ships the Jest setup.** `jest-addon.config.js` was removed and `jest.setup.js` became `vitest.setup.jsx`, so a Volto 18 project that still runs the Jest harness has to keep its own copy.
+
+The link rendered by the remix-icon field now carries `rel="noopener noreferrer"` instead of `rel="noopener"`.
+
 ### Upgrading to 9.x
 
 > This version requires `Volto >= 17.18` or `Volto 18+`. It removes the custom `EditBlockWrapper` usage in favor of Volto's built-in block chrome provided by `BlocksForm`.
