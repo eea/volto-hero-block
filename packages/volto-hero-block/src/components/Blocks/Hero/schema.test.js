@@ -1,8 +1,9 @@
+import { vi } from 'vitest';
 import { stylingSchema, HeroBlockSchema } from './schema';
 import config from '@plone/volto/registry';
 
-jest.mock('@plone/volto/helpers/Extensions', () => ({
-  addStyling: jest.fn((schema) => schema),
+vi.mock('@plone/volto/helpers/Extensions', () => ({
+  addStyling: vi.fn((schema) => schema),
 }));
 
 export const EMPTY_STYLES_SCHEMA = {
